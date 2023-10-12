@@ -26,7 +26,7 @@ final class InMemoryContainer implements ContainerInterface
      * @template T
      * @psalm-suppress MixedReturnStatement
      */
-    public function get(string $id): mixed
+    public function get($id): mixed
     {
         if (! $this->has($id)) {
             throw new class (
