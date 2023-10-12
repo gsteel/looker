@@ -11,17 +11,15 @@ use Looker\Renderer\PhpRenderer;
 use Looker\Template\Resolver;
 use Psr\Container\ContainerInterface;
 use Throwable;
-
-use function Psl\Type\array_key;
-use function Psl\Type\dict;
-use function Psl\Type\mixed;
+use Webmozart\Assert\Assert;
 
 final class PhpRendererFactory
 {
     public function __invoke(ContainerInterface $container): PhpRenderer
     {
         try {
-            $config = dict(array_key(), mixed())->assert($container->get('config'));
+            $config = $container->get('config');
+            Assert::isArray($config);
             $strictVars = Dot::bool('looker.strictVariables', $config);
             $passScope = Dot::bool('looker.passScopeToChildren', $config);
         } catch (Throwable) {

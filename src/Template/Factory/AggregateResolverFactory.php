@@ -10,22 +10,23 @@ use Looker\Template\AggregateResolver;
 use Looker\Template\Resolver;
 use Psr\Container\ContainerInterface;
 use Throwable;
+use Webmozart\Assert\Assert;
 
 use function array_map;
-use function Psl\Type\array_key;
-use function Psl\Type\dict;
-use function Psl\Type\instance_of;
-use function Psl\Type\mixed;
 
 final class AggregateResolverFactory
 {
     public function __invoke(ContainerInterface $container): AggregateResolver
     {
         try {
-            $config = dict(array_key(), mixed())->assert($container->get('config'));
+            $config = $container->get('config');
+            Assert::isArray($config);
             $serviceNames = Dot::array('looker.templates.aggregate', $config);
             $services = array_map(static function (string $serviceName) use ($container): Resolver {
-                return instance_of(Resolver::class)->assert($container->get($serviceName));
+                $service = $container->get($serviceName);
+                Assert::isInstanceOf($service, Resolver::class);
+
+                return $service;
             }, $serviceNames);
         } catch (Throwable) {
             throw new ConfigurationError(
