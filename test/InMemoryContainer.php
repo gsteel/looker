@@ -18,7 +18,15 @@ final class InMemoryContainer implements ContainerInterface
     {
     }
 
-    public function get(string $id): mixed
+    /**
+     * @param string|class-string<T> $id
+     *
+     * @return ($id is class-string ? T : mixed)
+     *
+     * @template T
+     * @psalm-suppress MixedReturnStatement
+     */
+    public function get($id): mixed
     {
         if (! $this->has($id)) {
             throw new class (
