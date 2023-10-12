@@ -1,0 +1,109 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Looker\Test\Renderer;
+
+use Looker\Renderer\PluginProxy;
+use Looker\Renderer\RenderingFailed;
+use Looker\Test\InMemoryContainer;
+use Looker\Test\Renderer\Plugins\Exceptional;
+use Looker\Test\Renderer\Plugins\FluentPlugin;
+use Looker\Test\Renderer\Plugins\NotInvokable;
+use Looker\Test\Renderer\Plugins\StaticMethod;
+use Looker\Test\Renderer\Plugins\WithArguments;
+use Looker\Test\Renderer\Plugins\WorkingPlugin;
+use PHPUnit\Framework\TestCase;
+
+class PluginProxyTest extends TestCase
+{
+    public function testThatAnExceptionIsThrownCallingANonExistentPlugin(): void
+    {
+        $proxy = new PluginProxy(new InMemoryContainer());
+
+        $this->expectException(RenderingFailed::class);
+        $this->expectExceptionMessage('A plugin with the name "somePlugin" could not be found in the plugin manager');
+        $proxy->__call('somePlugin', []);
+    }
+
+    public function testThatAnExceptionIsThrownWhenAPluginIsNotInvokable(): void
+    {
+        $proxy = new PluginProxy(new InMemoryContainer([
+            'somePlugin' => new NotInvokable(),
+        ]));
+
+        $this->expectException(RenderingFailed::class);
+        $this->expectExceptionMessage('The plugin aliased to "somePlugin" is not callable. Received a type of');
+        $proxy->__call('somePlugin', []);
+    }
+
+    public function testThatPluginExceptionsAreCaughtAndWrapped(): void
+    {
+        $proxy = new PluginProxy(new InMemoryContainer([
+            'somePlugin' => new Exceptional(),
+        ]));
+
+        $this->expectException(RenderingFailed::class);
+        $this->expectExceptionMessage(
+            'An exception occurred during execution of the plugin "somePlugin". Message: Oh dear…',
+        );
+        $proxy->__call('somePlugin', []);
+    }
+
+    public function testThatPluginsAreExecutedSuccessfully(): void
+    {
+        $proxy = new PluginProxy(new InMemoryContainer([
+            'somePlugin' => new WorkingPlugin(),
+        ]));
+
+        $value = $proxy->__call('somePlugin', []);
+        self::assertSame('It Worked!', $value);
+    }
+
+    public function testThatPluginsCanExposeThemselves(): void
+    {
+        $proxy = new PluginProxy(new InMemoryContainer([
+            'somePlugin' => new FluentPlugin(),
+        ]));
+
+        /** @psalm-suppress MixedMethodCall */
+        $value = $proxy->somePlugin()->getSheep();
+        self::assertSame('Bahhh', $value);
+    }
+
+    public function testThatPluginsArgumentsArePassedCorrectly(): void
+    {
+        $proxy = new PluginProxy(new InMemoryContainer([
+            'somePlugin' => new WithArguments(),
+        ]));
+
+        /** @psalm-suppress InvalidArgument $value */
+        $value = $proxy->somePlugin('mary', 'had', 'a', 'little', 'lamb');
+        self::assertSame('mary had a little lamb', $value);
+    }
+
+    public function testThatTheCalledPluginsAreTracked(): void
+    {
+        $proxy = new PluginProxy(new InMemoryContainer([
+            'a' => new WithArguments(),
+            'b' => new FluentPlugin(),
+            'c' => new WorkingPlugin(),
+        ]));
+
+        $proxy->a();
+        $proxy->a();
+        $proxy->b();
+
+        self::assertSame(['a', 'b'], $proxy->calledPlugins());
+    }
+
+    public function testThatStaticCallablesCanBeUsed(): void
+    {
+        $proxy = new PluginProxy(new InMemoryContainer([
+            'somePlugin' => [StaticMethod::class, 'getValue'],
+        ]));
+
+        $value = $proxy->somePlugin();
+        self::assertSame('foo', $value);
+    }
+}
