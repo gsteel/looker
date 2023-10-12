@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Looker;
 
+use Laminas;
+
 final class ConfigProvider
 {
     /** @return array<string, mixed> */
@@ -11,6 +13,7 @@ final class ConfigProvider
     {
         return [
             'looker' => [
+                'encoding' => 'utf-8',
                 'strictVariables' => true,
                 'passScopeToChildren' => false,
                 'plugins' => $this->pluginDependencies(),
@@ -27,6 +30,7 @@ final class ConfigProvider
                     Template\AggregateResolver::class => Template\Factory\AggregateResolverFactory::class,
                     Template\DirectoryResolver::class => Template\Factory\DirectoryResolverFactory::class,
                     Template\MapResolver::class => Template\Factory\MapResolverFactory::class,
+                    Laminas\Escaper\Escaper::class => Plugin\Factory\EscaperFactory::class,
                 ],
                 'aliases' => [
                     // By default, the MapResolver will be returned when we ask the container for a template resolver
@@ -40,7 +44,9 @@ final class ConfigProvider
     private function pluginDependencies(): array
     {
         return [
-            'factories' => [],
+            'factories' => [
+                Plugin\HtmlAttributes::class => Plugin\Factory\HtmlAttributesFactory::class,
+            ],
             'aliases' => [],
         ];
     }
