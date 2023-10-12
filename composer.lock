@@ -4,8 +4,138 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "88a49dea93eea31236143902947b9334",
+    "content-hash": "c65aa71e8109998aa754771ef934bb60",
     "packages": [
+        {
+            "name": "azjezz/psl",
+            "version": "2.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/azjezz/psl.git",
+                "reference": "cd599829541caf1bc87fa0b2a3367e050ff1f837"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/azjezz/psl/zipball/cd599829541caf1bc87fa0b2a3367e050ff1f837",
+                "reference": "cd599829541caf1bc87fa0b2a3367e050ff1f837",
+                "shasum": ""
+            },
+            "require": {
+                "ext-bcmath": "*",
+                "ext-intl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "ext-sodium": "*",
+                "php": "~8.1.0 || ~8.2.0",
+                "revolt/event-loop": "^1.0.1"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.22.0",
+                "php-coveralls/php-coveralls": "^2.6.0",
+                "php-standard-library/psalm-plugin": "^2.2.1",
+                "phpbench/phpbench": "^1.2.14",
+                "phpunit/phpunit": "^9.6.10",
+                "roave/infection-static-analysis-plugin": "^1.32.0",
+                "squizlabs/php_codesniffer": "^3.7.2",
+                "vimeo/psalm": "^5.13.1"
+            },
+            "suggest": {
+                "php-standard-library/psalm-plugin": "Psalm integration"
+            },
+            "type": "library",
+            "extra": {
+                "thanks": {
+                    "name": "hhvm/hsl",
+                    "url": "https://github.com/hhvm/hsl"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/bootstrap.php"
+                ],
+                "psr-4": {
+                    "Psl\\": "src/Psl"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "azjezz",
+                    "email": "azjezz@protonmail.com"
+                }
+            ],
+            "description": "PHP Standard Library",
+            "support": {
+                "issues": "https://github.com/azjezz/psl/issues",
+                "source": "https://github.com/azjezz/psl/tree/2.7.0"
+            },
+            "funding": [
+                {
+                    "url": "https://opencollective.com/php-standard-library",
+                    "type": "open_collective"
+                }
+            ],
+            "time": "2023-07-19T20:13:26+00:00"
+        },
+        {
+            "name": "gsteel/dot",
+            "version": "1.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gsteel/dot.git",
+                "reference": "7d49352beebdbda40011e47ac2051b9c151efacd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gsteel/dot/zipball/7d49352beebdbda40011e47ac2051b9c151efacd",
+                "reference": "7d49352beebdbda40011e47ac2051b9c151efacd",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.1 || ~8.2.0 || ~8.3"
+            },
+            "require-dev": {
+                "doctrine/coding-standard": "^12.0.0",
+                "phpunit/phpunit": "^10.3.4",
+                "psalm/plugin-phpunit": "^0.18.4",
+                "squizlabs/php_codesniffer": "^3.7.2",
+                "vimeo/psalm": "^5.15.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "GSteel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "George Steel",
+                    "email": "george@net-glue.co.uk"
+                }
+            ],
+            "description": "A Utility for retrieving typed values from nested arrays",
+            "homepage": "https://github.com/gsteel/dot",
+            "keywords": [
+                "array",
+                "config",
+                "configuration",
+                "dot",
+                "utility"
+            ],
+            "support": {
+                "issues": "https://github.com/gsteel/dot/issues",
+                "rss": "https://github.com/gsteel/dot/releases.atom",
+                "source": "https://github.com/gsteel/dot"
+            },
+            "time": "2023-09-18T22:36:33+00:00"
+        },
         {
             "name": "laminas/laminas-escaper",
             "version": "2.13.0",
@@ -120,6 +250,78 @@
                 "source": "https://github.com/php-fig/container/tree/2.0.2"
             },
             "time": "2021-11-05T16:47:00+00:00"
+        },
+        {
+            "name": "revolt/event-loop",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/revoltphp/event-loop.git",
+                "reference": "0fe2d31e1cddd26664e55d383d3d5da613334c03"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/revoltphp/event-loop/zipball/0fe2d31e1cddd26664e55d383d3d5da613334c03",
+                "reference": "0fe2d31e1cddd26664e55d383d3d5da613334c03",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "require-dev": {
+                "ext-json": "*",
+                "jetbrains/phpstorm-stubs": "^2019.3",
+                "phpunit/phpunit": "^9",
+                "psalm/phar": "^4.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Revolt\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aaron Piotrowski",
+                    "email": "aaron@trowski.com"
+                },
+                {
+                    "name": "Cees-Jan Kiewiet",
+                    "email": "ceesjank@gmail.com"
+                },
+                {
+                    "name": "Christian Lück",
+                    "email": "christian@clue.engineering"
+                },
+                {
+                    "name": "Niklas Keller",
+                    "email": "me@kelunik.com"
+                }
+            ],
+            "description": "Rock-solid event loop for concurrent PHP applications.",
+            "keywords": [
+                "async",
+                "asynchronous",
+                "concurrency",
+                "event",
+                "event-loop",
+                "non-blocking",
+                "scheduler"
+            ],
+            "support": {
+                "issues": "https://github.com/revoltphp/event-loop/issues",
+                "source": "https://github.com/revoltphp/event-loop/tree/v1.0.3"
+            },
+            "time": "2023-07-29T17:07:12+00:00"
         }
     ],
     "packages-dev": [
