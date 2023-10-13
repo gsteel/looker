@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Looker\Test\Plugin;
 
+use Laminas\Escaper\Escaper;
+use Looker\Plugin\HeadTitle;
 use Looker\Plugin\Partial;
 use Looker\Renderer\PhpRenderer;
+use Looker\Renderer\PluginProxy;
 use Looker\Template\MapResolver;
 use Looker\Test\InMemoryContainer;
 use PHPUnit\Framework\TestCase;
@@ -18,19 +21,23 @@ class PartialTest extends TestCase
     {
         parent::setUp();
 
-        $plugins = new InMemoryContainer([]);
+        $container = new InMemoryContainer([]);
+        $plugins = new PluginProxy($container);
         $this->plugin = new Partial(
             new PhpRenderer(
                 new MapResolver([
                     'simple' => __DIR__ . '/Partial/templates/simple-partial.phtml',
                     'nested' => __DIR__ . '/Partial/templates/parent.phtml',
+                    'layout' => __DIR__ . '/Partial/templates/layout.phtml',
+                    'page-title' => __DIR__ . '/Partial/templates/page-title.phtml',
                 ]),
                 $plugins,
                 true,
                 false,
             ),
         );
-        $plugins->setService('partial', $this->plugin);
+        $container->setService('partial', $this->plugin);
+        $container->setService('headTitle', new HeadTitle(new Escaper()));
     }
 
     public function testThatAPartialWillBeRenderedAsExpected(): void
@@ -43,14 +50,14 @@ class PartialTest extends TestCase
         self::assertSame('bar.foo', $this->plugin->__invoke('nested', ['value' => 'bar', 'child' => 'foo']));
     }
 
-    /**
-     * @TODO Solve partials calling stateful plugins without those plugins being
-     *       cleared at the end of each render step
-     */
     public function testPartialsWithStatefulPluginCallsDoNotResetPluginState(): void
     {
-        self::markTestIncomplete(
-            'Currently, calls to stateful plugins will cause a state reset after the partial render.',
-        );
+        $expect = <<<'HTML'
+            <title>Partial - Layout</title>
+            <p>Partial Content</p>
+            
+            HTML;
+
+        self::assertSame($expect, $this->plugin->__invoke('layout'));
     }
 }

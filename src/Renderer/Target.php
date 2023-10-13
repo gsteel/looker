@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Looker\Renderer;
 
+use Looker\PluginManager;
 use Throwable;
 
 use function array_key_exists;
@@ -27,7 +28,7 @@ final class Target
     public function __construct(
         private readonly string $__template,
         private readonly array $__variables,
-        private readonly PluginProxy $__plugins,
+        private readonly PluginManager $__plugins,
         private readonly bool $__strictVariables = true,
     ) {
     }

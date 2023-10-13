@@ -21,6 +21,7 @@ final readonly class View
      */
     public function __construct(
         private Renderer $renderer,
+        private PluginManager $plugins,
         private string|null $defaultLayout = null,
         private string $captureTo = 'content',
     ) {
@@ -46,13 +47,17 @@ final readonly class View
 
         $layout = $this->resolveLayout($viewModel);
         if ($layout === false) {
-            return $this->renderer->render($viewModel);
+            $buffer = $this->renderer->render($viewModel);
+        } else {
+            $buffer = $this->renderer->render(
+                Model::terminal($layout)
+                    ->withChild($viewModel, $this->captureTo),
+            );
         }
 
-        return $this->renderer->render(
-            Model::terminal($layout)
-                ->withChild($viewModel, $this->captureTo),
-        );
+        $this->plugins->clearPluginState();
+
+        return $buffer;
     }
 
     /** @return non-empty-string|false */

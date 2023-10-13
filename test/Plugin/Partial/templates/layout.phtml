@@ -1,0 +1,10 @@
+<?php
+
+declare(strict_types=1);
+
+$content = $this->partial('page-title');
+
+echo $this->headTitle()->append('Layout')
+    ->setSeparator(' - ');
+
+echo $content;

@@ -8,6 +8,7 @@ use Looker\ConfigurationError;
 use Looker\PluginManager;
 use Looker\Renderer\Factory\PhpRendererFactory;
 use Looker\Renderer\PhpRenderer;
+use Looker\Renderer\PluginProxy;
 use Looker\Template\MapResolver;
 use Looker\Template\Resolver;
 use Looker\Test\InMemoryContainer;
@@ -72,7 +73,7 @@ class PhpRendererFactoryTest extends TestCase
                 ],
             ],
             Resolver::class => new MapResolver([]),
-            PluginManager::class => new InMemoryContainer(),
+            PluginManager::class => new PluginProxy(new InMemoryContainer()),
         ]));
 
         self::assertInstanceOf(PhpRenderer::class, $renderer);
