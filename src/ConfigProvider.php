@@ -49,10 +49,12 @@ final class ConfigProvider
         return [
             'factories' => [
                 Plugin\Doctype::class => Plugin\Factory\DoctypeFactory::class,
+                Plugin\Escape::class => Plugin\Factory\EscapeFactory::class,
                 Plugin\HtmlAttributes::class => Plugin\Factory\HtmlAttributesFactory::class,
             ],
             'aliases' => [
                 'doctype' => Plugin\Doctype::class,
+                'escape' => Plugin\Escape::class,
                 'htmlAttributes' => Plugin\HtmlAttributes::class,
             ],
         ];
