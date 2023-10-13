@@ -17,7 +17,9 @@ final class ConfigProvider
                 'strictVariables' => true,
                 'passScopeToChildren' => false,
                 'plugins' => $this->pluginDependencies(),
-                'pluginConfig' => [],
+                'pluginConfig' => [
+                    'doctype' => Value\Doctype::HTML5,
+                ],
                 'templates' => [
                     'paths' => [],
                     'map' => [],
@@ -46,9 +48,11 @@ final class ConfigProvider
     {
         return [
             'factories' => [
+                Plugin\Doctype::class => Plugin\Factory\DoctypeFactory::class,
                 Plugin\HtmlAttributes::class => Plugin\Factory\HtmlAttributesFactory::class,
             ],
             'aliases' => [
+                'doctype' => Plugin\Doctype::class,
                 'htmlAttributes' => Plugin\HtmlAttributes::class,
             ],
         ];
