@@ -12,6 +12,12 @@ use PHPUnit\Framework\TestCase;
 
 class HtmlAttributesFactoryTest extends TestCase
 {
+    public function testPluginCanBeRetrievedWithZeroConfig(): void
+    {
+        $plugin = (new HtmlAttributesFactory())->__invoke(new InMemoryContainer());
+        self::assertInstanceOf(HtmlAttributes::class, $plugin);
+    }
+
     public function testPluginCanBeRetrievedWhenTheEscaperIsAlsoAvailable(): void
     {
         $plugin = (new HtmlAttributesFactory())->__invoke(new InMemoryContainer([
