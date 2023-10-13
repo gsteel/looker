@@ -12,6 +12,10 @@ final class HtmlAttributesFactory
 {
     public function __invoke(ContainerInterface $container): HtmlAttributes
     {
-        return new HtmlAttributes($container->get(Escaper::class));
+        return new HtmlAttributes(
+            $container->has(Escaper::class)
+            ? $container->get(Escaper::class)
+            : new Escaper(),
+        );
     }
 }
