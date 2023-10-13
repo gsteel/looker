@@ -50,11 +50,13 @@ final class ConfigProvider
             'factories' => [
                 Plugin\Doctype::class => Plugin\Factory\DoctypeFactory::class,
                 Plugin\Escape::class => Plugin\Factory\EscapeFactory::class,
+                Plugin\HeadLink::class => Plugin\Factory\HeadLinkFactory::class,
                 Plugin\HtmlAttributes::class => Plugin\Factory\HtmlAttributesFactory::class,
             ],
             'aliases' => [
                 'doctype' => Plugin\Doctype::class,
                 'escape' => Plugin\Escape::class,
+                'headLink' => Plugin\HeadLink::class,
                 'htmlAttributes' => Plugin\HtmlAttributes::class,
             ],
         ];

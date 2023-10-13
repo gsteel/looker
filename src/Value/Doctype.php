@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Looker\Value;
 
+use function stristr;
+
 /** phpcs:disable Generic.Files.LineLength.TooLong */
 enum Doctype: string
 {
@@ -18,4 +20,9 @@ enum Doctype: string
     case HTML4Loose = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">';
     case HTML4Frameset = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">';
     case HTML5 = '<!DOCTYPE html>';
+
+    public function isXhtml(): bool
+    {
+        return stristr($this->value, 'xhtml') !== false;
+    }
 }
