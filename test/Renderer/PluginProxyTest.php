@@ -10,6 +10,7 @@ use Looker\Test\InMemoryContainer;
 use Looker\Test\Renderer\Plugins\Exceptional;
 use Looker\Test\Renderer\Plugins\FluentPlugin;
 use Looker\Test\Renderer\Plugins\NotInvokable;
+use Looker\Test\Renderer\Plugins\Stateful;
 use Looker\Test\Renderer\Plugins\StaticMethod;
 use Looker\Test\Renderer\Plugins\WithArguments;
 use Looker\Test\Renderer\Plugins\WorkingPlugin;
@@ -82,19 +83,38 @@ class PluginProxyTest extends TestCase
         self::assertSame('mary had a little lamb', $value);
     }
 
-    public function testThatTheCalledPluginsAreTracked(): void
+    public function testThatUsedStatefulPluginsCanBeReset(): void
     {
+        $a = new Stateful();
+        $b = new Stateful();
+        $c = new Stateful();
+
+        $a->add('a');
+        $b->add('b');
+        $c->add('c');
+
+        self::assertSame('a', (string) $a);
+        self::assertSame('b', (string) $b);
+        self::assertSame('c', (string) $c);
+
         $proxy = new PluginProxy(new InMemoryContainer([
-            'a' => new WithArguments(),
-            'b' => new FluentPlugin(),
-            'c' => new WorkingPlugin(),
+            'a' => $a,
+            'b' => $b,
+            'c' => $c,
         ]));
 
-        $proxy->a();
-        $proxy->a();
-        $proxy->b();
+        $proxy->a()->add('z');
+        $proxy->b()->add('z');
 
-        self::assertSame(['a', 'b'], $proxy->calledPlugins());
+        self::assertSame('a, z', (string) $a);
+        self::assertSame('b, z', (string) $b);
+        self::assertSame('c', (string) $c);
+
+        $proxy->clearPluginState();
+
+        self::assertSame('', (string) $a);
+        self::assertSame('', (string) $b);
+        self::assertSame('c', (string) $c);
     }
 
     public function testThatStaticCallablesCanBeUsed(): void

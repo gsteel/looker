@@ -8,7 +8,8 @@ use Looker\Model\Model;
 use Looker\Renderer\PhpRenderer;
 use Looker\Template\MapResolver;
 use Looker\Test\InMemoryContainer;
-use Looker\Test\Integration\ResetPluginState\Plugins\Stateful;
+use Looker\Test\Renderer\Plugins\Stateful;
+use Looker\View;
 use PHPUnit\Framework\TestCase;
 
 use const PHP_EOL;
@@ -29,13 +30,15 @@ final class PluginResetTest extends TestCase
     public function testThatStatefulPluginsAreReset(): void
     {
         $plugin = new Stateful();
-        $renderer = new PhpRenderer(
-            new MapResolver([
-                'template' => __DIR__ . '/templates/stateful-plugin.phtml',
-            ]),
-            new InMemoryContainer(['plugin' => $plugin]),
-            true,
-            false,
+        $renderer = new View(
+            new PhpRenderer(
+                new MapResolver([
+                    'template' => __DIR__ . '/templates/stateful-plugin.phtml',
+                ]),
+                new InMemoryContainer(['plugin' => $plugin]),
+                true,
+                false,
+            ),
         );
 
         $result = $renderer->render(Model::new('template'));
@@ -47,18 +50,20 @@ final class PluginResetTest extends TestCase
     public function testThatNonStatefulPluginsAreNotReset(): void
     {
         $plugin = new Stateful();
-        $renderer = new PhpRenderer(
-            new MapResolver([
-                'template' => __DIR__ . '/templates/mixed.phtml',
-            ]),
-            new InMemoryContainer([
-                'plugin' => $plugin,
-                'other' => static function (): string {
-                    return PHP_EOL . 'Hey!';
-                },
-            ]),
-            true,
-            false,
+        $renderer = new View(
+            new PhpRenderer(
+                new MapResolver([
+                    'template' => __DIR__ . '/templates/mixed.phtml',
+                ]),
+                new InMemoryContainer([
+                    'plugin' => $plugin,
+                    'other' => static function (): string {
+                        return PHP_EOL . 'Hey!';
+                    },
+                ]),
+                true,
+                false,
+            ),
         );
 
         $result = $renderer->render(Model::new('template'));

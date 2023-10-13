@@ -10,4 +10,6 @@ interface Renderer
 {
     /** @throws RenderingFailed */
     public function render(ViewModel $model): string;
+
+    public function clearPluginState(): void;
 }

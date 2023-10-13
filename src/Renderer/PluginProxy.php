@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Looker\Renderer;
 
+use Looker\Plugin\StatefulPlugin;
 use Psr\Container\ContainerInterface;
 use Throwable;
 
@@ -47,9 +48,17 @@ final class PluginProxy
         }
     }
 
-    /** @return list<string> */
-    public function calledPlugins(): array
+    public function clearPluginState(): void
     {
-        return array_keys($this->called);
+        foreach (array_keys($this->called) as $name) {
+            $plugin = $this->pluginContainer->get($name);
+            if (! $plugin instanceof StatefulPlugin) {
+                continue;
+            }
+
+            $plugin->resetState();
+        }
+
+        $this->called = [];
     }
 }

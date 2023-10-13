@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Looker\Test\Integration\ResetPluginState\Plugins;
+namespace Looker\Test\Renderer\Plugins;
 
 use Looker\Plugin\StatefulPlugin;
 
