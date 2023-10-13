@@ -19,6 +19,10 @@ final class ConfigProvider
                 'plugins' => $this->pluginDependencies(),
                 'pluginConfig' => [
                     'doctype' => Value\Doctype::HTML5,
+                    'headTitle' => [
+                        'fallbackTitle' => null, // Add a default head title such as "Untitled"
+                        'separator' => ' - ', // Separator for consecutively added title segments: "one - two - three"
+                    ],
                 ],
                 'templates' => [
                     'paths' => [],
@@ -51,12 +55,14 @@ final class ConfigProvider
                 Plugin\Doctype::class => Plugin\Factory\DoctypeFactory::class,
                 Plugin\Escape::class => Plugin\Factory\EscapeFactory::class,
                 Plugin\HeadLink::class => Plugin\Factory\HeadLinkFactory::class,
+                Plugin\HeadTitle::class => Plugin\Factory\HeadTitleFactory::class,
                 Plugin\HtmlAttributes::class => Plugin\Factory\HtmlAttributesFactory::class,
             ],
             'aliases' => [
                 'doctype' => Plugin\Doctype::class,
                 'escape' => Plugin\Escape::class,
                 'headLink' => Plugin\HeadLink::class,
+                'headTitle' => Plugin\HeadTitle::class,
                 'htmlAttributes' => Plugin\HtmlAttributes::class,
             ],
         ];
