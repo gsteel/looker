@@ -42,4 +42,9 @@ final class InMemoryContainer implements ContainerInterface
     {
         return array_key_exists($id, $this->services);
     }
+
+    public function setService(string $id, mixed $service): void
+    {
+        $this->services[$id] = $service;
+    }
 }

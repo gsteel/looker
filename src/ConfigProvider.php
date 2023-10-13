@@ -43,6 +43,8 @@ final class ConfigProvider
                 'aliases' => [
                     // By default, the MapResolver will be returned when we ask the container for a template resolver
                     Template\Resolver::class => Template\MapResolver::class,
+                    // By default, the Concrete PhpRenderer is aliased to the Renderer interface
+                    Renderer\Renderer::class => Renderer\PhpRenderer::class,
                 ],
             ],
         ];
@@ -59,6 +61,8 @@ final class ConfigProvider
                 Plugin\HeadLink::class => Plugin\Factory\HeadLinkFactory::class,
                 Plugin\HeadTitle::class => Plugin\Factory\HeadTitleFactory::class,
                 Plugin\HtmlAttributes::class => Plugin\Factory\HtmlAttributesFactory::class,
+                Plugin\Partial::class => Plugin\Factory\PartialFactory::class,
+                Plugin\PartialLoop::class => Plugin\Factory\PartialLoopFactory::class,
             ],
             'aliases' => [
                 'basePath' => Plugin\BasePath::class,
@@ -67,6 +71,8 @@ final class ConfigProvider
                 'headLink' => Plugin\HeadLink::class,
                 'headTitle' => Plugin\HeadTitle::class,
                 'htmlAttributes' => Plugin\HtmlAttributes::class,
+                'partial' => Plugin\Partial::class,
+                'partialLoop' => Plugin\PartialLoop::class,
             ],
         ];
     }
