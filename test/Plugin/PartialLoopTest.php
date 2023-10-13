@@ -7,6 +7,7 @@ namespace Looker\Test\Plugin;
 use Looker\Plugin\Partial;
 use Looker\Plugin\PartialLoop;
 use Looker\Renderer\PhpRenderer;
+use Looker\Renderer\PluginProxy;
 use Looker\Template\MapResolver;
 use Looker\Test\InMemoryContainer;
 use PHPUnit\Framework\TestCase;
@@ -19,7 +20,8 @@ class PartialLoopTest extends TestCase
     {
         parent::setUp();
 
-        $plugins = new InMemoryContainer([]);
+        $container = new InMemoryContainer([]);
+        $plugins = new PluginProxy($container);
         $renderer = new PhpRenderer(
             new MapResolver([
                 'li' => __DIR__ . '/Partial/templates/list-item.phtml',
@@ -32,8 +34,8 @@ class PartialLoopTest extends TestCase
 
         $this->plugin = new PartialLoop($renderer);
         $partial = new Partial($renderer);
-        $plugins->setService('partialLoop', $this->plugin);
-        $plugins->setService('partial', $partial);
+        $container->setService('partialLoop', $this->plugin);
+        $container->setService('partial', $partial);
     }
 
     public function testThatAPartialWillBeRenderedAsExpected(): void

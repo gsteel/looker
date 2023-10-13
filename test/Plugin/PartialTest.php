@@ -8,6 +8,7 @@ use Laminas\Escaper\Escaper;
 use Looker\Plugin\HeadTitle;
 use Looker\Plugin\Partial;
 use Looker\Renderer\PhpRenderer;
+use Looker\Renderer\PluginProxy;
 use Looker\Template\MapResolver;
 use Looker\Test\InMemoryContainer;
 use PHPUnit\Framework\TestCase;
@@ -20,7 +21,8 @@ class PartialTest extends TestCase
     {
         parent::setUp();
 
-        $plugins = new InMemoryContainer([]);
+        $container = new InMemoryContainer([]);
+        $plugins = new PluginProxy($container);
         $this->plugin = new Partial(
             new PhpRenderer(
                 new MapResolver([
@@ -34,8 +36,8 @@ class PartialTest extends TestCase
                 false,
             ),
         );
-        $plugins->setService('partial', $this->plugin);
-        $plugins->setService('headTitle', new HeadTitle(new Escaper()));
+        $container->setService('partial', $this->plugin);
+        $container->setService('headTitle', new HeadTitle(new Escaper()));
     }
 
     public function testThatAPartialWillBeRenderedAsExpected(): void

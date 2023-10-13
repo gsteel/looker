@@ -6,6 +6,7 @@ namespace Looker\Test\Integration\NestedModel;
 
 use Looker\Model\Model;
 use Looker\Renderer\PhpRenderer;
+use Looker\Renderer\PluginProxy;
 use Looker\Template\MapResolver;
 use Looker\Test\InMemoryContainer;
 use PHPUnit\Framework\TestCase;
@@ -24,7 +25,7 @@ final class NestedModelTest extends TestCase
                 't2' => __DIR__ . '/templates/level2.phtml',
                 't3' => __DIR__ . '/templates/level3.phtml',
             ]),
-            new InMemoryContainer(),
+            new PluginProxy(new InMemoryContainer()),
             true,
             false,
         );

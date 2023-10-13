@@ -5,21 +5,18 @@ declare(strict_types=1);
 namespace Looker\Renderer;
 
 use Looker\Model\ViewModel;
+use Looker\PluginManager;
 use Looker\Template\Resolver;
 use Looker\Template\TemplateCannotBeResolved;
-use Psr\Container\ContainerInterface;
 
 final readonly class PhpRenderer implements Renderer
 {
-    private PluginProxy $pluginProxy;
-
     public function __construct(
         private Resolver $resolver,
-        private ContainerInterface $plugins,
+        private PluginManager $plugins,
         private bool $strictVariables = true,
         private bool $passScopeToChildren = false,
     ) {
-        $this->pluginProxy = new PluginProxy($this->plugins);
     }
 
     /**
@@ -39,11 +36,6 @@ final readonly class PhpRenderer implements Renderer
 
         $file = $this->resolver->resolve($model->template());
 
-        return (new Target($file, $model->variables(), $this->pluginProxy, $this->strictVariables))();
-    }
-
-    public function clearPluginState(): void
-    {
-        $this->pluginProxy->clearPluginState();
+        return (new Target($file, $model->variables(), $this->plugins, $this->strictVariables))();
     }
 }

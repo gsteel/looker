@@ -6,6 +6,7 @@ namespace Looker\Test\Integration\ViewLayout;
 
 use Looker\Model\Model;
 use Looker\Renderer\PhpRenderer;
+use Looker\Renderer\PluginProxy;
 use Looker\Renderer\RenderingFailed;
 use Looker\Template\MapResolver;
 use Looker\Test\InMemoryContainer;
@@ -16,16 +17,18 @@ final class ViewLayoutTest extends TestCase
 {
     public function testThatTheDefaultLayoutIsRenderedWhenGivenAnArrayAndContentTemplate(): void
     {
+        $plugins = new PluginProxy(new InMemoryContainer([]));
         $view = new View(
             new PhpRenderer(
                 new MapResolver([
                     'layout-template' => __DIR__ . '/templates/layout.phtml',
                     'content-template' => __DIR__ . '/templates/content.phtml',
                 ]),
-                new InMemoryContainer([]),
+                $plugins,
                 true,
                 false,
             ),
+            $plugins,
             'layout-template',
             'content',
         );
@@ -46,15 +49,17 @@ final class ViewLayoutTest extends TestCase
 
     public function testThatWhenThereIsNoDefaultLayoutAndTheViewDoesNotSpecifyThenNoLayoutWillBeUsed(): void
     {
+        $plugins = new PluginProxy(new InMemoryContainer([]));
         $view = new View(
             new PhpRenderer(
                 new MapResolver([
                     'content-template' => __DIR__ . '/templates/content.phtml',
                 ]),
-                new InMemoryContainer([]),
+                $plugins,
                 true,
                 false,
             ),
+            $plugins,
         );
 
         $content = $view->render(['title' => 'Hello World'], 'content-template');
@@ -70,16 +75,18 @@ final class ViewLayoutTest extends TestCase
 
     public function testThatWhenTheViewExplicitlyDisablesTheLayoutThenNoLayoutWillBeUsed(): void
     {
+        $plugins = new PluginProxy(new InMemoryContainer([]));
         $view = new View(
             new PhpRenderer(
                 new MapResolver([
                     'layout-template' => __DIR__ . '/templates/layout.phtml',
                     'content-template' => __DIR__ . '/templates/content.phtml',
                 ]),
-                new InMemoryContainer([]),
+                $plugins,
                 true,
                 false,
             ),
+            $plugins,
             'layout-template',
             'content',
         );
@@ -97,6 +104,7 @@ final class ViewLayoutTest extends TestCase
 
     public function testThatWhenTheViewDeclaresAlternativeLayoutThenItWillBeUsed(): void
     {
+        $plugins = new PluginProxy(new InMemoryContainer([]));
         $view = new View(
             new PhpRenderer(
                 new MapResolver([
@@ -104,10 +112,11 @@ final class ViewLayoutTest extends TestCase
                     'layout-template' => __DIR__ . '/templates/layout.phtml',
                     'content-template' => __DIR__ . '/templates/content.phtml',
                 ]),
-                new InMemoryContainer([]),
+                $plugins,
                 true,
                 false,
             ),
+            $plugins,
             'layout-template',
             'content',
         );
@@ -127,15 +136,17 @@ final class ViewLayoutTest extends TestCase
 
     public function testThatAViewModelIsAcceptableToRender(): void
     {
+        $plugins = new PluginProxy(new InMemoryContainer([]));
         $view = new View(
             new PhpRenderer(
                 new MapResolver([
                     'content-template' => __DIR__ . '/templates/content.phtml',
                 ]),
-                new InMemoryContainer([]),
+                $plugins,
                 true,
                 false,
             ),
+            $plugins,
         );
 
         $model = Model::new('content-template', ['title' => 'Hello World']);
@@ -151,13 +162,15 @@ final class ViewLayoutTest extends TestCase
 
     public function testThatAnExceptionWillBeThrownWhenRenderReceivesAnArrayWithoutATemplateName(): void
     {
+        $plugins = new PluginProxy(new InMemoryContainer([]));
         $view = new View(
             new PhpRenderer(
                 new MapResolver([]),
-                new InMemoryContainer([]),
+                $plugins,
                 true,
                 false,
             ),
+            $plugins,
         );
 
         $this->expectException(RenderingFailed::class);

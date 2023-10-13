@@ -83,6 +83,7 @@ class PluginProxyTest extends TestCase
         self::assertSame('mary had a little lamb', $value);
     }
 
+    /** @psalm-suppress MixedMethodCall */
     public function testThatUsedStatefulPluginsCanBeReset(): void
     {
         $a = new Stateful();
@@ -125,5 +126,15 @@ class PluginProxyTest extends TestCase
 
         $value = $proxy->somePlugin();
         self::assertSame('foo', $value);
+    }
+
+    public function testHas(): void
+    {
+        $proxy = new PluginProxy(new InMemoryContainer([
+            'somePlugin' => new NotInvokable(),
+        ]));
+
+        self::assertTrue($proxy->has('somePlugin'));
+        self::assertFalse($proxy->has('foo'));
     }
 }

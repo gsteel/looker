@@ -21,6 +21,7 @@ final readonly class View
      */
     public function __construct(
         private Renderer $renderer,
+        private PluginManager $plugins,
         private string|null $defaultLayout = null,
         private string $captureTo = 'content',
     ) {
@@ -54,7 +55,7 @@ final readonly class View
             );
         }
 
-        $this->renderer->clearPluginState();
+        $this->plugins->clearPluginState();
 
         return $buffer;
     }

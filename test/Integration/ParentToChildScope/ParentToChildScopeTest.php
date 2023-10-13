@@ -6,6 +6,7 @@ namespace Looker\Test\Integration\ParentToChildScope;
 
 use Looker\Model\Model;
 use Looker\Renderer\PhpRenderer;
+use Looker\Renderer\PluginProxy;
 use Looker\Template\MapResolver;
 use Looker\Test\InMemoryContainer;
 use PHPUnit\Framework\TestCase;
@@ -38,7 +39,7 @@ final class ParentToChildScopeTest extends TestCase
 
         $renderer = new PhpRenderer(
             $this->resolver,
-            new InMemoryContainer(),
+            new PluginProxy(new InMemoryContainer()),
             true,
             true,
         );

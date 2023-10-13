@@ -6,6 +6,7 @@ namespace Looker\Test\Integration\ResetPluginState;
 
 use Looker\Model\Model;
 use Looker\Renderer\PhpRenderer;
+use Looker\Renderer\PluginProxy;
 use Looker\Template\MapResolver;
 use Looker\Test\InMemoryContainer;
 use Looker\Test\Renderer\Plugins\Stateful;
@@ -30,15 +31,17 @@ final class PluginResetTest extends TestCase
     public function testThatStatefulPluginsAreReset(): void
     {
         $plugin = new Stateful();
+        $plugins = new PluginProxy(new InMemoryContainer(['plugin' => $plugin]));
         $renderer = new View(
             new PhpRenderer(
                 new MapResolver([
                     'template' => __DIR__ . '/templates/stateful-plugin.phtml',
                 ]),
-                new InMemoryContainer(['plugin' => $plugin]),
+                $plugins,
                 true,
                 false,
             ),
+            $plugins,
         );
 
         $result = $renderer->render(Model::new('template'));
@@ -50,20 +53,22 @@ final class PluginResetTest extends TestCase
     public function testThatNonStatefulPluginsAreNotReset(): void
     {
         $plugin = new Stateful();
+        $plugins = new PluginProxy(new InMemoryContainer([
+            'plugin' => $plugin,
+            'other' => static function (): string {
+                return PHP_EOL . 'Hey!';
+            },
+        ]));
         $renderer = new View(
             new PhpRenderer(
                 new MapResolver([
                     'template' => __DIR__ . '/templates/mixed.phtml',
                 ]),
-                new InMemoryContainer([
-                    'plugin' => $plugin,
-                    'other' => static function (): string {
-                        return PHP_EOL . 'Hey!';
-                    },
-                ]),
+                $plugins,
                 true,
                 false,
             ),
+            $plugins,
         );
 
         $result = $renderer->render(Model::new('template'));
