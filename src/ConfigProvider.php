@@ -23,6 +23,7 @@ final class ConfigProvider
                         'fallbackTitle' => null, // Add a default head title such as "Untitled"
                         'separator' => ' - ', // Separator for consecutively added title segments: "one - two - three"
                     ],
+                    'basePath' => '/', // Provide a base path for the BasePath plugin if you use it
                 ],
                 'templates' => [
                     'paths' => [],
@@ -52,6 +53,7 @@ final class ConfigProvider
     {
         return [
             'factories' => [
+                Plugin\BasePath::class => Plugin\Factory\BasePathFactory::class,
                 Plugin\Doctype::class => Plugin\Factory\DoctypeFactory::class,
                 Plugin\Escape::class => Plugin\Factory\EscapeFactory::class,
                 Plugin\HeadLink::class => Plugin\Factory\HeadLinkFactory::class,
@@ -59,6 +61,7 @@ final class ConfigProvider
                 Plugin\HtmlAttributes::class => Plugin\Factory\HtmlAttributesFactory::class,
             ],
             'aliases' => [
+                'basePath' => Plugin\BasePath::class,
                 'doctype' => Plugin\Doctype::class,
                 'escape' => Plugin\Escape::class,
                 'headLink' => Plugin\HeadLink::class,
