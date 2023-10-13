@@ -29,6 +29,8 @@ final class PluginProxy implements PluginManager
      * @return callable
      *
      * @throws RenderingFailed If the plugin cannot be found, or, if the plugin is not callable.
+     *
+     * @psalm-suppress MethodSignatureMismatch - No it's not
      */
     public function get(string $id): mixed
     {
