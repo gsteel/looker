@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Looker\Test\Integration\ViewLayout;
 
 use Looker\Model\Model;
+use Looker\Plugin\Layout;
 use Looker\Renderer\PhpRenderer;
 use Looker\Renderer\PluginProxy;
 use Looker\Renderer\RenderingFailed;
@@ -96,6 +97,41 @@ final class ViewLayoutTest extends TestCase
         $expect = <<<'HTML'
             
             <h1>Hello World</h1>
+            
+            HTML;
+
+        self::assertSame($expect, $content);
+    }
+
+    public function testThatWhenTheLayoutPluginIsAvailableAndItSpecifiesALayoutItWillBeUsed(): void
+    {
+        $plugin = new Layout();
+        $plugins = new PluginProxy(new InMemoryContainer([Layout::class => $plugin]));
+        $view = new View(
+            new PhpRenderer(
+                new MapResolver([
+                    'layout-template' => __DIR__ . '/templates/layout.phtml',
+                    'content-template' => __DIR__ . '/templates/content.phtml',
+                ]),
+                $plugins,
+                true,
+                false,
+            ),
+            $plugins,
+            null,
+            'content',
+        );
+
+        $plugin->__invoke('layout-template');
+
+        $content = $view->render(['title' => 'Hello World', 'layout' => false], 'content-template');
+
+        $expect = <<<'HTML'
+            <header></header>
+            <main>
+            <h1>Hello World</h1>
+            </main>
+            <footer></footer>
             
             HTML;
 
