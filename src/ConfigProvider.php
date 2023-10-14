@@ -64,6 +64,7 @@ final class ConfigProvider
                 Plugin\Layout::class => Plugin\Factory\LayoutFactory::class,
                 Plugin\Partial::class => Plugin\Factory\PartialFactory::class,
                 Plugin\PartialLoop::class => Plugin\Factory\PartialLoopFactory::class,
+                Plugin\Placeholder::class => Plugin\Factory\PlaceholderFactory::class,
             ],
             'aliases' => [
                 'basePath' => Plugin\BasePath::class,
@@ -75,6 +76,7 @@ final class ConfigProvider
                 'layout' => Plugin\Layout::class,
                 'partial' => Plugin\Partial::class,
                 'partialLoop' => Plugin\PartialLoop::class,
+                'placeholder' => Plugin\Placeholder::class,
             ],
         ];
     }
