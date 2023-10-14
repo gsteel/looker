@@ -6,6 +6,7 @@ namespace Looker;
 
 use Looker\Model\Model;
 use Looker\Model\ViewModel;
+use Looker\Plugin\Layout;
 use Looker\Renderer\Renderer;
 use Looker\Renderer\RenderingFailed;
 
@@ -63,6 +64,20 @@ final readonly class View
     /** @return non-empty-string|false */
     private function resolveLayout(ViewModel $model): string|false
     {
+        // Layout template set in the layout plugin takes precedence
+        $plugin = $this->plugins->has(Layout::class)
+            ? $this->plugins->get(Layout::class)
+            : null;
+
+        $layout = $plugin instanceof Layout
+            ? $plugin->currentLayout()
+            : null;
+
+        if ($layout !== null) {
+            return $layout;
+        }
+
+        // A custom layout in the view model has next precedence
         /** @psalm-suppress MixedAssignment */
         $custom = $model->variables()['layout'] ?? null;
         if (is_string($custom) && $custom !== '') {
