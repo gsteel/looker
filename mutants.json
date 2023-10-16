@@ -1,0 +1,19 @@
+{
+    "$schema": "vendor/infection/infection/resources/schema.json",
+    "source": {
+        "directories": [
+            "src"
+        ],
+        "excludes": [
+            "ConfigProvider.php"
+        ]
+    },
+    "logs": {
+        "text": ".cache/infection.log.txt"
+    },
+    "mutators": {
+        "@default": true
+    },
+    "minCoveredMsi": 85,
+    "minMsi": 85
+}

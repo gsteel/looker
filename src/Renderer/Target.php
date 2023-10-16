@@ -36,13 +36,14 @@ final class Target
     /** @throws RenderingFailed If there are any errors or violations during rendering. */
     public function __invoke(): string
     {
+        // This variable locks rendering of _this_ instance and prevents calls to $this->__invoke() from causing
+        // infinite loops.
         if ($this->__renderLock) {
             throw RenderingFailed::becauseARenderLoopHasBeenDetected($this->__template);
         }
 
-        $this->__renderLock = true;
-
         try {
+            $this->__renderLock = true;
             ob_start();
             /**
              * @psalm-var mixed $include
@@ -54,6 +55,9 @@ final class Target
             }
 
             $content = ob_get_clean();
+            $this->__renderLock = false;
+
+            return $content;
         } catch (Throwable $error) {
             ob_end_clean();
 
@@ -62,11 +66,7 @@ final class Target
             }
 
             throw RenderingFailed::becauseOfAnException($this->__template, $error);
-        } finally {
-            $this->__renderLock = false;
         }
-
-        return $content;
     }
 
     /**

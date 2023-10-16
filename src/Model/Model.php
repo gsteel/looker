@@ -16,9 +16,9 @@ final readonly class Model implements ViewModel
      */
     private function __construct(
         private string $template,
-        private array $variables = [],
-        private array $childModels = [],
-        private bool $terminal = false,
+        private array $variables,
+        private array $childModels,
+        private bool $terminal,
     ) {
     }
 

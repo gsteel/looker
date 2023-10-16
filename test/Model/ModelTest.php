@@ -6,6 +6,7 @@ namespace Looker\Test\Model;
 
 use Looker\Model\ChildModel;
 use Looker\Model\Model;
+use Looker\Model\TerminalModelCannotBeChild;
 use PHPUnit\Framework\TestCase;
 
 use function reset;
@@ -95,6 +96,23 @@ class ModelTest extends TestCase
             'c' => 'd',
             'd' => 2,
         ], $clone->variables());
+    }
+
+    public function testThatChildModelsCanBeAdded(): void
+    {
+        $a = Model::new('foo', []);
+        $b = $a->withChild(Model::new('bar', []), 'someVar');
+
+        self::assertNotSame($a, $b);
+        self::assertCount(1, $b->childModels());
+    }
+
+    public function testThatATerminalModelCannotBeAChild(): void
+    {
+        $a = Model::terminal('foo', []);
+        $this->expectException(TerminalModelCannotBeChild::class);
+        /** @psalm-suppress UnusedMethodCall */
+        Model::new('bar', [])->withChild($a, 'baz');
     }
 
     public function testThatChildModelsCanBeAppended(): void

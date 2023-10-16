@@ -16,12 +16,20 @@ class MapResolverFactoryTest extends TestCase
     public function testThatConfigMustExist(): void
     {
         $this->expectException(ConfigurationError::class);
+        $this->expectExceptionMessage(
+            'The map resolver requires that `config` is an array available in the container and contains '
+            . 'an array under the key `looker.templates.map` where all the keys and values are non-empty strings',
+        );
         (new MapResolverFactory())->__invoke(new InMemoryContainer());
     }
 
     public function testThatTheMapMustBeSet(): void
     {
         $this->expectException(ConfigurationError::class);
+        $this->expectExceptionMessage(
+            'The map resolver requires that `config` is an array available in the container and contains '
+            . 'an array under the key `looker.templates.map` where all the keys and values are non-empty strings',
+        );
         (new MapResolverFactory())->__invoke(new InMemoryContainer(['config' => []]));
     }
 
@@ -59,6 +67,10 @@ class MapResolverFactoryTest extends TestCase
     public function testThatTheMapMustContainNonEmptyStrings(array $invalidConfig): void
     {
         $this->expectException(ConfigurationError::class);
+        $this->expectExceptionMessage(
+            'The map resolver requires that `config` is an array available in the container and contains '
+            . 'an array under the key `looker.templates.map` where all the keys and values are non-empty strings',
+        );
         (new MapResolverFactory())->__invoke(new InMemoryContainer($invalidConfig));
     }
 

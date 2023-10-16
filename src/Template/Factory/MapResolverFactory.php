@@ -16,7 +16,7 @@ final class MapResolverFactory
     public function __invoke(ContainerInterface $container): MapResolver
     {
         try {
-            $config = $container->get('config');
+            $config = $container->has('config') ? $container->get('config') : null;
             Assert::isArray($config);
             $map = Dot::array('looker.templates.map', $config);
             Assert::isMap($map);
