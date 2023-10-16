@@ -1,5 +1,5 @@
 {
-    "extensions": ["pcov"],
+    "extensions": ["xdebug"],
     "ignore_php_platform_requirements": {
         "8.3": true
     }
