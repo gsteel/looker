@@ -56,7 +56,7 @@
         "cs-fix": "phpcbf",
         "static-analysis": "psalm --shepherd --stats",
         "check-deps": "composer-require-checker check",
-        "infection": "infection",
+        "infection": "infection --configuration=mutants.json",
         "test": "phpunit --colors=always"
     }
 }
