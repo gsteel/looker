@@ -16,7 +16,7 @@ final class DirectoryResolverFactory
     public function __invoke(ContainerInterface $container): DirectoryResolver
     {
         try {
-            $config = $container->get('config');
+            $config = $container->has('config') ? $container->get('config') : null;
             Assert::isArray($config);
             $list = Dot::array('looker.templates.paths', $config);
             Assert::isList($list);

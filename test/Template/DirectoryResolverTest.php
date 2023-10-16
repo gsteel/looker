@@ -8,8 +8,15 @@ use Looker\Template\DirectoryResolver;
 use Looker\Template\TemplateCannotBeResolved;
 use PHPUnit\Framework\TestCase;
 
+use function chmod;
+
 class DirectoryResolverTest extends TestCase
 {
+    public static function tearDownAfterClass(): void
+    {
+        chmod(__DIR__ . '/templates/unreadable.phtml', 0644);
+    }
+
     public function testExceptionThrownWhenNoTemplatesCanBeFoundInAnyConfiguredDirectories(): void
     {
         $resolver = new DirectoryResolver([
@@ -23,6 +30,20 @@ class DirectoryResolverTest extends TestCase
         );
 
         $resolver->resolve('does-not-exist');
+    }
+
+    public function testThatUnreadableFilesWillNotBeResolved(): void
+    {
+        chmod(__DIR__ . '/templates/unreadable.phtml', 0200);
+        $resolver = new DirectoryResolver([
+            __DIR__ . '/templates',
+        ], 'phtml');
+
+        $this->expectException(TemplateCannotBeResolved::class);
+        $this->expectExceptionMessage(
+            'The template "unreadable" cannot be resolved to a file on the local filesystem',
+        );
+        $resolver->resolve('unreadable');
     }
 
     public function testExceptionThrownWhenAConfiguredDirectoryIsNotADirectory(): void

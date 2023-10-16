@@ -19,7 +19,7 @@ final class AggregateResolverFactory
     public function __invoke(ContainerInterface $container): AggregateResolver
     {
         try {
-            $config = $container->get('config');
+            $config = $container->has('config') ? $container->get('config') : null;
             Assert::isArray($config);
             $serviceNames = Dot::array('looker.templates.aggregate', $config);
             $services = array_map(static function (string $serviceName) use ($container): Resolver {

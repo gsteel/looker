@@ -129,6 +129,17 @@ class TargetTest extends TestCase
         self::assertStringContainsString('<h1>Plugin Output</h1>', $content);
     }
 
+    public function testThatMultipleCallsToTheRenderTargetProduceTheSameOutput(): void
+    {
+        $template = __DIR__ . '/templates/plugin-output.phtml';
+        $target = new Target($template, [], $this->proxy, true);
+
+        self::assertSame(
+            $target->__invoke(),
+            $target->__invoke(),
+        );
+    }
+
     public function testInvokeCannotBeCalledFromATemplateContext(): void
     {
         $template = __DIR__ . '/templates/invoke.phtml';

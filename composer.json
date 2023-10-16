@@ -12,7 +12,8 @@
         "sort-packages": true,
         "optimize-autoloader": true,
         "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "infection/extension-installer": true
         },
         "platform": {
             "php": "8.2.99"
@@ -27,6 +28,7 @@
     },
     "require-dev": {
         "doctrine/coding-standard": "^12.0",
+        "infection/infection": "^0.27.6",
         "maglnet/composer-require-checker": "^4.7.1",
         "phpunit/phpunit": "^10.4.1",
         "psalm/plugin-phpunit": "^0.18.4",
@@ -47,11 +49,14 @@
         "check": [
             "@cs-check",
             "@static-analysis",
-            "@test"
+            "@test",
+            "@check-deps"
         ],
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
         "static-analysis": "psalm --shepherd --stats",
+        "check-deps": "composer-require-checker check",
+        "infection": "infection",
         "test": "phpunit --colors=always"
     }
 }
