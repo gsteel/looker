@@ -44,7 +44,7 @@ final class LinkAttribute
     {
         $name = strtolower($name);
 
-        return in_array($name, self::BOOLEAN);
+        return in_array($name, self::BOOLEAN) || GlobalAttribute::isBoolean($name);
     }
 
     /** @param non-empty-string $name */
