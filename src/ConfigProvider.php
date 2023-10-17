@@ -62,10 +62,13 @@ final class ConfigProvider
                 Plugin\HeadMeta::class => Plugin\Factory\HeadMetaFactory::class,
                 Plugin\HeadTitle::class => Plugin\Factory\HeadTitleFactory::class,
                 Plugin\HtmlAttributes::class => Plugin\Factory\HtmlAttributesFactory::class,
+                Plugin\Javascript::class => Plugin\Factory\JavascriptFactory::class,
                 Plugin\Layout::class => Plugin\Factory\LayoutFactory::class,
                 Plugin\Partial::class => Plugin\Factory\PartialFactory::class,
                 Plugin\PartialLoop::class => Plugin\Factory\PartialLoopFactory::class,
                 Plugin\Placeholder::class => Plugin\Factory\PlaceholderFactory::class,
+                'headScript' => Plugin\Factory\JavascriptFactory::class,
+                'inlineScript' => Plugin\Factory\JavascriptFactory::class,
             ],
             'aliases' => [
                 'basePath' => Plugin\BasePath::class,
