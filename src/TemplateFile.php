@@ -7,6 +7,7 @@ namespace Looker;
 use Looker\Plugin\Escape;
 use Looker\Plugin\HeadLink;
 use Looker\Plugin\HeadMeta;
+use Looker\Plugin\HeadStyle;
 use Looker\Plugin\HeadTitle;
 use Looker\Plugin\Javascript;
 use Looker\Plugin\Placeholder;
@@ -43,6 +44,8 @@ interface TemplateFile
     public function headLink(): HeadLink;
 
     public function headMeta(): HeadMeta;
+
+    public function headStyle(): HeadStyle;
 
     /** @param non-empty-string|null $title */
     public function headTitle(string|null $title = null): HeadTitle;
