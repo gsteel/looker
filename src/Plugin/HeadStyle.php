@@ -51,7 +51,10 @@ final class HeadStyle implements StatefulPlugin
         return $this;
     }
 
-    /** @param array<non-empty-string, scalar> $tagAttributes */
+    /**
+     * @param non-empty-string $style
+     * @param array<non-empty-string, scalar> $tagAttributes
+     */
     public function append(string $style, array $tagAttributes = []): self
     {
         $tag = $this->makeTag($style, $tagAttributes);
@@ -61,7 +64,10 @@ final class HeadStyle implements StatefulPlugin
         return $this;
     }
 
-    /** @param array<non-empty-string, scalar> $tagAttributes */
+    /**
+     * @param non-empty-string $style
+     * @param array<non-empty-string, scalar> $tagAttributes
+     */
     public function prepend(string $style, array $tagAttributes = []): self
     {
         $tag = $this->makeTag($style, $tagAttributes);
