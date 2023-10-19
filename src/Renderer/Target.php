@@ -15,7 +15,7 @@ use function ob_start;
 /**
  * phpcs:disable Squiz.NamingConventions.ValidVariableName, PSR2.Classes.PropertyDeclaration.Underscore
  *
- * @internal
+ * @psalm-internal Looker
  */
 final class Target
 {

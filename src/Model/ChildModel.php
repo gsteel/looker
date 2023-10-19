@@ -8,11 +8,11 @@ namespace Looker\Model;
 final readonly class ChildModel
 {
     /**
-     * @internal
-     *
      * @param non-empty-string $captureTo
      *
      * @throws TerminalModelCannotBeChild
+     *
+     * @psalm-internal Looker
      */
     public function __construct(
         public ViewModel $model,

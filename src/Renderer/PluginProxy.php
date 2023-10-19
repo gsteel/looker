@@ -12,7 +12,7 @@ use Throwable;
 use function array_keys;
 use function is_callable;
 
-/** @internal */
+/** @psalm-internal Looker */
 final class PluginProxy implements PluginManager
 {
     /** @var array<string, null> */

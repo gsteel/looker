@@ -11,9 +11,9 @@ use function sprintf;
 final class TemplateCannotBeResolved extends RuntimeException
 {
     /**
-     * @internal
-     *
      * @param non-empty-string $message
+     *
+     * @psalm-internal Looker
      */
     public function __construct(string $message, public readonly Resolver $resolver)
     {

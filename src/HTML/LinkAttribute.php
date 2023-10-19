@@ -8,7 +8,7 @@ use function array_key_exists;
 use function in_array;
 use function strtolower;
 
-/** @internal */
+/** @psalm-internal Looker */
 final class LinkAttribute
 {
     private const STRING = [
