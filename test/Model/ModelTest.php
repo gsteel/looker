@@ -131,4 +131,15 @@ class ModelTest extends TestCase
         self::assertSame('someVar', $value->captureTo);
         self::assertSame($child, $value->model);
     }
+
+    public function testThatTheTemplateCanBeChanged(): void
+    {
+        $model = Model::new('foo', ['baz' => 'bat']);
+        $clone = $model->withTemplate('bar');
+
+        self::assertSame('foo', $model->template());
+        self::assertSame('bar', $clone->template());
+
+        self::assertSame($model->variables(), $clone->variables());
+    }
 }

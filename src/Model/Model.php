@@ -45,6 +45,17 @@ final readonly class Model implements ViewModel
         return $this->template;
     }
 
+    /** @param non-empty-string $name */
+    public function withTemplate(string $name): static
+    {
+        return new self(
+            $name,
+            $this->variables,
+            $this->childModels,
+            $this->terminal,
+        );
+    }
+
     /** @inheritDoc */
     public function variables(): array
     {

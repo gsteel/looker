@@ -10,6 +10,9 @@ interface ViewModel
     /** @return non-empty-string */
     public function template(): string;
 
+    /** @param non-empty-string $name */
+    public function withTemplate(string $name): static;
+
     /** @return array<non-empty-string, mixed> */
     public function variables(): array;
 
