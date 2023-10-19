@@ -9,8 +9,7 @@ use function ksort;
 /**
  * phpcs:disable SlevomatCodingStandard.Classes.RequireConstructorPropertyPromotion
  *
- * @internal
- *
+ * @psalm-internal Looker
  * @psalm-immutable
  */
 final readonly class Tag

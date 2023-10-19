@@ -9,7 +9,7 @@ use function in_array;
 use function str_starts_with;
 use function strtolower;
 
-/** @internal */
+/** @psalm-internal Looker */
 final class GlobalAttribute
 {
     private const STRING_ATTRIBUTES = [
