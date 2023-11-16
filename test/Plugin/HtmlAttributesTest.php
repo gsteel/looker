@@ -49,7 +49,9 @@ class HtmlAttributesTest extends TestCase
     public function testThatNestedArraysWillCauseAnException(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('HTML attribute arrays can only contain arrays with scalar values');
+        $this->expectExceptionMessage(
+            'HTML attribute arrays can only contain arrays with scalar values. The attribute "something" is invalid',
+        );
         (new HtmlAttributes(new Escaper()))->__invoke([
             'something' => ['not-scalar' => ['Oh noes']],
         ]);
@@ -65,5 +67,11 @@ class HtmlAttributesTest extends TestCase
     {
         $plugin = new HtmlAttributes(new Escaper());
         self::assertSame('monkeys="1"', $plugin->__invoke(['disabled' => false, 'monkeys' => 1]));
+    }
+
+    public function testThatAttributeValuesCanBeNull(): void
+    {
+        $plugin = new HtmlAttributes(new Escaper());
+        self::assertSame('foo="bar" baz=""', $plugin->__invoke(['foo' => 'bar', 'baz' => null]));
     }
 }
