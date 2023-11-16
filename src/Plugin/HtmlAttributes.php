@@ -54,6 +54,15 @@ final readonly class HtmlAttributes
                 );
             }
 
+            if ($value === false) {
+                continue;
+            }
+
+            if ($value === true) {
+                $attributeString[] = $key;
+                continue;
+            }
+
             $value = $this->escaper->escapeHtmlAttr((string) $value);
             $quote = str_contains($value, '"') ? "'" : '"';
             $attributeString[] = sprintf('%2$s=%1$s%3$s%1$s', $quote, $key, $value);
