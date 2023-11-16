@@ -54,4 +54,16 @@ class HtmlAttributesTest extends TestCase
             'something' => ['not-scalar' => ['Oh noes']],
         ]);
     }
+
+    public function testThatBooleanTrueAttributeValuesWillOnlyContainTheKey(): void
+    {
+        $plugin = new HtmlAttributes(new Escaper());
+        self::assertSame('disabled monkeys="1"', $plugin->__invoke(['disabled' => true, 'monkeys' => 1]));
+    }
+
+    public function testThatBooleanFalseAttributesWillBeOmitted(): void
+    {
+        $plugin = new HtmlAttributes(new Escaper());
+        self::assertSame('monkeys="1"', $plugin->__invoke(['disabled' => false, 'monkeys' => 1]));
+    }
 }
