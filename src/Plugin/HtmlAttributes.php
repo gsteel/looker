@@ -48,10 +48,15 @@ final readonly class HtmlAttributes
                 $value = implode(' ', array_map(static fn (string|int $value): string => (string) $value, $value));
             }
 
+            if ($value === null) {
+                $value = '';
+            }
+
             if (! is_scalar($value)) {
-                throw new InvalidArgumentException(
-                    'HTML attribute arrays can only contain arrays with scalar values',
-                );
+                throw new InvalidArgumentException(sprintf(
+                    'HTML attribute arrays can only contain arrays with scalar values. The attribute "%s" is invalid',
+                    $key,
+                ));
             }
 
             if ($value === false) {
