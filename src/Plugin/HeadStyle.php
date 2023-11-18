@@ -4,21 +4,16 @@ declare(strict_types=1);
 
 namespace Looker\Plugin;
 
-use Laminas\Escaper\Escaper;
+use Looker\HTML\AttributeNormaliser;
 use Looker\HTML\StyleAttribute;
 use Looker\HTML\Tag;
 
-use function array_change_key_case;
 use function array_filter;
 use function array_map;
 use function array_unshift;
 use function array_values;
 use function implode;
-use function is_bool;
 use function sprintf;
-use function str_contains;
-
-use const CASE_LOWER;
 
 final class HeadStyle implements StatefulPlugin
 {
@@ -27,7 +22,7 @@ final class HeadStyle implements StatefulPlugin
     private string $separator;
 
     public function __construct(
-        private readonly Escaper $escaper,
+        private readonly HtmlAttributes $attributePlugin,
         private readonly string $defaultSeparator = "\n\t",
     ) {
         $this->separator = $this->defaultSeparator;
@@ -80,7 +75,11 @@ final class HeadStyle implements StatefulPlugin
     /** @param array<non-empty-string, scalar> $attributes */
     private function makeTag(string|null $styles, array $attributes): Tag
     {
-        return new Tag('style', $this->normaliseAttributes($attributes), $styles);
+        return new Tag(
+            'style',
+            AttributeNormaliser::normalise($attributes, new StyleAttribute()),
+            $styles,
+        );
     }
 
     private function remove(Tag $tag): void
@@ -99,75 +98,21 @@ final class HeadStyle implements StatefulPlugin
         $this->styles = array_values($styles);
     }
 
-    /**
-     * @param array<non-empty-string, scalar> $attributes
-     *
-     * @return array<non-empty-lowercase-string, scalar>
-     */
-    private function normaliseAttributes(array $attributes): array
-    {
-        /** @psalm-var array<non-empty-lowercase-string, scalar> $attributes */
-        $attributes = array_change_key_case($attributes, CASE_LOWER);
-
-        $result = [];
-
-        foreach ($attributes as $name => $value) {
-            if (StyleAttribute::isBoolean($name)) {
-                if ($value === false) {
-                    continue;
-                }
-
-                $result[$name] = true;
-                continue;
-            }
-
-            if (! StyleAttribute::exists($name)) {
-                continue;
-            }
-
-            $result[$name] = $value;
-        }
-
-        return $result;
-    }
-
     private function tagToString(Tag $tag): string
     {
-        $attributes = $tag->attributes;
-        $attributeString = [];
+        $attributes = ($this->attributePlugin)($tag->attributes);
 
-        foreach ($attributes as $name => $value) {
-            // Omit boolean values that are explicitly set to false
-            if (is_bool($value)) {
-                $attributeString[] = $this->escaper->escapeHtml($name);
-
-                continue;
-            }
-
-            $quote = str_contains((string) $value, '"') ? "'" : '"';
-            $attributeString[] = sprintf(
-                '%2$s=%1$s%3$s%1$s',
-                $quote,
-                $this->escaper->escapeHtml($name),
-                $this->escaper->escapeHtmlAttr((string) $value),
-            );
-        }
-
-        if ($attributeString === [] && ($tag->content === '' || $tag->content === null)) {
+        if ($attributes === '' && ($tag->content === '' || $tag->content === null)) {
             return '';
         }
 
         $content = (string) $tag->content;
         $content = $content !== '' ? "\n" . $content . "\n" : '';
 
-        $attributeString = $attributeString === []
-            ? ''
-            : ' ' . implode(' ', $attributeString);
-
         return sprintf(
             '<%s%s>%s</%s>',
             $tag->name,
-            $attributeString,
+            $attributes !== '' ? ' ' . $attributes : '',
             $content,
             $tag->name,
         );

@@ -6,6 +6,7 @@ namespace Looker\Test\Plugin;
 
 use Laminas\Escaper\Escaper;
 use Looker\Plugin\HeadStyle;
+use Looker\Plugin\HtmlAttributes;
 use PHPUnit\Framework\TestCase;
 
 class HeadStyleTest extends TestCase
@@ -14,7 +15,10 @@ class HeadStyleTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->plugin = new HeadStyle(new Escaper(), "\n");
+        $this->plugin = new HeadStyle(
+            new HtmlAttributes(new Escaper()),
+            "\n",
+        );
     }
 
     public function testThatStylesCanBeAppended(): void

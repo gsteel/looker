@@ -7,30 +7,27 @@ namespace Looker\Test\Plugin\Factory;
 use Laminas\Escaper\Escaper;
 use Looker\Plugin\Factory\HeadStyleFactory;
 use Looker\Plugin\HeadStyle;
+use Looker\Plugin\HtmlAttributes;
+use Looker\PluginManager;
 use Looker\Test\InMemoryContainer;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class HeadStyleFactoryTest extends TestCase
 {
-    /** @return array<string, array{0: array<string, mixed>}> */
-    public static function config(): array
+    private InMemoryContainer $plugins;
+
+    protected function setUp(): void
     {
-        return [
-            'Zero Config' => [[]],
-            'Configured Escaper' => [
-                [
-                    Escaper::class => new Escaper(),
-                ],
-            ],
-        ];
+        $this->plugins = new InMemoryContainer([
+            HtmlAttributes::class => new HtmlAttributes(new Escaper()),
+        ]);
     }
 
-    /** @param array<string, mixed> $config */
-    #[DataProvider('config')]
-    public function testFactory(array $config): void
+    public function testFactory(): void
     {
-        $plugin = (new HeadStyleFactory())(new InMemoryContainer($config));
+        $plugin = (new HeadStyleFactory())(new InMemoryContainer([
+            PluginManager::class => $this->plugins,
+        ]));
         self::assertInstanceOf(HeadStyle::class, $plugin);
     }
 }
