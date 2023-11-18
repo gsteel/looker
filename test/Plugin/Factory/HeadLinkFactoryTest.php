@@ -7,14 +7,27 @@ namespace Looker\Test\Plugin\Factory;
 use Laminas\Escaper\Escaper;
 use Looker\Plugin\Factory\HeadLinkFactory;
 use Looker\Plugin\HeadLink;
+use Looker\Plugin\HtmlAttributes;
+use Looker\PluginManager;
 use Looker\Test\InMemoryContainer;
 use PHPUnit\Framework\TestCase;
 
 class HeadLinkFactoryTest extends TestCase
 {
-    public function testPluginCanBeRetrievedWithZeroConfig(): void
+    private InMemoryContainer $plugins;
+
+    protected function setUp(): void
     {
-        $plugin = (new HeadLinkFactory())(new InMemoryContainer());
+        $this->plugins = new InMemoryContainer([
+            HtmlAttributes::class => new HtmlAttributes(new Escaper()),
+        ]);
+    }
+
+    public function testPluginCanBeRetrievedWithConfiguredAttributeHelper(): void
+    {
+        $plugin = (new HeadLinkFactory())(new InMemoryContainer([
+            PluginManager::class => $this->plugins,
+        ]));
         self::assertInstanceOf(HeadLink::class, $plugin);
     }
 
@@ -22,6 +35,7 @@ class HeadLinkFactoryTest extends TestCase
     {
         $plugin = (new HeadLinkFactory())(new InMemoryContainer([
             Escaper::class => new Escaper(),
+            PluginManager::class => $this->plugins,
         ]));
         self::assertInstanceOf(HeadLink::class, $plugin);
     }
