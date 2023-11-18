@@ -8,7 +8,8 @@ use function array_key_exists;
 use function in_array;
 use function strtolower;
 
-final class ScriptAttribute
+/** @psalm-internal Looker */
+final class ScriptAttribute implements AttributeInformation
 {
     private const STRING = [
         'integrity',

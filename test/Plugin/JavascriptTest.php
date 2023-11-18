@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Looker\Test\Plugin;
 
 use Laminas\Escaper\Escaper;
+use Looker\Plugin\HtmlAttributes;
 use Looker\Plugin\Javascript;
 use PHPUnit\Framework\TestCase;
 
@@ -14,7 +15,10 @@ class JavascriptTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->plugin = new Javascript(new Escaper(), "\n");
+        $this->plugin = new Javascript(
+            new HtmlAttributes(new Escaper()),
+            "\n",
+        );
     }
 
     public function testThatFilesCanBeAppended(): void

@@ -10,7 +10,7 @@ use function str_starts_with;
 use function strtolower;
 
 /** @psalm-internal Looker */
-final class GlobalAttribute
+final class GlobalAttribute implements AttributeInformation
 {
     private const STRING_ATTRIBUTES = [
         'accesskey',

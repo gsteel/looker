@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace Looker\Plugin;
 
-use Laminas\Escaper\Escaper;
-use Looker\HTML\GlobalAttribute;
+use Looker\HTML\AttributeNormaliser;
 use Looker\HTML\LinkAttribute;
 use Looker\HTML\Tag;
 use Looker\Value\Doctype;
@@ -16,7 +15,6 @@ use function array_unshift;
 use function array_values;
 use function implode;
 use function sprintf;
-use function str_contains;
 
 use const CASE_LOWER;
 
@@ -27,8 +25,8 @@ final class HeadLink implements StatefulPlugin
     private string $separator;
 
     public function __construct(
-        private readonly Escaper $escaper,
         private readonly Doctype $doctype,
+        private readonly HtmlAttributes $attributeHelper,
         private readonly string $defaultSeparator = "\n\t",
     ) {
         $this->separator = $this->defaultSeparator;
@@ -128,38 +126,12 @@ final class HeadLink implements StatefulPlugin
 
     private function tagToString(Tag $tag): string
     {
-        $attributes = $tag->attributes;
-        $attributeString = [];
-
-        foreach ($attributes as $name => $value) {
-            // Omit boolean values that are explicitly set to false
-            if (GlobalAttribute::isBoolean($name) || LinkAttribute::isBoolean($name)) {
-                if ($value === false) {
-                    continue;
-                }
-
-                $attributeString[] = $this->escaper->escapeHtml($name);
-
-                continue;
-            }
-
-            if (! GlobalAttribute::exists($name) && ! LinkAttribute::exists($name)) {
-                continue;
-            }
-
-            $quote = str_contains((string) $value, '"') ? "'" : '"';
-            $attributeString[] = sprintf(
-                '%2$s=%1$s%3$s%1$s',
-                $quote,
-                $this->escaper->escapeHtml($name),
-                $this->escaper->escapeHtmlAttr((string) $value),
-            );
-        }
+        $attributes = AttributeNormaliser::normalise($tag->attributes, new LinkAttribute());
 
         return sprintf(
             '<%s %s%s>',
             $tag->name,
-            implode(' ', $attributeString),
+            ($this->attributeHelper)($attributes),
             $this->doctype->isXhtml() ? ' /' : '',
         );
     }

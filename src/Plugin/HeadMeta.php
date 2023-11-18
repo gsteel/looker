@@ -4,22 +4,17 @@ declare(strict_types=1);
 
 namespace Looker\Plugin;
 
-use Laminas\Escaper\Escaper;
+use Looker\HTML\AttributeNormaliser;
 use Looker\HTML\MetaAttribute;
 use Looker\HTML\Tag;
 use Looker\Value\Doctype;
 
-use function array_change_key_case;
 use function array_filter;
 use function array_map;
 use function array_unshift;
 use function array_values;
 use function implode;
-use function is_bool;
 use function sprintf;
-use function str_contains;
-
-use const CASE_LOWER;
 
 final class HeadMeta implements StatefulPlugin
 {
@@ -28,8 +23,8 @@ final class HeadMeta implements StatefulPlugin
     private string $separator;
 
     public function __construct(
-        private readonly Escaper $escaper,
         private readonly Doctype $doctype,
+        private readonly HtmlAttributes $attributePlugin,
         private readonly string $defaultSeparator = "\n\t",
     ) {
         $this->separator = $this->defaultSeparator;
@@ -93,7 +88,10 @@ final class HeadMeta implements StatefulPlugin
     /** @param array<non-empty-string, scalar> $attributes */
     private function makeTag(array $attributes): Tag
     {
-        return new Tag('meta', $this->normaliseAttributes($attributes), null);
+        return new Tag('meta', AttributeNormaliser::normalise(
+            $attributes,
+            new MetaAttribute(),
+        ), null);
     }
 
     private function remove(Tag $tag): void
@@ -112,68 +110,18 @@ final class HeadMeta implements StatefulPlugin
         $this->meta = array_values($meta);
     }
 
-    /**
-     * @param array<non-empty-string, scalar> $attributes
-     *
-     * @return array<non-empty-lowercase-string, scalar>
-     */
-    private function normaliseAttributes(array $attributes): array
-    {
-        /** @psalm-var array<non-empty-lowercase-string, scalar> $attributes */
-        $attributes = array_change_key_case($attributes, CASE_LOWER);
-
-        $result = [];
-
-        foreach ($attributes as $name => $value) {
-            if (MetaAttribute::isBoolean($name)) {
-                if ($value === false) {
-                    continue;
-                }
-
-                $result[$name] = true;
-                continue;
-            }
-
-            if (! MetaAttribute::exists($name)) {
-                continue;
-            }
-
-            $result[$name] = $value;
-        }
-
-        return $result;
-    }
-
     private function tagToString(Tag $tag): string
     {
-        $attributes = $tag->attributes;
-        $attributeString = [];
+        $attributeString = ($this->attributePlugin)($tag->attributes);
 
-        foreach ($attributes as $name => $value) {
-            // Omit boolean values that are explicitly set to false
-            if (is_bool($value)) {
-                $attributeString[] = $this->escaper->escapeHtml($name);
-
-                continue;
-            }
-
-            $quote = str_contains((string) $value, '"') ? "'" : '"';
-            $attributeString[] = sprintf(
-                '%2$s=%1$s%3$s%1$s',
-                $quote,
-                $this->escaper->escapeHtml($name),
-                $this->escaper->escapeHtmlAttr((string) $value),
-            );
-        }
-
-        if ($attributeString === []) {
+        if ($attributeString === '') {
             return '';
         }
 
         return sprintf(
             '<%s %s%s>',
             $tag->name,
-            implode(' ', $attributeString),
+            $attributeString,
             $this->doctype->isXhtml() ? ' /' : '',
         );
     }
