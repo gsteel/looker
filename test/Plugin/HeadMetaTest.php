@@ -6,6 +6,7 @@ namespace Looker\Test\Plugin;
 
 use Laminas\Escaper\Escaper;
 use Looker\Plugin\HeadMeta;
+use Looker\Plugin\HtmlAttributes;
 use Looker\Value\Doctype;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -14,6 +15,17 @@ use const PHP_EOL;
 
 class HeadMetaTest extends TestCase
 {
+    private HeadMeta $plugin;
+
+    protected function setUp(): void
+    {
+        $this->plugin = new HeadMeta(
+            Doctype::HTML5,
+            new HtmlAttributes(new Escaper()),
+            PHP_EOL,
+        );
+    }
+
     /** @return array<string, array{0: array<non-empty-string, scalar>, 1: string}> */
     public static function metaDataExamples(): array
     {
@@ -50,17 +62,13 @@ class HeadMetaTest extends TestCase
     #[DataProvider('metaDataExamples')]
     public function testExpectedOutput(array $attributes, string $expect): void
     {
-        $plugin = new HeadMeta(new Escaper(), Doctype::HTML5, PHP_EOL);
-
-        $plugin->append($attributes);
-        self::assertSame($expect, $plugin->toString());
+        $this->plugin->append($attributes);
+        self::assertSame($expect, $this->plugin->toString());
     }
 
     public function testExpectedOrder(): void
     {
-        $plugin = new HeadMeta(new Escaper(), Doctype::HTML5, PHP_EOL);
-
-        $plugin->append(['name' => 'keywords', 'content' => 'foo'])
+        $this->plugin->append(['name' => 'keywords', 'content' => 'foo'])
             ->append(['name' => 'description', 'content' => 'bar'])
             ->prepend(['charset' => 'utf-8']);
 
@@ -68,99 +76,90 @@ class HeadMetaTest extends TestCase
             <meta charset="utf-8">
             <meta content="foo" name="keywords">
             <meta content="bar" name="description">
-            HTML, $plugin->toString());
+            HTML, $this->plugin->toString());
     }
 
     public function testXHTMLDocumentsWillHaveSelfClosingTag(): void
     {
-        $plugin = new HeadMeta(new Escaper(), Doctype::XHTML1Strict, PHP_EOL);
+        $plugin = new HeadMeta(Doctype::XHTML1Strict, new HtmlAttributes(new Escaper()), PHP_EOL);
         $plugin->append(['name' => 'foo', 'content' => 'bar']);
         self::assertSame('<meta content="bar" name="foo" />', $plugin->toString());
     }
 
     public function testThatEmptyAttributesYieldEmptyString(): void
     {
-        $plugin = new HeadMeta(new Escaper(), Doctype::HTML5, PHP_EOL);
-        $plugin->append(['foo' => 'bar']);
-        self::assertSame('', $plugin->toString());
+        $this->plugin->append(['foo' => 'bar']);
+        self::assertSame('', $this->plugin->toString());
     }
 
     public function testThatTheSeparatorCanBeChanged(): void
     {
-        $plugin = new HeadMeta(new Escaper(), Doctype::HTML5, PHP_EOL);
-        $plugin->setSeparator('!')
+        $this->plugin->setSeparator('!')
             ->append(['name' => 'foo'])
             ->append(['name' => 'bar']);
 
         self::assertSame(
             '<meta name="foo">!<meta name="bar">',
-            $plugin->toString(),
+            $this->plugin->toString(),
         );
     }
 
     public function testBooleanAttributesAreSkippedWhenFalse(): void
     {
-        $plugin = new HeadMeta(new Escaper(), Doctype::HTML5, PHP_EOL);
-        $plugin->append(['name' => 'foo', 'itemscope' => false]);
+        $this->plugin->append(['name' => 'foo', 'itemscope' => false]);
 
         self::assertSame(
             '<meta name="foo">',
-            $plugin->toString(),
+            $this->plugin->toString(),
         );
     }
 
     public function testBooleanAttributesHaveNoValueWhenSet(): void
     {
-        $plugin = new HeadMeta(new Escaper(), Doctype::HTML5, PHP_EOL);
-        $plugin->append(['name' => 'foo', 'itemscope' => '']);
+        $this->plugin->append(['name' => 'foo', 'itemscope' => '']);
 
         self::assertSame(
             '<meta itemscope name="foo">',
-            $plugin->toString(),
+            $this->plugin->toString(),
         );
     }
 
     public function testInvokeReturnsSelf(): void
     {
-        $plugin = new HeadMeta(new Escaper(), Doctype::HTML5, PHP_EOL);
-        self::assertSame($plugin, $plugin->__invoke());
+        self::assertSame($this->plugin, $this->plugin->__invoke());
     }
 
     public function testThatThePluginCanBeCastToAString(): void
     {
-        $plugin = new HeadMeta(new Escaper(), Doctype::HTML5, PHP_EOL);
-        $plugin->append(['name' => 'foo', 'itemscope' => true]);
+        $this->plugin->append(['name' => 'foo', 'itemscope' => true]);
 
         self::assertSame(
             '<meta itemscope name="foo">',
-            (string) $plugin,
+            (string) $this->plugin,
         );
     }
 
     public function testThatDuplicateTagsAreOmitted(): void
     {
-        $plugin = new HeadMeta(new Escaper(), Doctype::HTML5, PHP_EOL);
-        $plugin->append(['name' => 'foo', 'content' => 'bar'])
+        $this->plugin->append(['name' => 'foo', 'content' => 'bar'])
             ->append(['content' => 'bar', 'name' => 'foo']);
 
         self::assertSame(
             '<meta content="bar" name="foo">',
-            $plugin->toString(),
+            $this->plugin->toString(),
         );
     }
 
     public function testThatResetStateClearsExistingMeta(): void
     {
-        $plugin = new HeadMeta(new Escaper(), Doctype::HTML5, PHP_EOL);
-        $plugin->append(['name' => 'foo', 'content' => 'bar']);
-        $plugin->resetState();
-        self::assertSame('', $plugin->toString());
+        $this->plugin->append(['name' => 'foo', 'content' => 'bar']);
+        $this->plugin->resetState();
+        self::assertSame('', $this->plugin->toString());
     }
 
     public function testThatItemsCanBeRemoveByMatchingAnAttributeNameAndValue(): void
     {
-        $plugin = new HeadMeta(new Escaper(), Doctype::HTML5, PHP_EOL);
-        $plugin->append(['name' => 'foo', 'content' => 'bar'])
+        $this->plugin->append(['name' => 'foo', 'content' => 'bar'])
             ->append(['name' => 'foo', 'content' => 'baz'])
             ->append(['name' => 'moo', 'content' => 'cows'])
             ->append(['itemprop' => 'blah', 'content' => 'bat']);
@@ -170,13 +169,13 @@ class HeadMetaTest extends TestCase
             <meta content="baz" name="foo">
             <meta content="cows" name="moo">
             <meta content="bat" itemprop="blah">
-            HTML, $plugin->toString());
+            HTML, $this->plugin->toString());
 
-        $plugin->removeWithAttributeMatching('name', 'foo');
+        $this->plugin->removeWithAttributeMatching('name', 'foo');
 
         self::assertSame(<<<'HTML'
             <meta content="cows" name="moo">
             <meta content="bat" itemprop="blah">
-            HTML, $plugin->toString());
+            HTML, $this->plugin->toString());
     }
 }

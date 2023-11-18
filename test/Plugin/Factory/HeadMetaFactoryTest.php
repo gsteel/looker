@@ -7,21 +7,26 @@ namespace Looker\Test\Plugin\Factory;
 use Laminas\Escaper\Escaper;
 use Looker\Plugin\Factory\HeadMetaFactory;
 use Looker\Plugin\HeadMeta;
+use Looker\Plugin\HtmlAttributes;
+use Looker\PluginManager;
 use Looker\Test\InMemoryContainer;
 use PHPUnit\Framework\TestCase;
 
 class HeadMetaFactoryTest extends TestCase
 {
-    public function testPluginCanBeRetrievedWithZeroConfig(): void
+    private InMemoryContainer $plugins;
+
+    protected function setUp(): void
     {
-        $plugin = (new HeadMetaFactory())(new InMemoryContainer());
-        self::assertInstanceOf(HeadMeta::class, $plugin);
+        $this->plugins = new InMemoryContainer([
+            HtmlAttributes::class => new HtmlAttributes(new Escaper()),
+        ]);
     }
 
-    public function testPluginCanBeRetrievedWithConfiguredEscaper(): void
+    public function testPluginCanBeRetrievedWhenThePluginManagerIsAvailable(): void
     {
         $plugin = (new HeadMetaFactory())(new InMemoryContainer([
-            Escaper::class => new Escaper(),
+            PluginManager::class => $this->plugins,
         ]));
         self::assertInstanceOf(HeadMeta::class, $plugin);
     }
