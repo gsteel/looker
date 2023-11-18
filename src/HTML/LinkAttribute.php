@@ -9,7 +9,7 @@ use function in_array;
 use function strtolower;
 
 /** @psalm-internal Looker */
-final class LinkAttribute
+final class LinkAttribute implements AttributeInformation
 {
     private const STRING = [
         'as',

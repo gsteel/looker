@@ -8,7 +8,8 @@ use function array_key_exists;
 use function in_array;
 use function strtolower;
 
-final class StyleAttribute
+/** @psalm-internal Looker */
+final class StyleAttribute implements AttributeInformation
 {
     private const STRING = [
         'media',
