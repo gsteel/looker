@@ -39,7 +39,7 @@ final class Placeholder implements StatefulPlugin
 
     public function setSeparator(string $separator, string|null $name = null): self
     {
-        if (! $name) {
+        if ($name === null) {
             $this->separator = $separator;
 
             return $this;
