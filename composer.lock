@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "993a86a9a005813f2560d98a2a836248",
+    "content-hash": "4a97d6730b6056f726e8462ccce5f5c9",
     "packages": [
         {
             "name": "gsteel/dot",
@@ -1546,22 +1546,22 @@
         },
         {
             "name": "maglnet/composer-require-checker",
-            "version": "4.8.0",
+            "version": "4.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maglnet/ComposerRequireChecker.git",
-                "reference": "1c7498e4c31ff7e467ac1b5138d277736c838393"
+                "reference": "0a6f7ba8fb130a601109f9d59356b7780c95f65c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maglnet/ComposerRequireChecker/zipball/1c7498e4c31ff7e467ac1b5138d277736c838393",
-                "reference": "1c7498e4c31ff7e467ac1b5138d277736c838393",
+                "url": "https://api.github.com/repos/maglnet/ComposerRequireChecker/zipball/0a6f7ba8fb130a601109f9d59356b7780c95f65c",
+                "reference": "0a6f7ba8fb130a601109f9d59356b7780c95f65c",
                 "shasum": ""
             },
             "require": {
                 "composer-runtime-api": "^2.0.0",
                 "ext-phar": "*",
-                "nikic/php-parser": "^4.17.1",
+                "nikic/php-parser": "^4.18.0",
                 "php": "~8.2.0 || ~8.3.0",
                 "symfony/console": "^6.4.1 || ^7.0.1",
                 "webmozart/assert": "^1.11.0",
@@ -1572,10 +1572,10 @@
                 "ext-zend-opcache": "*",
                 "mikey179/vfsstream": "^1.6.11",
                 "phing/phing": "^2.17.4",
-                "phpstan/phpstan": "^1.10.47",
-                "phpunit/phpunit": "^10.5.1",
+                "phpstan/phpstan": "^1.10.59",
+                "phpunit/phpunit": "^10.5.11",
                 "roave/infection-static-analysis-plugin": "^1.34.0",
-                "vimeo/psalm": "^5.16.0"
+                "vimeo/psalm": "^5.22.2"
             },
             "bin": [
                 "bin/composer-require-checker"
@@ -1620,9 +1620,9 @@
             ],
             "support": {
                 "issues": "https://github.com/maglnet/ComposerRequireChecker/issues",
-                "source": "https://github.com/maglnet/ComposerRequireChecker/tree/4.8.0"
+                "source": "https://github.com/maglnet/ComposerRequireChecker/tree/4.9.0"
             },
-            "time": "2023-12-03T22:28:20+00:00"
+            "time": "2024-03-05T10:02:59+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -3980,16 +3980,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v7.0.3",
+            "version": "v7.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "c5010d50f1ee4b25cfa0201d9915cf1b14071456"
+                "reference": "6b099f3306f7c9c2d2786ed736d0026b2903205f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/c5010d50f1ee4b25cfa0201d9915cf1b14071456",
-                "reference": "c5010d50f1ee4b25cfa0201d9915cf1b14071456",
+                "url": "https://api.github.com/repos/symfony/console/zipball/6b099f3306f7c9c2d2786ed736d0026b2903205f",
+                "reference": "6b099f3306f7c9c2d2786ed736d0026b2903205f",
                 "shasum": ""
             },
             "require": {
@@ -4053,7 +4053,7 @@
                 "terminal"
             ],
             "support": {
-                "source": "https://github.com/symfony/console/tree/v7.0.3"
+                "source": "https://github.com/symfony/console/tree/v7.0.4"
             },
             "funding": [
                 {
@@ -4069,7 +4069,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-23T15:02:46+00:00"
+            "time": "2024-02-22T20:27:20+00:00"
         },
         {
             "name": "symfony/filesystem",
@@ -4661,16 +4661,16 @@
         },
         {
             "name": "symfony/string",
-            "version": "v7.0.3",
+            "version": "v7.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "524aac4a280b90a4420d8d6a040718d0586505ac"
+                "reference": "f5832521b998b0bec40bee688ad5de98d4cf111b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/524aac4a280b90a4420d8d6a040718d0586505ac",
-                "reference": "524aac4a280b90a4420d8d6a040718d0586505ac",
+                "url": "https://api.github.com/repos/symfony/string/zipball/f5832521b998b0bec40bee688ad5de98d4cf111b",
+                "reference": "f5832521b998b0bec40bee688ad5de98d4cf111b",
                 "shasum": ""
             },
             "require": {
@@ -4727,7 +4727,7 @@
                 "utf8"
             ],
             "support": {
-                "source": "https://github.com/symfony/string/tree/v7.0.3"
+                "source": "https://github.com/symfony/string/tree/v7.0.4"
             },
             "funding": [
                 {
@@ -4743,7 +4743,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-29T15:41:16+00:00"
+            "time": "2024-02-01T13:17:36+00:00"
         },
         {
             "name": "thecodingmachine/safe",
