@@ -7,7 +7,7 @@ namespace Looker\Plugin;
 use Looker\Model\Model;
 use Looker\Renderer\Renderer;
 
-final readonly class Partial
+final readonly class Partial implements PartialPlugin
 {
     public function __construct(private Renderer $renderer)
     {

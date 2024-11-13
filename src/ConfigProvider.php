@@ -72,6 +72,7 @@ final class ConfigProvider
                 'inlineScript' => Plugin\Factory\JavascriptFactory::class,
             ],
             'aliases' => [
+                Plugin\PartialPlugin::class => Plugin\Partial::class,
                 'basePath' => Plugin\BasePath::class,
                 'doctype' => Plugin\Doctype::class,
                 'escape' => Plugin\Escape::class,
