@@ -15,7 +15,14 @@ mutants: ## Run mutation tests
 	vendor/bin/infection --configuration=mutants.json
 .PHONY: mutants
 
-deps: ## Check for un-declared dependencies
+get-require-checker: ## Download a Phar of composer-require-checker
+ifeq (,$(wildcard ./vendor/bin/composer-require-checker))
+	curl -LsS https://github.com/maglnet/ComposerRequireChecker/releases/download/4.14.0/composer-require-checker.phar -o vendor/bin/composer-require-checker
+	chmod +x vendor/bin/composer-require-checker
+endif
+.PHONY: get-require-checker
+
+deps: get-require-checker ## Check for un-declared dependencies
 	php -dxdebug.mode=off -f vendor/bin/composer-require-checker -- check
 .PHONY: deps
 

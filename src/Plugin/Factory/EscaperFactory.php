@@ -9,6 +9,8 @@ use Laminas\Escaper\Escaper;
 use Psr\Container\ContainerInterface;
 use Webmozart\Assert\Assert;
 
+use function assert;
+
 final class EscaperFactory
 {
     public function __invoke(ContainerInterface $container): Escaper
@@ -18,6 +20,9 @@ final class EscaperFactory
             : [];
         Assert::isArray($config);
 
-        return new Escaper(Dot::stringDefault('looker.encoding', $config, 'utf-8'));
+        $encoding = Dot::stringDefault('looker.encoding', $config, 'utf-8');
+        assert($encoding !== '');
+
+        return new Escaper($encoding);
     }
 }
