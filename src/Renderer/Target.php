@@ -8,6 +8,8 @@ use Looker\PluginManager;
 use Throwable;
 
 use function array_key_exists;
+use function assert;
+use function is_string;
 use function ob_end_clean;
 use function ob_get_clean;
 use function ob_start;
@@ -55,6 +57,7 @@ final class Target
             }
 
             $content = ob_get_clean();
+            assert(is_string($content));
             $this->__renderLock = false;
 
             return $content;
