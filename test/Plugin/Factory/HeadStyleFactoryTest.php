@@ -12,7 +12,7 @@ use Looker\PluginManager;
 use Looker\Test\InMemoryContainer;
 use PHPUnit\Framework\TestCase;
 
-class HeadStyleFactoryTest extends TestCase
+final class HeadStyleFactoryTest extends TestCase
 {
     private InMemoryContainer $plugins;
 

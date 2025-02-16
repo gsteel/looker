@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 use function array_map;
 
-class DoctypeTest extends TestCase
+final class DoctypeTest extends TestCase
 {
     /** @return list<array{0: DoctypeEnum}> */
     public static function doctypeProvider(): array

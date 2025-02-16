@@ -7,7 +7,7 @@ namespace Looker\Test\Plugin;
 use Looker\Plugin\Layout;
 use PHPUnit\Framework\TestCase;
 
-class LayoutTest extends TestCase
+final class LayoutTest extends TestCase
 {
     public function testThatTheLayoutIsInitiallyNull(): void
     {

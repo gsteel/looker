@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 use function json_encode;
 
-class HtmlAttributesTest extends TestCase
+final class HtmlAttributesTest extends TestCase
 {
     /** @return list<array{0: array<string, mixed>, 1: string}> */
     public static function attributeProvider(): array

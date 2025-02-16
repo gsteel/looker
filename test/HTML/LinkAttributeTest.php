@@ -7,7 +7,7 @@ namespace Looker\Test\HTML;
 use Looker\HTML\LinkAttribute;
 use PHPUnit\Framework\TestCase;
 
-class LinkAttributeTest extends TestCase
+final class LinkAttributeTest extends TestCase
 {
     public function testExists(): void
     {

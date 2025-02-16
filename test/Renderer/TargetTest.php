@@ -18,7 +18,7 @@ use function str_contains;
 
 use const E_WARNING;
 
-class TargetTest extends TestCase
+final class TargetTest extends TestCase
 {
     private PluginProxy $proxy;
 

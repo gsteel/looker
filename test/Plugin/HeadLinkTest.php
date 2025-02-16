@@ -10,7 +10,7 @@ use Looker\Plugin\HtmlAttributes;
 use Looker\Value\Doctype;
 use PHPUnit\Framework\TestCase;
 
-class HeadLinkTest extends TestCase
+final class HeadLinkTest extends TestCase
 {
     private HeadLink $plugin;
 

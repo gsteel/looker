@@ -8,7 +8,7 @@ use Looker\Model\Model;
 use Looker\Model\TerminalModelCannotBeChild;
 use PHPUnit\Framework\TestCase;
 
-class ChildModelTest extends TestCase
+final class ChildModelTest extends TestCase
 {
     public function testThatTerminalModelsCannotBeChildren(): void
     {

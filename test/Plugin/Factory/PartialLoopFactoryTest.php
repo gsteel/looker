@@ -11,7 +11,7 @@ use Looker\Test\InMemoryContainer;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\NotFoundExceptionInterface;
 
-class PartialLoopFactoryTest extends TestCase
+final class PartialLoopFactoryTest extends TestCase
 {
     public function testThatThePluginRequiresARenderer(): void
     {

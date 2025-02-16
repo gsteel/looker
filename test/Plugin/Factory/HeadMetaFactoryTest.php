@@ -12,7 +12,7 @@ use Looker\PluginManager;
 use Looker\Test\InMemoryContainer;
 use PHPUnit\Framework\TestCase;
 
-class HeadMetaFactoryTest extends TestCase
+final class HeadMetaFactoryTest extends TestCase
 {
     private InMemoryContainer $plugins;
 

@@ -8,7 +8,7 @@ use Laminas\Escaper\Escaper;
 use Looker\Plugin\Escape;
 use PHPUnit\Framework\TestCase;
 
-class EscapeTest extends TestCase
+final class EscapeTest extends TestCase
 {
     public function testInvokeAcceptsAStringAndEscapesHtmlByDefault(): void
     {

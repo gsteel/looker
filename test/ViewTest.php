@@ -11,7 +11,7 @@ use Looker\Template\MapResolver;
 use Looker\View;
 use PHPUnit\Framework\TestCase;
 
-class ViewTest extends TestCase
+final class ViewTest extends TestCase
 {
     private View $view;
 

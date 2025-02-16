@@ -10,7 +10,7 @@ use Looker\Plugin\Factory\EscapeFactory;
 use Looker\Test\InMemoryContainer;
 use PHPUnit\Framework\TestCase;
 
-class EscapeFactoryTest extends TestCase
+final class EscapeFactoryTest extends TestCase
 {
     public function testPluginCanBeRetrievedWithZeroConfig(): void
     {

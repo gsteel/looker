@@ -7,7 +7,7 @@ namespace Looker\Test\HTML;
 use Looker\HTML\GlobalAttribute;
 use PHPUnit\Framework\TestCase;
 
-class GlobalAttributeTest extends TestCase
+final class GlobalAttributeTest extends TestCase
 {
     public function testExists(): void
     {

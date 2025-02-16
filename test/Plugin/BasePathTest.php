@@ -8,7 +8,7 @@ use Looker\Plugin\BasePath;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-class BasePathTest extends TestCase
+final class BasePathTest extends TestCase
 {
     /** @return list<array{0: non-empty-string, 1: non-empty-string|null, 2: non-empty-string}> */
     public static function dataProvider(): array

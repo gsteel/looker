@@ -8,7 +8,7 @@ use Looker\Plugin\Factory\PlaceholderFactory;
 use Looker\Plugin\Placeholder;
 use PHPUnit\Framework\TestCase;
 
-class PlaceholderFactoryTest extends TestCase
+final class PlaceholderFactoryTest extends TestCase
 {
     public function testThatThePluginCanBeRetrieved(): void
     {

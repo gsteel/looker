@@ -9,7 +9,7 @@ use Looker\Template\MapResolver;
 use Looker\Template\TemplateCannotBeResolved;
 use PHPUnit\Framework\TestCase;
 
-class AggregateResolverTest extends TestCase
+final class AggregateResolverTest extends TestCase
 {
     public function testResolutionIsFirstInFirstOut(): void
     {

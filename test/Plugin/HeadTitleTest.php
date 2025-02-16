@@ -8,7 +8,7 @@ use Laminas\Escaper\Escaper;
 use Looker\Plugin\HeadTitle;
 use PHPUnit\Framework\TestCase;
 
-class HeadTitleTest extends TestCase
+final class HeadTitleTest extends TestCase
 {
     public function testThatTheOrderOfElementsHasTheExpectedOutcome(): void
     {

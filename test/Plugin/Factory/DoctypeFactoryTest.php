@@ -9,7 +9,7 @@ use Looker\Test\InMemoryContainer;
 use Looker\Value\Doctype;
 use PHPUnit\Framework\TestCase;
 
-class DoctypeFactoryTest extends TestCase
+final class DoctypeFactoryTest extends TestCase
 {
     public function testZeroConfigWillYieldADefaultDoctypeOfHtml5(): void
     {

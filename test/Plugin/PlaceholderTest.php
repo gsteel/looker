@@ -7,7 +7,7 @@ namespace Looker\Test\Plugin;
 use Looker\Plugin\Placeholder;
 use PHPUnit\Framework\TestCase;
 
-class PlaceholderTest extends TestCase
+final class PlaceholderTest extends TestCase
 {
     public function testBasicExpectedBehaviour(): void
     {
