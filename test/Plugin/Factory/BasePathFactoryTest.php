@@ -8,7 +8,7 @@ use Looker\Plugin\Factory\BasePathFactory;
 use Looker\Test\InMemoryContainer;
 use PHPUnit\Framework\TestCase;
 
-class BasePathFactoryTest extends TestCase
+final class BasePathFactoryTest extends TestCase
 {
     public function testPluginCanBeRetrievedWithZeroConfig(): void
     {

@@ -16,7 +16,7 @@ use Looker\Test\Renderer\Plugins\WithArguments;
 use Looker\Test\Renderer\Plugins\WorkingPlugin;
 use PHPUnit\Framework\TestCase;
 
-class PluginProxyTest extends TestCase
+final class PluginProxyTest extends TestCase
 {
     public function testThatAnExceptionIsThrownCallingANonExistentPlugin(): void
     {

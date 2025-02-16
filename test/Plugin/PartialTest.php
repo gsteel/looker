@@ -13,7 +13,7 @@ use Looker\Template\MapResolver;
 use Looker\Test\InMemoryContainer;
 use PHPUnit\Framework\TestCase;
 
-class PartialTest extends TestCase
+final class PartialTest extends TestCase
 {
     private Partial $plugin;
 

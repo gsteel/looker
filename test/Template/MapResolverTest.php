@@ -8,7 +8,7 @@ use Looker\Template\MapResolver;
 use Looker\Template\TemplateCannotBeResolved;
 use PHPUnit\Framework\TestCase;
 
-class MapResolverTest extends TestCase
+final class MapResolverTest extends TestCase
 {
     public function testThatTemplatesCanBeResolved(): void
     {

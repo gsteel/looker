@@ -13,7 +13,7 @@ use Looker\Test\InMemoryContainer;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-class AggregateResolverFactoryTest extends TestCase
+final class AggregateResolverFactoryTest extends TestCase
 {
     /** @return array<string, array{0: array<string, mixed>}> */
     public static function erroneousConfig(): array

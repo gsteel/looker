@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 use function reset;
 
-class ModelTest extends TestCase
+final class ModelTest extends TestCase
 {
     public function testBasicAccessors(): void
     {

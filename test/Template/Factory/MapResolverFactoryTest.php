@@ -11,7 +11,7 @@ use Looker\Test\InMemoryContainer;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-class MapResolverFactoryTest extends TestCase
+final class MapResolverFactoryTest extends TestCase
 {
     public function testThatConfigMustExist(): void
     {

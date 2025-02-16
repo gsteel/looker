@@ -9,7 +9,7 @@ use Looker\Plugin\Factory\HeadTitleFactory;
 use Looker\Test\InMemoryContainer;
 use PHPUnit\Framework\TestCase;
 
-class HeadTitleFactoryTest extends TestCase
+final class HeadTitleFactoryTest extends TestCase
 {
     public function testThatZeroConfigIsRequired(): void
     {

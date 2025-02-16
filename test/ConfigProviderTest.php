@@ -7,7 +7,7 @@ namespace Looker\Test;
 use Looker\ConfigProvider;
 use PHPUnit\Framework\TestCase;
 
-class ConfigProviderTest extends TestCase
+final class ConfigProviderTest extends TestCase
 {
     /**
      * This test is largely pointless because the config provider has no behaviour, but it's better than Psalm

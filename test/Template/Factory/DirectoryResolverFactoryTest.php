@@ -11,7 +11,7 @@ use Looker\Test\InMemoryContainer;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-class DirectoryResolverFactoryTest extends TestCase
+final class DirectoryResolverFactoryTest extends TestCase
 {
     /** @return array<string, array{0: array<string, mixed>}> */
     public static function erroneousConfig(): array

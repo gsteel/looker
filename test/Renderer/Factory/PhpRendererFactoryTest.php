@@ -15,7 +15,7 @@ use Looker\Test\InMemoryContainer;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\NotFoundExceptionInterface;
 
-class PhpRendererFactoryTest extends TestCase
+final class PhpRendererFactoryTest extends TestCase
 {
     public function testThatConfigMustBeAvailable(): void
     {

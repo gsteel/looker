@@ -9,7 +9,7 @@ use Looker\Plugin\Factory\EscaperFactory;
 use Looker\Test\InMemoryContainer;
 use PHPUnit\Framework\TestCase;
 
-class EscaperFactoryTest extends TestCase
+final class EscaperFactoryTest extends TestCase
 {
     public function testTheEscaperCanBeRetrievedWithZeroConfig(): void
     {

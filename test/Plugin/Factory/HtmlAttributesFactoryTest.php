@@ -10,7 +10,7 @@ use Looker\Plugin\HtmlAttributes;
 use Looker\Test\InMemoryContainer;
 use PHPUnit\Framework\TestCase;
 
-class HtmlAttributesFactoryTest extends TestCase
+final class HtmlAttributesFactoryTest extends TestCase
 {
     public function testPluginCanBeRetrievedWithZeroConfig(): void
     {

@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 use const PHP_EOL;
 
-class HeadMetaTest extends TestCase
+final class HeadMetaTest extends TestCase
 {
     private HeadMeta $plugin;
 

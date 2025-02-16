@@ -9,7 +9,7 @@ use Looker\Plugin\HtmlAttributes;
 use Looker\Plugin\Javascript;
 use PHPUnit\Framework\TestCase;
 
-class JavascriptTest extends TestCase
+final class JavascriptTest extends TestCase
 {
     private Javascript $plugin;
 

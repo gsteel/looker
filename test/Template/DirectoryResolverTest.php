@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 use function chmod;
 
-class DirectoryResolverTest extends TestCase
+final class DirectoryResolverTest extends TestCase
 {
     public static function tearDownAfterClass(): void
     {

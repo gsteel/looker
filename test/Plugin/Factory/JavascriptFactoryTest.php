@@ -12,7 +12,7 @@ use Looker\PluginManager;
 use Looker\Test\InMemoryContainer;
 use PHPUnit\Framework\TestCase;
 
-class JavascriptFactoryTest extends TestCase
+final class JavascriptFactoryTest extends TestCase
 {
     public function testFactory(): void
     {

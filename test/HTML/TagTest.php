@@ -7,7 +7,7 @@ namespace Looker\Test\HTML;
 use Looker\HTML\Tag;
 use PHPUnit\Framework\TestCase;
 
-class TagTest extends TestCase
+final class TagTest extends TestCase
 {
     public function testEquality(): void
     {

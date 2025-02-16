@@ -9,7 +9,7 @@ use Looker\Plugin\HeadStyle;
 use Looker\Plugin\HtmlAttributes;
 use PHPUnit\Framework\TestCase;
 
-class HeadStyleTest extends TestCase
+final class HeadStyleTest extends TestCase
 {
     private HeadStyle $plugin;
 

@@ -12,7 +12,7 @@ use Looker\Template\MapResolver;
 use Looker\Test\InMemoryContainer;
 use PHPUnit\Framework\TestCase;
 
-class PartialLoopTest extends TestCase
+final class PartialLoopTest extends TestCase
 {
     private PartialLoop $plugin;
 

@@ -8,7 +8,7 @@ use Looker\HTML\AttributeNormaliser;
 use Looker\HTML\GlobalAttribute;
 use PHPUnit\Framework\TestCase;
 
-class AttributeNormaliserTest extends TestCase
+final class AttributeNormaliserTest extends TestCase
 {
     public function testThatAttributeKeysAreLowerCased(): void
     {
