@@ -8,6 +8,7 @@ use Looker\HTML\AttributeNormaliser;
 use Looker\HTML\LinkAttribute;
 use Looker\HTML\Tag;
 use Looker\Value\Doctype;
+use Override;
 
 use function array_change_key_case;
 use function array_map;
@@ -32,6 +33,7 @@ final class HeadLink implements StatefulPlugin
         $this->separator = $this->defaultSeparator;
     }
 
+    #[Override]
     public function resetState(): void
     {
         $this->links = [];

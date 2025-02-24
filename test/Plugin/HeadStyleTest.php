@@ -7,12 +7,14 @@ namespace Looker\Test\Plugin;
 use Laminas\Escaper\Escaper;
 use Looker\Plugin\HeadStyle;
 use Looker\Plugin\HtmlAttributes;
+use Override;
 use PHPUnit\Framework\TestCase;
 
 final class HeadStyleTest extends TestCase
 {
     private HeadStyle $plugin;
 
+    #[Override]
     protected function setUp(): void
     {
         $this->plugin = new HeadStyle(

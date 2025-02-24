@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Looker\HTML;
 
+use Override;
+
 use function array_key_exists;
 use function in_array;
 use function strtolower;
@@ -40,6 +42,7 @@ final class LinkAttribute implements AttributeInformation
     private const BOOLEAN = ['disabled'];
 
     /** @param non-empty-string $name */
+    #[Override]
     public static function isBoolean(string $name): bool
     {
         $name = strtolower($name);
@@ -48,6 +51,7 @@ final class LinkAttribute implements AttributeInformation
     }
 
     /** @param non-empty-string $name */
+    #[Override]
     public static function exists(string $name): bool
     {
         $name = strtolower($name);

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Looker\Template;
 
+use Override;
+
 use function file_exists;
 use function is_dir;
 use function is_readable;
@@ -27,6 +29,7 @@ final readonly class DirectoryResolver implements Resolver
     ) {
     }
 
+    #[Override]
     public function resolve(string $name): string
     {
         foreach ($this->directories as $directory) {

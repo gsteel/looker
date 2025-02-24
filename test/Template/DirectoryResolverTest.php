@@ -6,12 +6,14 @@ namespace Looker\Test\Template;
 
 use Looker\Template\DirectoryResolver;
 use Looker\Template\TemplateCannotBeResolved;
+use Override;
 use PHPUnit\Framework\TestCase;
 
 use function chmod;
 
 final class DirectoryResolverTest extends TestCase
 {
+    #[Override]
     public static function tearDownAfterClass(): void
     {
         chmod(__DIR__ . '/templates/unreadable.phtml', 0644);

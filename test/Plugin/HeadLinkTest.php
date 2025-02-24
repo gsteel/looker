@@ -8,12 +8,14 @@ use Laminas\Escaper\Escaper;
 use Looker\Plugin\HeadLink;
 use Looker\Plugin\HtmlAttributes;
 use Looker\Value\Doctype;
+use Override;
 use PHPUnit\Framework\TestCase;
 
 final class HeadLinkTest extends TestCase
 {
     private HeadLink $plugin;
 
+    #[Override]
     protected function setUp(): void
     {
         $this->plugin = new HeadLink(

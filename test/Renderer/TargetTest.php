@@ -8,6 +8,7 @@ use Looker\Renderer\PluginProxy;
 use Looker\Renderer\RenderingFailed;
 use Looker\Renderer\Target;
 use Looker\Test\InMemoryContainer;
+use Override;
 use PHPUnit\Framework\Attributes\WithoutErrorHandler;
 use PHPUnit\Framework\TestCase;
 
@@ -22,6 +23,7 @@ final class TargetTest extends TestCase
 {
     private PluginProxy $proxy;
 
+    #[Override]
     protected function setUp(): void
     {
         $this->proxy = new PluginProxy(new InMemoryContainer([

@@ -7,12 +7,14 @@ namespace Looker\Test\Plugin;
 use Laminas\Escaper\Escaper;
 use Looker\Plugin\HtmlAttributes;
 use Looker\Plugin\Javascript;
+use Override;
 use PHPUnit\Framework\TestCase;
 
 final class JavascriptTest extends TestCase
 {
     private Javascript $plugin;
 
+    #[Override]
     protected function setUp(): void
     {
         $this->plugin = new Javascript(

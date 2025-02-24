@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Looker\Plugin;
 
+use Override;
+
 use function array_unshift;
 use function implode;
 
@@ -15,6 +17,7 @@ final class Placeholder implements StatefulPlugin
     /** @var array<string, string> */
     private array $separators = [];
 
+    #[Override]
     public function resetState(): void
     {
         $this->data = [];

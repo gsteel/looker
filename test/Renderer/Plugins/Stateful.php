@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Looker\Test\Renderer\Plugins;
 
 use Looker\Plugin\StatefulPlugin;
+use Override;
 
 use function implode;
 
@@ -25,6 +26,7 @@ final class Stateful implements StatefulPlugin
         return $this;
     }
 
+    #[Override]
     public function resetState(): void
     {
         $this->values = [];

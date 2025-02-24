@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Looker\Plugin;
 
+use Override;
+
 final class Layout implements StatefulPlugin
 {
     /** @var non-empty-string|null */
     private string|null $layoutTemplate = null;
 
+    #[Override]
     public function resetState(): void
     {
         $this->layoutTemplate = null;

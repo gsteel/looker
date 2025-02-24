@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Looker\Plugin;
 
 use Laminas\Escaper\Escaper;
+use Override;
 
 use function array_unshift;
 use function implode;
@@ -33,6 +34,7 @@ final class HeadTitle implements StatefulPlugin
         $this->separator = $this->defaultSeparator;
     }
 
+    #[Override]
     public function resetState(): void
     {
         $this->title = [];

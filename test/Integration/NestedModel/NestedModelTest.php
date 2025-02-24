@@ -9,12 +9,14 @@ use Looker\Renderer\PhpRenderer;
 use Looker\Renderer\PluginProxy;
 use Looker\Template\MapResolver;
 use Looker\Test\InMemoryContainer;
+use Override;
 use PHPUnit\Framework\TestCase;
 
 final class NestedModelTest extends TestCase
 {
     private PhpRenderer $renderer;
 
+    #[Override]
     protected function setUp(): void
     {
         parent::setUp();

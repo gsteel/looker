@@ -9,12 +9,14 @@ use Looker\Renderer\PluginProxy;
 use Looker\Renderer\RenderingFailed;
 use Looker\Template\MapResolver;
 use Looker\View;
+use Override;
 use PHPUnit\Framework\TestCase;
 
 final class ViewTest extends TestCase
 {
     private View $view;
 
+    #[Override]
     protected function setUp(): void
     {
         $plugins = new PluginProxy(new InMemoryContainer());

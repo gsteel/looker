@@ -7,6 +7,7 @@ namespace Looker\Plugin;
 use Looker\HTML\AttributeNormaliser;
 use Looker\HTML\ScriptAttribute;
 use Looker\HTML\Tag;
+use Override;
 
 use function array_filter;
 use function array_map;
@@ -28,6 +29,7 @@ final class Javascript implements StatefulPlugin
         $this->separator = $this->defaultSeparator;
     }
 
+    #[Override]
     public function resetState(): void
     {
         $this->scripts = [];
