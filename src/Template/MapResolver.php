@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Looker\Template;
 
+use Override;
+
 use function array_key_exists;
 
 final readonly class MapResolver implements Resolver
@@ -13,6 +15,7 @@ final readonly class MapResolver implements Resolver
     {
     }
 
+    #[Override]
     public function resolve(string $name): string
     {
         if (! array_key_exists($name, $this->map)) {

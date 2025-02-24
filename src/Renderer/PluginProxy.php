@@ -6,13 +6,17 @@ namespace Looker\Renderer;
 
 use Looker\Plugin\StatefulPlugin;
 use Looker\PluginManager;
+use Override;
 use Psr\Container\ContainerInterface;
 use Throwable;
 
 use function array_keys;
 use function is_callable;
 
-/** @psalm-internal Looker */
+/**
+ * @psalm-internal Looker
+ * @psalm-no-seal-methods Any "Magic" method might be called on this object to execute 'plugins'
+ */
 final class PluginProxy implements PluginManager
 {
     /** @var array<string, null> */
@@ -32,6 +36,7 @@ final class PluginProxy implements PluginManager
      *
      * @psalm-suppress MethodSignatureMismatch - No it's not
      */
+    #[Override]
     public function get(string $id): mixed
     {
         if (! $this->pluginContainer->has($id)) {
@@ -46,6 +51,7 @@ final class PluginProxy implements PluginManager
         return $plugin;
     }
 
+    #[Override]
     public function has(string $id): bool
     {
         return $this->pluginContainer->has($id);
@@ -57,6 +63,7 @@ final class PluginProxy implements PluginManager
      *
      * @throws RenderingFailed If any exceptions occur during plugin retrieval or execution.
      */
+    #[Override]
     public function __call(string $method, array $args): mixed
     {
         $plugin = $this->get($method);
@@ -72,6 +79,7 @@ final class PluginProxy implements PluginManager
         }
     }
 
+    #[Override]
     public function clearPluginState(): void
     {
         foreach (array_keys($this->called) as $name) {

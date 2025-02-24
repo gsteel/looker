@@ -8,6 +8,7 @@ use Looker\Model\ViewModel;
 use Looker\PluginManager;
 use Looker\Template\Resolver;
 use Looker\Template\TemplateCannotBeResolved;
+use Override;
 
 final readonly class PhpRenderer implements Renderer
 {
@@ -23,6 +24,7 @@ final readonly class PhpRenderer implements Renderer
      * @throws RenderingFailed
      * @throws TemplateCannotBeResolved
      */
+    #[Override]
     public function render(ViewModel $model): string
     {
         foreach ($model->childModels() as $child) {

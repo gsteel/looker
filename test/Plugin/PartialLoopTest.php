@@ -10,12 +10,14 @@ use Looker\Renderer\PhpRenderer;
 use Looker\Renderer\PluginProxy;
 use Looker\Template\MapResolver;
 use Looker\Test\InMemoryContainer;
+use Override;
 use PHPUnit\Framework\TestCase;
 
 final class PartialLoopTest extends TestCase
 {
     private PartialLoop $plugin;
 
+    #[Override]
     protected function setUp(): void
     {
         parent::setUp();

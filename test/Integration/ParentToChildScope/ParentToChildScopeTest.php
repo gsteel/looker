@@ -9,12 +9,14 @@ use Looker\Renderer\PhpRenderer;
 use Looker\Renderer\PluginProxy;
 use Looker\Template\MapResolver;
 use Looker\Test\InMemoryContainer;
+use Override;
 use PHPUnit\Framework\TestCase;
 
 final class ParentToChildScopeTest extends TestCase
 {
     private MapResolver $resolver;
 
+    #[Override]
     protected function setUp(): void
     {
         parent::setUp();

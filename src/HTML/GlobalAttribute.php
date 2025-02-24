@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Looker\HTML;
 
+use Override;
+
 use function array_key_exists;
 use function in_array;
 use function str_starts_with;
@@ -57,6 +59,7 @@ final class GlobalAttribute implements AttributeInformation
     ];
 
     /** @param non-empty-string $name */
+    #[Override]
     public static function exists(string $name): bool
     {
         $name = strtolower($name);
@@ -68,6 +71,7 @@ final class GlobalAttribute implements AttributeInformation
     }
 
     /** @param non-empty-string $name */
+    #[Override]
     public static function isBoolean(string $name): bool
     {
         $name = strtolower($name);

@@ -8,6 +8,7 @@ use Looker\HTML\AttributeNormaliser;
 use Looker\HTML\MetaAttribute;
 use Looker\HTML\Tag;
 use Looker\Value\Doctype;
+use Override;
 
 use function array_filter;
 use function array_map;
@@ -30,6 +31,7 @@ final class HeadMeta implements StatefulPlugin
         $this->separator = $this->defaultSeparator;
     }
 
+    #[Override]
     public function resetState(): void
     {
         $this->meta = [];

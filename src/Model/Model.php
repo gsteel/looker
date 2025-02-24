@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Looker\Model;
 
+use Override;
+
 use function array_merge;
 
 /** @psalm-immutable */
@@ -40,12 +42,14 @@ final readonly class Model implements ViewModel
         return new self($template, $variables, [], true);
     }
 
+    #[Override]
     public function template(): string
     {
         return $this->template;
     }
 
     /** @param non-empty-string $name */
+    #[Override]
     public function withTemplate(string $name): static
     {
         return new self(
@@ -57,17 +61,20 @@ final readonly class Model implements ViewModel
     }
 
     /** @inheritDoc */
+    #[Override]
     public function variables(): array
     {
         return $this->variables;
     }
 
     /** @inheritDoc */
+    #[Override]
     public function childModels(): array
     {
         return $this->childModels;
     }
 
+    #[Override]
     public function withVariable(string $name, mixed $value): static
     {
         $variables = $this->variables;
@@ -83,6 +90,7 @@ final readonly class Model implements ViewModel
     }
 
     /** @inheritDoc */
+    #[Override]
     public function replaceVariables(array $variables): static
     {
         return new self(
@@ -94,6 +102,7 @@ final readonly class Model implements ViewModel
     }
 
     /** @inheritDoc */
+    #[Override]
     public function mergeReplace(array $variables): static
     {
         return new self(
@@ -105,6 +114,7 @@ final readonly class Model implements ViewModel
     }
 
     /** @inheritDoc */
+    #[Override]
     public function mergeRetain(array $variables): static
     {
         return new self(
@@ -115,6 +125,7 @@ final readonly class Model implements ViewModel
         );
     }
 
+    #[Override]
     public function withChild(ViewModel $model, string $renderTo): static
     {
         $models = $this->childModels;
@@ -128,6 +139,7 @@ final readonly class Model implements ViewModel
         );
     }
 
+    #[Override]
     public function isTerminal(): bool
     {
         return $this->terminal;

@@ -11,12 +11,14 @@ use Looker\Renderer\PhpRenderer;
 use Looker\Renderer\PluginProxy;
 use Looker\Template\MapResolver;
 use Looker\Test\InMemoryContainer;
+use Override;
 use PHPUnit\Framework\TestCase;
 
 final class PartialTest extends TestCase
 {
     private Partial $plugin;
 
+    #[Override]
     protected function setUp(): void
     {
         parent::setUp();

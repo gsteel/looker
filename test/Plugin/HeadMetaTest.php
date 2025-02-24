@@ -8,6 +8,7 @@ use Laminas\Escaper\Escaper;
 use Looker\Plugin\HeadMeta;
 use Looker\Plugin\HtmlAttributes;
 use Looker\Value\Doctype;
+use Override;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -17,6 +18,7 @@ final class HeadMetaTest extends TestCase
 {
     private HeadMeta $plugin;
 
+    #[Override]
     protected function setUp(): void
     {
         $this->plugin = new HeadMeta(

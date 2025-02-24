@@ -10,12 +10,14 @@ use Looker\Plugin\HeadStyle;
 use Looker\Plugin\HtmlAttributes;
 use Looker\PluginManager;
 use Looker\Test\InMemoryContainer;
+use Override;
 use PHPUnit\Framework\TestCase;
 
 final class HeadStyleFactoryTest extends TestCase
 {
     private InMemoryContainer $plugins;
 
+    #[Override]
     protected function setUp(): void
     {
         $this->plugins = new InMemoryContainer([

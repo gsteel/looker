@@ -12,7 +12,13 @@
     <file>src</file>
     <file>test</file>
 
-    <rule ref="Doctrine" />
+    <rule ref="Doctrine">
+        <!-- Disable deprecated sniff -->
+        <exclude name="SlevomatCodingStandard.TypeHints.UnionTypeHintFormat" />
+    </rule>
+
+    <!-- Replacement Rule for UnionTypeHintFormat -->
+    <rule ref="SlevomatCodingStandard.TypeHints.DNFTypeHintFormat" />
 
     <!-- This sniff does not yet work with readonly classes -->
     <rule ref="PSR1.Files.SideEffects">
