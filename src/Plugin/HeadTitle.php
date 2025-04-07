@@ -13,7 +13,7 @@ use function sprintf;
 
 final class HeadTitle implements StatefulPlugin
 {
-    private const DEFAULT_SEPARATOR = ' - ';
+    private const string DEFAULT_SEPARATOR = ' - ';
 
     /** @var list<non-empty-string> */
     private array $title = [];

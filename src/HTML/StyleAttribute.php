@@ -13,13 +13,13 @@ use function strtolower;
 /** @psalm-internal Looker */
 final class StyleAttribute implements AttributeInformation
 {
-    private const STRING = [
+    private const array STRING = [
         'media',
         'nonce',
         'title',
     ];
 
-    private const ENUMERATED = [
+    private const array ENUMERATED = [
         'blocking' => ['render'],
     ];
 
