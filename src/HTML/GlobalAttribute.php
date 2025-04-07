@@ -14,7 +14,7 @@ use function strtolower;
 /** @psalm-internal Looker */
 final class GlobalAttribute implements AttributeInformation
 {
-    private const STRING_ATTRIBUTES = [
+    private const array STRING_ATTRIBUTES = [
         'accesskey',
         'class',
         'contenteditable',
@@ -36,12 +36,12 @@ final class GlobalAttribute implements AttributeInformation
         'title',
     ];
 
-    private const PATTERN_ATTRIBUTES = [
+    private const array PATTERN_ATTRIBUTES = [
         'aria-',
         'data-',
     ];
 
-    private const ENUMERATED = [
+    private const array ENUMERATED = [
         'autocapitalize' => ['off', 'none', 'on', 'sentences', 'words', 'characters'],
         'dir' => ['ltr', 'rtl', 'auto'],
         'draggable' => ['true', 'false'],
@@ -52,7 +52,7 @@ final class GlobalAttribute implements AttributeInformation
         'virtualkeyboardpolicy' => ['auto', 'manual'],
     ];
 
-    private const BOOLEAN = [
+    private const array BOOLEAN = [
         'autofocus',
         'inert',
         'itemscope',

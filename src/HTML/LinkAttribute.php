@@ -13,7 +13,7 @@ use function strtolower;
 /** @psalm-internal Looker */
 final class LinkAttribute implements AttributeInformation
 {
-    private const STRING = [
+    private const array STRING = [
         'as',
         'rel',
         'href',
@@ -26,7 +26,7 @@ final class LinkAttribute implements AttributeInformation
         'type',
     ];
 
-    private const ENUMERATED = [
+    private const array ENUMERATED = [
         'blocking' => ['render'],
         'crossorigin' => ['', 'anonymous', 'use-credentials'],
         'fetchpriority' => ['high', 'low', 'auto'],
@@ -39,7 +39,7 @@ final class LinkAttribute implements AttributeInformation
         ],
     ];
 
-    private const BOOLEAN = ['disabled'];
+    private const array BOOLEAN = ['disabled'];
 
     /** @param non-empty-string $name */
     #[Override]

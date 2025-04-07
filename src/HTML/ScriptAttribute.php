@@ -13,14 +13,14 @@ use function strtolower;
 /** @psalm-internal Looker */
 final class ScriptAttribute implements AttributeInformation
 {
-    private const STRING = [
+    private const array STRING = [
         'integrity',
         'nonce',
         'src',
         'type',
     ];
 
-    private const ENUMERATED = [
+    private const array ENUMERATED = [
         'blocking' => ['render'],
         'crossorigin' => ['', 'anonymous', 'use-credentials'],
         'fetchpriority' => ['high', 'low', 'auto'],
@@ -33,7 +33,7 @@ final class ScriptAttribute implements AttributeInformation
         ],
     ];
 
-    private const BOOLEAN = ['async', 'defer', 'nomodule'];
+    private const array BOOLEAN = ['async', 'defer', 'nomodule'];
 
     /** @param non-empty-string $name */
     #[Override]

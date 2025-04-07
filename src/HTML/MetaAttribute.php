@@ -13,13 +13,13 @@ use function strtolower;
 /** @psalm-internal Looker */
 final class MetaAttribute implements AttributeInformation
 {
-    private const STRING = [
+    private const array STRING = [
         'name',
         'content',
         'property',
     ];
 
-    private const ENUMERATED = [
+    private const array ENUMERATED = [
         'charset' => ['utf-8'],
         'http-equiv' => [
             'content-security-policy',
