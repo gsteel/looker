@@ -31,7 +31,7 @@
         "infection/infection": "^0.31.2",
         "phpunit/phpunit": "^12.3.15",
         "psalm/plugin-phpunit": "^0.19.5",
-        "squizlabs/php_codesniffer": "^3.13.4",
+        "squizlabs/php_codesniffer": "^4.0.0",
         "vimeo/psalm": "^6.13.1"
     },
     "conflict": {
