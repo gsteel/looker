@@ -4,31 +4,31 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ec8ebb1fc892b5ecb0282278acdd1341",
+    "content-hash": "f700a8f5126d80142662fa135035a717",
     "packages": [
         {
             "name": "gsteel/dot",
-            "version": "1.8.0",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/gsteel/dot.git",
-                "reference": "86e78b42d166a6c8989f929ea3f473882c3901d5"
+                "reference": "3b583bfe370e477826b4d20ab17a5abc6a9aabc6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gsteel/dot/zipball/86e78b42d166a6c8989f929ea3f473882c3901d5",
-                "reference": "86e78b42d166a6c8989f929ea3f473882c3901d5",
+                "url": "https://api.github.com/repos/gsteel/dot/zipball/3b583bfe370e477826b4d20ab17a5abc6a9aabc6",
+                "reference": "3b583bfe370e477826b4d20ab17a5abc6a9aabc6",
                 "shasum": ""
             },
             "require": {
-                "php": "~8.2.0 || ~8.3 || ~8.4"
+                "php": "~8.2.0 || ~8.3 || ~8.4 || ~8.5"
             },
             "require-dev": {
-                "doctrine/coding-standard": "^12.0.0",
-                "phpunit/phpunit": "^11.5.4",
-                "psalm/plugin-phpunit": "^0.19.2",
-                "squizlabs/php_codesniffer": "^3.11.3",
-                "vimeo/psalm": "^6.0.0"
+                "doctrine/coding-standard": "^14.0.0",
+                "phpunit/phpunit": "^11.5.42",
+                "psalm/plugin-phpunit": "^0.19.5",
+                "squizlabs/php_codesniffer": "^4.0.0",
+                "vimeo/psalm": "^6.13.1"
             },
             "type": "library",
             "autoload": {
@@ -60,7 +60,7 @@
                 "rss": "https://github.com/gsteel/dot/releases.atom",
                 "source": "https://github.com/gsteel/dot"
             },
-            "time": "2025-01-29T12:39:53+00:00"
+            "time": "2025-10-05T20:50:53+00:00"
         },
         {
             "name": "laminas/laminas-escaper",
@@ -6609,7 +6609,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "~8.3 || ~8.4"
+        "php": "~8.3 || ~8.4 || ~8.5"
     },
     "platform-dev": {},
     "platform-overrides": {
