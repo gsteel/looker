@@ -28,7 +28,7 @@
     },
     "require-dev": {
         "doctrine/coding-standard": "^14.0.0",
-        "infection/infection": "^0.31.4",
+        "infection/infection": "^0.31.6",
         "phpunit/phpunit": "^12.4.1",
         "psalm/plugin-phpunit": "^0.19.5",
         "squizlabs/php_codesniffer": "^4.0.0",
