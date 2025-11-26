@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Looker\Test\Model;
 
+use ArrayObject;
 use Looker\Model\ChildModel;
 use Looker\Model\Model;
 use Looker\Model\TerminalModelCannotBeChild;
@@ -141,5 +142,32 @@ final class ModelTest extends TestCase
         self::assertSame('bar', $clone->template());
 
         self::assertSame($model->variables(), $clone->variables());
+    }
+
+    public function testModelWithPoPo(): void
+    {
+        $vars = new readonly class () {
+            public string $a;
+            public int $b;
+
+            public function __construct()
+            {
+                $this->a = 'a';
+                $this->b = 1;
+            }
+        };
+
+        $model = Model::new('foo', $vars);
+
+        self::assertSame(['a' => 'a', 'b' => 1], $model->variables());
+    }
+
+    public function testModelWithIterableObject(): void
+    {
+        $vars = new ArrayObject(['a' => 'a', 'b' => 1]);
+
+        $model = Model::new('foo', $vars);
+
+        self::assertSame(['a' => 'a', 'b' => 1], $model->variables());
     }
 }
