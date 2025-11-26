@@ -26,7 +26,7 @@ final class Target
 
     /**
      * @param non-empty-string $__template
-     * @param array<non-empty-string, mixed> $__variables
+     * @param array<string, mixed> $__variables
      */
     public function __construct(
         private readonly string $__template,

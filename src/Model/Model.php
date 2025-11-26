@@ -7,13 +7,16 @@ namespace Looker\Model;
 use Override;
 
 use function array_merge;
+use function get_object_vars;
+use function is_iterable;
+use function iterator_to_array;
 
 /** @psalm-immutable */
 final readonly class Model implements ViewModel
 {
     /**
      * @param non-empty-string $template
-     * @param array<non-empty-string, mixed> $variables
+     * @param array<string, mixed> $variables
      * @param list<ChildModel> $childModels
      */
     private function __construct(
@@ -26,20 +29,36 @@ final readonly class Model implements ViewModel
 
     /**
      * @param non-empty-string $template
-     * @param array<non-empty-string, mixed> $variables
+     * @param array<string, mixed>|object $variables
      */
-    public static function new(string $template, array $variables = []): self
+    public static function new(string $template, array|object $variables = []): self
     {
-        return new self($template, $variables, [], false);
+        return new self($template, self::castVariables($variables), [], false);
     }
 
     /**
      * @param non-empty-string $template
-     * @param array<non-empty-string, mixed> $variables
+     * @param array<string, mixed> $variables
      */
     public static function terminal(string $template, array $variables = []): self
     {
-        return new self($template, $variables, [], true);
+        return new self($template, self::castVariables($variables), [], true);
+    }
+
+    /**
+     * @param array<string, mixed>|object $variables
+     *
+     * @return array<string, mixed>
+     */
+    private static function castVariables(array|object $variables): array
+    {
+        if (is_iterable($variables)) {
+            /** @psalm-var array<string, mixed> */
+            return iterator_to_array($variables);
+        }
+
+        /** @psalm-var array<string, mixed> */
+        return get_object_vars($variables);
     }
 
     #[Override]

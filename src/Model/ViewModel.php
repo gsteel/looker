@@ -13,7 +13,7 @@ interface ViewModel
     /** @param non-empty-string $name */
     public function withTemplate(string $name): static;
 
-    /** @return array<non-empty-string, mixed> */
+    /** @return array<string, mixed> */
     public function variables(): array;
 
     /** @return list<ChildModel> */
@@ -27,7 +27,7 @@ interface ViewModel
      *
      * All existing variables are removed and replaced with the argument
      *
-     * @param array<non-empty-string, mixed> $variables
+     * @param array<string, mixed> $variables
      */
     public function replaceVariables(array $variables): static;
 
@@ -37,7 +37,7 @@ interface ViewModel
      * This operation performs a merge between the current variables and the given argument where variables in the
      * argument take precedence.
      *
-     * @param array<non-empty-string, mixed> $variables
+     * @param array<string, mixed> $variables
      */
     public function mergeReplace(array $variables): static;
 
@@ -47,7 +47,7 @@ interface ViewModel
      * This operation performs a merge between the current variables and the given argument where existing variables
      * take precedence.
      *
-     * @param array<non-empty-string, mixed> $variables
+     * @param array<string, mixed> $variables
      */
     public function mergeRetain(array $variables): static;
 
