@@ -8,10 +8,8 @@
          failOnNotice="true"
          failOnDeprecation="true"
          failOnPhpunitDeprecation="true"
-         displayDetailsOnTestsThatTriggerWarnings="true"
-         displayDetailsOnTestsThatTriggerNotices="true"
-         displayDetailsOnTestsThatTriggerErrors="true"
-         displayDetailsOnTestsThatTriggerDeprecations="true"
+         failOnPhpunitNotice="true"
+         displayDetailsOnAllIssues="true"
 >
     <testsuites>
         <testsuite name="Looker Tests">

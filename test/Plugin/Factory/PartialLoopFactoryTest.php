@@ -22,7 +22,7 @@ final class PartialLoopFactoryTest extends TestCase
     public function testThatThePluginCanBeRetrieved(): void
     {
         $plugin = (new PartialLoopFactory())(new InMemoryContainer([
-            Renderer::class => $this->createMock(Renderer::class),
+            Renderer::class => self::createStub(Renderer::class),
         ]));
 
         self::assertInstanceOf(PartialLoop::class, $plugin);

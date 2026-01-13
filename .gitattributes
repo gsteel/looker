@@ -13,3 +13,6 @@ psalm-baseline.xml            export-ignore
 .psr-container.php.stub       export-ignore
 composer-require-checker.json export-ignore
 mutants.json                  export-ignore
+Dockerfile                    export-ignore
+Makefile                      export-ignore
+/tools/                       export-ignore
