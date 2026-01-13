@@ -24,7 +24,7 @@
         "gsteel/dot": "^1.8",
         "laminas/laminas-escaper": "^2.15",
         "psr/container": "^1.1.2 || ^2.0",
-        "webmozart/assert": "^1.11"
+        "webmozart/assert": "^1.11 || ^2.0"
     },
     "require-dev": {
         "doctrine/coding-standard": "^14.0.0",
