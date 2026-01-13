@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace Looker\Template\Factory;
 
-use GSteel\Dot;
 use Looker\ConfigurationError;
 use Looker\Template\AggregateResolver;
 use Looker\Template\Resolver;
 use Psr\Container\ContainerInterface;
 use Throwable;
-use Webmozart\Assert\Assert;
 
 use function array_map;
+use function Psl\Type\array_key;
+use function Psl\Type\dict;
+use function Psl\Type\instance_of;
+use function Psl\Type\non_empty_string;
+use function Psl\Type\shape;
 
 final class AggregateResolverFactory
 {
@@ -20,14 +23,19 @@ final class AggregateResolverFactory
     {
         try {
             $config = $container->has('config') ? $container->get('config') : null;
-            Assert::isArray($config);
-            $serviceNames = Dot::array('looker.templates.aggregate', $config);
-            $services = array_map(static function (string $serviceName) use ($container): Resolver {
-                $service = $container->get($serviceName);
-                Assert::isInstanceOf($service, Resolver::class);
-
-                return $service;
-            }, $serviceNames);
+            $config = shape([
+                'looker' => shape([
+                    'templates' => shape([
+                        'aggregate' => dict(array_key(), non_empty_string()),
+                    ], true),
+                ], true),
+            ], true)->assert($config);
+            $services = array_map(
+                static fn (string $serviceName): Resolver => instance_of(Resolver::class)->assert(
+                    $container->get($serviceName),
+                ),
+                $config['looker']['templates']['aggregate'],
+            );
         } catch (Throwable) {
             throw new ConfigurationError(
                 'The aggregate template resolver requires that the `config` array is present in the '

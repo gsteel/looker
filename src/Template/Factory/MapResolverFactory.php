@@ -4,24 +4,27 @@ declare(strict_types=1);
 
 namespace Looker\Template\Factory;
 
-use GSteel\Dot;
 use Looker\ConfigurationError;
 use Looker\Template\MapResolver;
 use Psr\Container\ContainerInterface;
 use Throwable;
-use Webmozart\Assert\Assert;
+
+use function Psl\Type\dict;
+use function Psl\Type\non_empty_string;
+use function Psl\Type\shape;
 
 final class MapResolverFactory
 {
     public function __invoke(ContainerInterface $container): MapResolver
     {
         try {
-            $config = $container->has('config') ? $container->get('config') : null;
-            Assert::isArray($config);
-            $map = Dot::array('looker.templates.map', $config);
-            Assert::isMap($map);
-            Assert::allStringNotEmpty($map);
-            /** @psalm-var array<non-empty-string, non-empty-string> $map */
+            $config = shape([
+                'looker' => shape([
+                    'templates' => shape([
+                        'map' => dict(non_empty_string(), non_empty_string()),
+                    ], true),
+                ], true),
+            ], true)->assert($container->has('config') ? $container->get('config') : null);
         } catch (Throwable) {
             throw new ConfigurationError(
                 'The map resolver requires that `config` is an array available in the container and contains '
@@ -29,6 +32,6 @@ final class MapResolverFactory
             );
         }
 
-        return new MapResolver($map);
+        return new MapResolver($config['looker']['templates']['map']);
     }
 }
