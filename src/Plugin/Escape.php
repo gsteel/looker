@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Looker\Plugin;
 
-use Laminas\Escaper\Escaper;
+use Laminas\Escaper\EscaperInterface;
 
 final readonly class Escape
 {
-    public function __construct(public Escaper $escaper)
+    public function __construct(public EscaperInterface $escaper)
     {
     }
 

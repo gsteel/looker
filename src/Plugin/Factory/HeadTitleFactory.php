@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Looker\Plugin\Factory;
 
 use Laminas\Escaper\Escaper;
+use Laminas\Escaper\EscaperInterface;
 use Looker\Plugin\HeadTitle;
 use Psr\Container\ContainerInterface;
 
@@ -34,8 +35,8 @@ final class HeadTitleFactory
         );
 
         return new HeadTitle(
-            $container->has(Escaper::class)
-                ? $container->get(Escaper::class)
+            $container->has(EscaperInterface::class)
+                ? $container->get(EscaperInterface::class)
                 : new Escaper(),
             $config['looker']['pluginConfig']['headTitle']['separator'] ?? null,
             $config['looker']['pluginConfig']['headTitle']['fallbackTitle'] ?? null,

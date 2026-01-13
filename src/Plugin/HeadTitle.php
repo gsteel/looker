@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Looker\Plugin;
 
-use Laminas\Escaper\Escaper;
+use Laminas\Escaper\EscaperInterface;
 use Override;
 use Stringable;
 
@@ -27,7 +27,7 @@ final class HeadTitle implements StatefulPlugin, Stringable
      * @param non-empty-string|null $fallbackTitle
      */
     public function __construct(
-        private readonly Escaper $escaper,
+        private readonly EscaperInterface $escaper,
         string|null $defaultSeparator = self::DEFAULT_SEPARATOR,
         private readonly string|null $fallbackTitle = null,
     ) {

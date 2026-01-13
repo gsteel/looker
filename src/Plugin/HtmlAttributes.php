@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Looker\Plugin;
 
 use InvalidArgumentException;
-use Laminas\Escaper\Escaper;
+use Laminas\Escaper\EscaperInterface;
 
 use function array_map;
 use function implode;
@@ -17,7 +17,7 @@ use function str_contains;
 final readonly class HtmlAttributes
 {
     public function __construct(
-        private Escaper $escaper,
+        private EscaperInterface $escaper,
     ) {
     }
 
