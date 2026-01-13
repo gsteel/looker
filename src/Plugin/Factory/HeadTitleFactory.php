@@ -4,30 +4,41 @@ declare(strict_types=1);
 
 namespace Looker\Plugin\Factory;
 
-use GSteel\Dot;
 use Laminas\Escaper\Escaper;
 use Looker\Plugin\HeadTitle;
 use Psr\Container\ContainerInterface;
-use Webmozart\Assert\Assert;
+
+use function Psl\Type\non_empty_string;
+use function Psl\Type\null;
+use function Psl\Type\optional;
+use function Psl\Type\shape;
+use function Psl\Type\union;
 
 final class HeadTitleFactory
 {
     public function __invoke(ContainerInterface $container): HeadTitle
     {
-        $config = $container->has('config')
-            ? $container->get('config')
-            : [];
-        Assert::isArray($config);
-
-        $separator = Dot::stringOrNull('looker.pluginConfig.headTitle.separator', $config);
-        $fallback = Dot::stringOrNull('looker.pluginConfig.headTitle.fallbackTitle', $config);
+        $config = optional(shape([
+            'looker' => optional(shape([
+                'pluginConfig' => optional(shape([
+                    'headTitle' => optional(shape([
+                        'separator' => union(non_empty_string(), null()),
+                        'fallbackTitle' => union(non_empty_string(), null()),
+                    ], true)),
+                ], true)),
+            ], true)),
+        ], true))->assert(
+            $container->has('config')
+                ? $container->get('config')
+                : [],
+        );
 
         return new HeadTitle(
             $container->has(Escaper::class)
                 ? $container->get(Escaper::class)
                 : new Escaper(),
-            $separator === '' ? null : $separator,
-            $fallback === '' ? null : $fallback,
+            $config['looker']['pluginConfig']['headTitle']['separator'] ?? null,
+            $config['looker']['pluginConfig']['headTitle']['fallbackTitle'] ?? null,
         );
     }
 }

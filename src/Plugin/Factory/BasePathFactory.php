@@ -4,25 +4,33 @@ declare(strict_types=1);
 
 namespace Looker\Plugin\Factory;
 
-use GSteel\Dot;
 use Looker\Plugin\BasePath;
 use Psr\Container\ContainerInterface;
-use Webmozart\Assert\Assert;
 
-use function assert;
+use function Psl\Type\non_empty_string;
+use function Psl\Type\null;
+use function Psl\Type\optional;
+use function Psl\Type\shape;
+use function Psl\Type\union;
 
 final class BasePathFactory
 {
     public function __invoke(ContainerInterface $container): BasePath
     {
-        $config = $container->has('config')
-            ? $container->get('config')
-            : [];
-        Assert::isArray($config);
+        $config = optional(shape([
+            'looker' => optional(shape([
+                'pluginConfig' => optional(shape([
+                    'basePath' => optional(union(non_empty_string(), null())),
+                ], true)),
+            ], true)),
+        ], true))->assert(
+            $container->has('config')
+                ? $container->get('config')
+                : [],
+        );
 
-        $path = Dot::stringOrNull('looker.pluginConfig.basePath', $config) ?? '/';
-        assert($path !== '');
-
-        return new BasePath($path);
+        return new BasePath(
+            $config['looker']['pluginConfig']['basePath'] ?? '/',
+        );
     }
 }

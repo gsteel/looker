@@ -4,25 +4,28 @@ declare(strict_types=1);
 
 namespace Looker\Template\Factory;
 
-use GSteel\Dot;
 use Looker\ConfigurationError;
 use Looker\Template\DirectoryResolver;
 use Psr\Container\ContainerInterface;
 use Throwable;
-use Webmozart\Assert\Assert;
+
+use function Psl\Type\non_empty_string;
+use function Psl\Type\non_empty_vec;
+use function Psl\Type\shape;
 
 final class DirectoryResolverFactory
 {
     public function __invoke(ContainerInterface $container): DirectoryResolver
     {
         try {
-            $config = $container->has('config') ? $container->get('config') : null;
-            Assert::isArray($config);
-            $list = Dot::array('looker.templates.paths', $config);
-            Assert::isList($list);
-            Assert::notEmpty($list);
-            Assert::allStringNotEmpty($list);
-            $defaultSuffix = Dot::nonEmptyString('looker.templates.defaultSuffix', $config);
+            $config = shape([
+                'looker' => shape([
+                    'templates' => shape([
+                        'paths' => non_empty_vec(non_empty_string()),
+                        'defaultSuffix' => non_empty_string(),
+                    ], true),
+                ], true),
+            ], true)->assert($container->has('config') ? $container->get('config') : null);
         } catch (Throwable) {
             throw new ConfigurationError(
                 'The directory resolver requires that the `config` array is available in the container and '
@@ -32,6 +35,9 @@ final class DirectoryResolverFactory
             );
         }
 
-        return new DirectoryResolver($list, $defaultSuffix);
+        return new DirectoryResolver(
+            $config['looker']['templates']['paths'],
+            $config['looker']['templates']['defaultSuffix'],
+        );
     }
 }
