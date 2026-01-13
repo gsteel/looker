@@ -22,7 +22,7 @@ final class PartialFactoryTest extends TestCase
     public function testThatThePluginCanBeRetrieved(): void
     {
         $plugin = (new PartialFactory())(new InMemoryContainer([
-            Renderer::class => $this->createMock(Renderer::class),
+            Renderer::class => self::createStub(Renderer::class),
         ]));
 
         self::assertInstanceOf(Partial::class, $plugin);

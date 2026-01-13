@@ -8,6 +8,7 @@ use Looker\HTML\AttributeNormaliser;
 use Looker\HTML\ScriptAttribute;
 use Looker\HTML\Tag;
 use Override;
+use Stringable;
 
 use function array_filter;
 use function array_map;
@@ -16,7 +17,7 @@ use function array_values;
 use function implode;
 use function sprintf;
 
-final class Javascript implements StatefulPlugin
+final class Javascript implements StatefulPlugin, Stringable
 {
     /** @var list<Tag> */
     private array $scripts = [];
@@ -159,11 +160,12 @@ final class Javascript implements StatefulPlugin
     public function toString(): string
     {
         return implode($this->separator, array_filter(array_map(
-            fn (Tag $tag): string => $this->tagToString($tag),
+            $this->tagToString(...),
             $this->scripts,
         )));
     }
 
+    #[Override]
     public function __toString(): string
     {
         return $this->toString();

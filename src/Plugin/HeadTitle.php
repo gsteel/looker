@@ -6,12 +6,13 @@ namespace Looker\Plugin;
 
 use Laminas\Escaper\Escaper;
 use Override;
+use Stringable;
 
 use function array_unshift;
 use function implode;
 use function sprintf;
 
-final class HeadTitle implements StatefulPlugin
+final class HeadTitle implements StatefulPlugin, Stringable
 {
     private const string DEFAULT_SEPARATOR = ' - ';
 
@@ -94,6 +95,7 @@ final class HeadTitle implements StatefulPlugin
         return sprintf('<title>%s</title>', $this->escaper->escapeHtml($title));
     }
 
+    #[Override]
     public function __toString(): string
     {
         return $this->toString();

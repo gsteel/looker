@@ -6,10 +6,11 @@ namespace Looker\Test\Renderer\Plugins;
 
 use Looker\Plugin\StatefulPlugin;
 use Override;
+use Stringable;
 
 use function implode;
 
-final class Stateful implements StatefulPlugin
+final class Stateful implements StatefulPlugin, Stringable
 {
     /** @var list<string> */
     private array $values = [];
@@ -32,6 +33,7 @@ final class Stateful implements StatefulPlugin
         $this->values = [];
     }
 
+    #[Override]
     public function __toString(): string
     {
         return implode(', ', $this->values);

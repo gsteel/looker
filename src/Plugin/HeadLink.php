@@ -9,6 +9,7 @@ use Looker\HTML\LinkAttribute;
 use Looker\HTML\Tag;
 use Looker\Value\Doctype;
 use Override;
+use Stringable;
 
 use function array_change_key_case;
 use function array_map;
@@ -19,7 +20,7 @@ use function sprintf;
 
 use const CASE_LOWER;
 
-final class HeadLink implements StatefulPlugin
+final class HeadLink implements StatefulPlugin, Stringable
 {
     /** @var list<Tag> */
     private array $links = [];
@@ -141,13 +142,14 @@ final class HeadLink implements StatefulPlugin
     public function toString(): string
     {
         $links = array_map(
-            fn (Tag $tag): string => $this->tagToString($tag),
+            $this->tagToString(...),
             $this->links,
         );
 
         return implode($this->separator, $links);
     }
 
+    #[Override]
     public function __toString(): string
     {
         return $this->toString();
