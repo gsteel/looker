@@ -71,10 +71,10 @@ final class ModelTest extends TestCase
         self::assertNotSame($model, $clone);
         self::assertNotSame($model->variables(), $clone->variables());
 
-        self::assertEquals([
+        self::assertSame([
             'a' => 1,
-            'd' => 2,
             'c' => 'd',
+            'd' => 2,
         ], $clone->variables());
     }
 
@@ -92,10 +92,10 @@ final class ModelTest extends TestCase
         self::assertNotSame($model, $clone);
         self::assertNotSame($model->variables(), $clone->variables());
 
-        self::assertEquals([
+        self::assertSame([
             'a' => 'b',
-            'c' => 'd',
             'd' => 2,
+            'c' => 'd',
         ], $clone->variables());
     }
 

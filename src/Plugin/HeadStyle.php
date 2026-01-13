@@ -8,6 +8,7 @@ use Looker\HTML\AttributeNormaliser;
 use Looker\HTML\StyleAttribute;
 use Looker\HTML\Tag;
 use Override;
+use Stringable;
 
 use function array_filter;
 use function array_map;
@@ -16,7 +17,7 @@ use function array_values;
 use function implode;
 use function sprintf;
 
-final class HeadStyle implements StatefulPlugin
+final class HeadStyle implements StatefulPlugin, Stringable
 {
     /** @var list<Tag> */
     private array $styles = [];
@@ -123,11 +124,12 @@ final class HeadStyle implements StatefulPlugin
     public function toString(): string
     {
         return implode($this->separator, array_filter(array_map(
-            fn (Tag $tag): string => $this->tagToString($tag),
+            $this->tagToString(...),
             $this->styles,
         )));
     }
 
+    #[Override]
     public function __toString(): string
     {
         return $this->toString();

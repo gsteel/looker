@@ -27,9 +27,7 @@ final class TargetTest extends TestCase
     protected function setUp(): void
     {
         $this->proxy = new PluginProxy(new InMemoryContainer([
-            'doStuff' => static function (): string {
-                return '<h1>Plugin Output</h1>';
-            },
+            'doStuff' => static fn (): string => '<h1>Plugin Output</h1>',
         ]));
     }
 

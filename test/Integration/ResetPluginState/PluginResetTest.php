@@ -55,9 +55,7 @@ final class PluginResetTest extends TestCase
         $plugin = new Stateful();
         $plugins = new PluginProxy(new InMemoryContainer([
             'plugin' => $plugin,
-            'other' => static function (): string {
-                return PHP_EOL . 'Hey!';
-            },
+            'other' => static fn (): string => PHP_EOL . 'Hey!',
         ]));
         $renderer = new View(
             new PhpRenderer(

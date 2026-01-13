@@ -121,7 +121,7 @@ final class PluginProxyTest extends TestCase
     public function testThatStaticCallablesCanBeUsed(): void
     {
         $proxy = new PluginProxy(new InMemoryContainer([
-            'somePlugin' => [StaticMethod::class, 'getValue'],
+            'somePlugin' => StaticMethod::getValue(...),
         ]));
 
         $value = $proxy->somePlugin();
