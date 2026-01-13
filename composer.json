@@ -46,19 +46,5 @@
         "psr-4": {
             "Looker\\Test\\": "test"
         }
-    },
-    "scripts": {
-        "check": [
-            "@cs-check",
-            "@static-analysis",
-            "@test",
-            "@check-deps"
-        ],
-        "cs-check": "phpcs",
-        "cs-fix": "phpcbf",
-        "static-analysis": "psalm --shepherd --stats",
-        "check-deps": "composer-require-checker check",
-        "infection": "infection --configuration=mutants.json",
-        "test": "phpunit --colors=always"
     }
 }
