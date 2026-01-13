@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Looker\Test\Plugin\Factory;
 
 use Laminas\Escaper\Escaper;
+use Laminas\Escaper\EscaperInterface;
 use Looker\Plugin\Escape;
 use Looker\Plugin\Factory\EscapeFactory;
 use Looker\Test\InMemoryContainer;
@@ -21,7 +22,7 @@ final class EscapeFactoryTest extends TestCase
     public function testPluginCanBeRetrievedWithConfiguredEscaper(): void
     {
         $escaper = new Escaper();
-        $plugin = (new EscapeFactory())(new InMemoryContainer([Escaper::class => $escaper]));
+        $plugin = (new EscapeFactory())(new InMemoryContainer([EscaperInterface::class => $escaper]));
 
         self::assertSame($escaper, $plugin->escaper);
     }

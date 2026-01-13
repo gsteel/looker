@@ -45,6 +45,7 @@ final class ConfigProvider
                     Template\Resolver::class => Template\MapResolver::class,
                     // By default, the Concrete PhpRenderer is aliased to the Renderer interface
                     Renderer\Renderer::class => Renderer\PhpRenderer::class,
+                    Laminas\Escaper\EscaperInterface::class => Laminas\Escaper\Escaper::class,
                 ],
             ],
         ];
