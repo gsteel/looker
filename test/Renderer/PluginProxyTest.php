@@ -67,9 +67,9 @@ final class PluginProxyTest extends TestCase
             'somePlugin' => new FluentPlugin(),
         ]));
 
-        /** @psalm-suppress MixedMethodCall */
-        $value = $proxy->somePlugin()->getSheep();
-        self::assertSame('Bahhh', $value);
+        $somePlugin = $proxy->somePlugin();
+        self::assertInstanceOf(FluentPlugin::class, $somePlugin);
+        self::assertSame('Bahhh', $somePlugin->getSheep());
     }
 
     public function testThatPluginsArgumentsArePassedCorrectly(): void
