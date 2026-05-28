@@ -12,8 +12,8 @@
     },
     "require-dev": {
         "php-standard-library/psalm-plugin": "^2.4",
-        "psalm/plugin-phpunit": "^0.19.6",
-        "roave/infection-static-analysis-plugin": "^1.43",
+        "psalm/plugin-phpunit": "^0.19.7",
+        "roave/infection-static-analysis-plugin": "^1.44",
         "vimeo/psalm": "^6.16.1"
     },
     "autoload": {
