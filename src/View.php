@@ -31,6 +31,8 @@ final readonly class View
     /**
      * @param array<non-empty-string, mixed>|ViewModel $viewModel
      * @param non-empty-string|null $template
+     *
+     * @throws RenderingFailed
      */
     public function render(array|ViewModel $viewModel, string|null $template = null): string
     {

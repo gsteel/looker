@@ -16,10 +16,10 @@ final readonly class MapResolver implements Resolver
     }
 
     #[Override]
-    public function resolve(string $name): string
+    public function resolve(string $name): string|false
     {
         if (! array_key_exists($name, $this->map)) {
-            throw TemplateCannotBeResolved::becauseItWasNotConfigured($name, $this);
+            return false;
         }
 
         return $this->map[$name];

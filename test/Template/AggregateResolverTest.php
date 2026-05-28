@@ -6,7 +6,6 @@ namespace Looker\Test\Template;
 
 use Looker\Template\AggregateResolver;
 use Looker\Template\MapResolver;
-use Looker\Template\TemplateCannotBeResolved;
 use PHPUnit\Framework\TestCase;
 
 final class AggregateResolverTest extends TestCase
@@ -47,7 +46,7 @@ final class AggregateResolverTest extends TestCase
         );
     }
 
-    public function testExceptionThrownWhenNoResolversCanResolve(): void
+    public function testFalseIsReturnedWhenNoResolversCanResolve(): void
     {
         $map1 = new MapResolver([
             'foo' => __DIR__ . '/templates/more/templates.phtml',
@@ -59,9 +58,6 @@ final class AggregateResolverTest extends TestCase
 
         $resolver = new AggregateResolver($map1, $map2);
 
-        $this->expectException(TemplateCannotBeResolved::class);
-        $this->expectExceptionMessage('because none of the configured resolvers could find it');
-
-        $resolver->resolve('baz');
+        self::assertFalse($resolver->resolve('baz'));
     }
 }
