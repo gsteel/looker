@@ -29,8 +29,13 @@ final readonly class DirectoryResolver implements Resolver
     ) {
     }
 
+    /**
+     * @throws TemplateCannotBeResolved When the configured directories are invalid in some way.
+     *
+     * @inheritDoc
+     */
     #[Override]
-    public function resolve(string $name): string
+    public function resolve(string $name): string|false
     {
         foreach ($this->directories as $directory) {
             $path = $this->resolveFromDirectory($directory, $name);
@@ -41,7 +46,7 @@ final readonly class DirectoryResolver implements Resolver
             return $path;
         }
 
-        throw TemplateCannotBeResolved::becauseItCannotBeFoundOnDisk($name, $this);
+        return false;
     }
 
     /**
@@ -49,6 +54,9 @@ final readonly class DirectoryResolver implements Resolver
      * @param non-empty-string $name
      *
      * @return non-empty-string|null
+     *
+     * @throws TemplateCannotBeResolved When the configured directories contain path traversals.
+     * @throws TemplateCannotBeResolved When a configured directory does not exist.
      */
     private function resolveFromDirectory(string $directory, string $name): string|null
     {

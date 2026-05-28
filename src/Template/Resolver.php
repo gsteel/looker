@@ -11,9 +11,7 @@ interface Resolver
      *
      * @param non-empty-string $name
      *
-     * @return non-empty-string
-     *
-     * @throws TemplateCannotBeResolved
+     * @return non-empty-string|false
      */
-    public function resolve(string $name): string;
+    public function resolve(string $name): string|false;
 }

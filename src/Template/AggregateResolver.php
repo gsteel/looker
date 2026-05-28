@@ -19,15 +19,17 @@ final readonly class AggregateResolver implements Resolver
     }
 
     #[Override]
-    public function resolve(string $name): string
+    public function resolve(string $name): string|false
     {
         foreach ($this->resolvers as $resolver) {
-            try {
-                return $resolver->resolve($name);
-            } catch (TemplateCannotBeResolved) {
+            $template = $resolver->resolve($name);
+            if ($template === false) {
+                continue;
             }
+
+            return $template;
         }
 
-        throw TemplateCannotBeResolved::becauseAllResolversAreExhausted($name, $this);
+        return false;
     }
 }

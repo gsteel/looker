@@ -37,7 +37,15 @@ final readonly class PhpRenderer implements Renderer
         }
 
         $file = $this->resolver->resolve($model->template());
+        if ($file === false) {
+            throw TemplateCannotBeResolved::becauseAllResolversAreExhausted($model->template(), $this->resolver);
+        }
 
-        return (new Target($file, $model->variables(), $this->plugins, $this->strictVariables))();
+        return new Target(
+            $file,
+            $model->variables(),
+            $this->plugins,
+            $this->strictVariables,
+        )();
     }
 }
