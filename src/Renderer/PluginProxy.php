@@ -13,10 +13,7 @@ use Throwable;
 use function array_keys;
 use function is_callable;
 
-/**
- * @psalm-internal Looker
- * @psalm-no-seal-methods Any "Magic" method might be called on this object to execute 'plugins'
- */
+/** @psalm-no-seal-methods Any "Magic" method might be called on this object to execute 'plugins' */
 final class PluginProxy implements PluginManager
 {
     /** @var array<string, null> */
