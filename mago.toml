@@ -74,6 +74,7 @@ psl-array-functions = { enabled = false }
 # You can't have too many methods in a test:
 too-many-methods = { enabled = true, exclude = ["test/"] }
 [analyzer]
+baseline = "mago-sa-baseline.toml"
 plugins = [
     "psl",
     "psr-container",
@@ -84,7 +85,6 @@ find-unused-expressions = true
 analyze-dead-code = true
 memoize-properties = true
 check-throws = true
-unchecked-exceptions = ["Error", "LogicException"]
 unchecked-exception-classes = []
 check-missing-override = true
 find-unused-parameters = true
@@ -94,3 +94,26 @@ allow-array-truthy-operand = false
 no-boolean-literal-comparison = true
 check-missing-type-hints = true
 register-super-globals = true
+
+# Exception Hierarchies to ignore
+unchecked-exceptions = [
+    "Error",
+    "LogicException",
+    "Psl\\Exception\\ExceptionInterface",
+    "Psr\\Container\\ContainerExceptionInterface",
+]
+
+ignore = [
+    # Ignore un-caught exceptions in tests
+    { code = "unhandled-thrown-type", in = ["test/"] },
+    # Invalid args are frequently tested
+    { code = "invalid-argument", in = ["test/"] },
+    # Magic methods are called on the renderer in tests
+    { code = "non-documented-method", in = ["test/"] },
+    { code = "non-documented-property", in = ["test/"] },
+    { code = "mixed-method-access", in = ["test/"] },
+    { code = "invalid-property-read", in = ["test/"] },
+    { code = "unused-statement", in = ["test/"] },
+    # Allow mixed assignment in tests, but warn for it elsewhere
+    { code = "mixed-assignment", in = ["test/"] },
+]
