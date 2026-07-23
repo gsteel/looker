@@ -14,8 +14,12 @@ use Throwable;
 use function Psl\Type\bool;
 use function Psl\Type\shape;
 
+/** @internal */
 final class PhpRendererFactory
 {
+    /**
+     * @throws ConfigurationError
+     */
     public function __invoke(ContainerInterface $container): PhpRenderer
     {
         try {

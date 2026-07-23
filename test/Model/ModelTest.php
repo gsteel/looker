@@ -32,10 +32,13 @@ final class ModelTest extends TestCase
         self::assertNotSame($model, $clone);
         self::assertNotSame($model->variables(), $clone->variables());
 
-        self::assertSame([
-            'baz' => 'bat',
-            'a' => 'z',
-        ], $clone->variables());
+        self::assertSame(
+            [
+                'baz' => 'bat',
+                'a' => 'z',
+            ],
+            $clone->variables(),
+        );
     }
 
     public function testSingleVariablesOverwritesExistingVariables(): void
@@ -71,11 +74,14 @@ final class ModelTest extends TestCase
         self::assertNotSame($model, $clone);
         self::assertNotSame($model->variables(), $clone->variables());
 
-        self::assertSame([
-            'a' => 1,
-            'c' => 'd',
-            'd' => 2,
-        ], $clone->variables());
+        self::assertSame(
+            [
+                'a' => 1,
+                'c' => 'd',
+                'd' => 2,
+            ],
+            $clone->variables(),
+        );
     }
 
     public function testMergeRetain(): void
@@ -92,11 +98,14 @@ final class ModelTest extends TestCase
         self::assertNotSame($model, $clone);
         self::assertNotSame($model->variables(), $clone->variables());
 
-        self::assertSame([
-            'a' => 'b',
-            'd' => 2,
-            'c' => 'd',
-        ], $clone->variables());
+        self::assertSame(
+            [
+                'a' => 'b',
+                'd' => 2,
+                'c' => 'd',
+            ],
+            $clone->variables(),
+        );
     }
 
     public function testThatChildModelsCanBeAdded(): void
@@ -112,7 +121,6 @@ final class ModelTest extends TestCase
     {
         $a = Model::terminal('foo', []);
         $this->expectException(TerminalModelCannotBeChild::class);
-        /** @psalm-suppress UnusedMethodCall */
         Model::new('bar', [])->withChild($a, 'baz');
     }
 
@@ -146,7 +154,7 @@ final class ModelTest extends TestCase
 
     public function testModelWithPoPo(): void
     {
-        $vars = new readonly class () {
+        $vars = new readonly class() {
             public string $a;
             public int $b;
 

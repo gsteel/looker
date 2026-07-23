@@ -49,14 +49,12 @@ final readonly class View
         }
 
         $layout = $this->resolveLayout($viewModel);
-        if ($layout === false) {
-            $buffer = $this->renderer->render($viewModel);
-        } else {
-            $buffer = $this->renderer->render(
+        $buffer = $layout === false
+            ? $this->renderer->render($viewModel)
+            : $this->renderer->render(
                 Model::terminal($layout)
                     ->withChild($viewModel, $this->captureTo),
             );
-        }
 
         $this->plugins->clearPluginState();
 
@@ -80,7 +78,7 @@ final readonly class View
         }
 
         // A custom layout in the view model has next precedence
-        /** @psalm-suppress MixedAssignment */
+        /** @var mixed $custom */
         $custom = $model->variables()['layout'] ?? null;
         if (is_string($custom) && $custom !== '') {
             return $custom;

@@ -11,7 +11,7 @@ use function in_array;
 use function str_starts_with;
 use function strtolower;
 
-/** @psalm-internal Looker */
+/** @internal */
 final class GlobalAttribute implements AttributeInformation
 {
     private const array STRING_ATTRIBUTES = [
@@ -64,10 +64,12 @@ final class GlobalAttribute implements AttributeInformation
     {
         $name = strtolower($name);
 
-        return in_array($name, self::STRING_ATTRIBUTES)
+        return (
+            in_array($name, self::STRING_ATTRIBUTES, true)
             || array_key_exists($name, self::ENUMERATED)
-            || in_array($name, self::BOOLEAN)
-            || self::matchesPatternAttributeName($name);
+            || in_array($name, self::BOOLEAN, true)
+            || self::matchesPatternAttributeName($name)
+        );
     }
 
     /** @param non-empty-string $name */
@@ -76,7 +78,7 @@ final class GlobalAttribute implements AttributeInformation
     {
         $name = strtolower($name);
 
-        return in_array($name, self::BOOLEAN);
+        return in_array($name, self::BOOLEAN, true);
     }
 
     /** @param non-empty-string $name */

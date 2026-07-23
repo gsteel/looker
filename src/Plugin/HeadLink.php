@@ -20,6 +20,7 @@ use function sprintf;
 
 use const CASE_LOWER;
 
+/** @mago-expect lint:too-many-methods */
 final class HeadLink implements StatefulPlugin, Stringable
 {
     /** @var list<Tag> */
@@ -93,7 +94,7 @@ final class HeadLink implements StatefulPlugin, Stringable
         $attributes['rel'] = $rel;
         $attributes['href'] = $href;
 
-        /** @psalm-var array<non-empty-lowercase-string, scalar> $attributes */
+        /** @var array<non-empty-lowercase-string, scalar> $attributes */
 
         return new Tag('link', $attributes, null);
     }

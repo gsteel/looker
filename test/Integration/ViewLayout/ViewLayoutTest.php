@@ -42,7 +42,7 @@ final class ViewLayoutTest extends TestCase
             <h1>Hello World</h1>
             </main>
             <footer></footer>
-            
+
             HTML;
 
         self::assertSame($expect, $content);
@@ -66,9 +66,9 @@ final class ViewLayoutTest extends TestCase
         $content = $view->render(['title' => 'Hello World'], 'content-template');
 
         $expect = <<<'HTML'
-            
+
             <h1>Hello World</h1>
-            
+
             HTML;
 
         self::assertSame($expect, $content);
@@ -95,9 +95,9 @@ final class ViewLayoutTest extends TestCase
         $content = $view->render(['title' => 'Hello World', 'layout' => false], 'content-template');
 
         $expect = <<<'HTML'
-            
+
             <h1>Hello World</h1>
-            
+
             HTML;
 
         self::assertSame($expect, $content);
@@ -132,7 +132,7 @@ final class ViewLayoutTest extends TestCase
             <h1>Hello World</h1>
             </main>
             <footer></footer>
-            
+
             HTML;
 
         self::assertSame($expect, $content);
@@ -188,10 +188,10 @@ final class ViewLayoutTest extends TestCase
         $model = Model::new('content-template', ['title' => 'Hello World']);
 
         $expect = <<<'HTML'
-        
-        <h1>Hello World</h1>
-        
-        HTML;
+
+            <h1>Hello World</h1>
+
+            HTML;
 
         self::assertSame($expect, $view->render($model));
     }
@@ -210,7 +210,7 @@ final class ViewLayoutTest extends TestCase
         );
 
         $this->expectException(RenderingFailed::class);
-        $this->expectExceptionMessage('accepts either a configured view model as its only argument, or');
+        $this->expectExceptionMessageIsOrContains('accepts either a configured view model as its only argument, or');
 
         $view->render(['some' => 'stuff']);
     }

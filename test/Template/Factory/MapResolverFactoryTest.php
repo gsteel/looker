@@ -16,21 +16,21 @@ final class MapResolverFactoryTest extends TestCase
     public function testThatConfigMustExist(): void
     {
         $this->expectException(ConfigurationError::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIsOrContains(
             'The map resolver requires that `config` is an array available in the container and contains '
             . 'an array under the key `looker.templates.map` where all the keys and values are non-empty strings',
         );
-        (new MapResolverFactory())->__invoke(new InMemoryContainer());
+        new MapResolverFactory()->__invoke(new InMemoryContainer());
     }
 
     public function testThatTheMapMustBeSet(): void
     {
         $this->expectException(ConfigurationError::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIsOrContains(
             'The map resolver requires that `config` is an array available in the container and contains '
             . 'an array under the key `looker.templates.map` where all the keys and values are non-empty strings',
         );
-        (new MapResolverFactory())->__invoke(new InMemoryContainer(['config' => []]));
+        new MapResolverFactory()->__invoke(new InMemoryContainer(['config' => []]));
     }
 
     /** @return list<array{0: array<string, mixed>}> */
@@ -67,16 +67,16 @@ final class MapResolverFactoryTest extends TestCase
     public function testThatTheMapMustContainNonEmptyStrings(array $invalidConfig): void
     {
         $this->expectException(ConfigurationError::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIsOrContains(
             'The map resolver requires that `config` is an array available in the container and contains '
             . 'an array under the key `looker.templates.map` where all the keys and values are non-empty strings',
         );
-        (new MapResolverFactory())->__invoke(new InMemoryContainer($invalidConfig));
+        new MapResolverFactory()->__invoke(new InMemoryContainer($invalidConfig));
     }
 
     public function testResolverCanBeRetrieved(): void
     {
-        $resolver = (new MapResolverFactory())->__invoke(new InMemoryContainer([
+        $resolver = new MapResolverFactory()->__invoke(new InMemoryContainer([
             'config' => [
                 'looker' => [
                     'templates' => [

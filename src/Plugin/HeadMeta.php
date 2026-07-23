@@ -12,12 +12,14 @@ use Override;
 use Stringable;
 
 use function array_filter;
+use function array_key_exists;
 use function array_map;
 use function array_unshift;
 use function array_values;
 use function implode;
 use function sprintf;
 
+/** @mago-expect lint:too-many-methods */
 final class HeadMeta implements StatefulPlugin, Stringable
 {
     /** @var list<Tag> */
@@ -75,7 +77,7 @@ final class HeadMeta implements StatefulPlugin, Stringable
     public function removeWithAttributeMatching(string $attribute, mixed $value): self
     {
         foreach ($this->meta as $key => $item) {
-            if (! isset($item->attributes[$attribute])) {
+            if (! array_key_exists($attribute, $item->attributes)) {
                 continue;
             }
 
@@ -92,10 +94,14 @@ final class HeadMeta implements StatefulPlugin, Stringable
     /** @param array<non-empty-string, scalar> $attributes */
     private function makeTag(array $attributes): Tag
     {
-        return new Tag('meta', $this->attributeNormaliser->normalise(
-            $attributes,
-            new MetaAttribute(),
-        ), null);
+        return new Tag(
+            'meta',
+            $this->attributeNormaliser->normalise(
+                $attributes,
+                new MetaAttribute(),
+            ),
+            null,
+        );
     }
 
     private function remove(Tag $tag): void
@@ -132,10 +138,13 @@ final class HeadMeta implements StatefulPlugin, Stringable
 
     public function toString(): string
     {
-        return implode($this->separator, array_filter(array_map(
-            $this->tagToString(...),
-            $this->meta,
-        )));
+        return implode(
+            $this->separator,
+            array_filter(array_map(
+                $this->tagToString(...),
+                $this->meta,
+            )),
+        );
     }
 
     #[Override]

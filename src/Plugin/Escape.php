@@ -8,8 +8,9 @@ use Laminas\Escaper\EscaperInterface;
 
 final readonly class Escape
 {
-    public function __construct(public EscaperInterface $escaper)
-    {
+    public function __construct(
+        public EscaperInterface $escaper,
+    ) {
     }
 
     /** @return ($value is null ? self : string) */

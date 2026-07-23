@@ -26,12 +26,13 @@ final readonly class HtmlAttributes
     {
         $attributeString = [];
 
-        /** @psalm-suppress MixedAssignment */
+        /** @var mixed $value */
         foreach ($attributes as $key => $value) {
             $key = $this->escaper->escapeHtml((string) $key);
 
             /** @psalm-assert-if-true array<array-key, scalar> $array */
             $allScalar = static function (array $array): bool {
+                /** @var mixed $item */
                 foreach ($array as $item) {
                     if (is_scalar($item)) {
                         continue;

@@ -10,7 +10,7 @@ use function array_key_exists;
 use function in_array;
 use function strtolower;
 
-/** @psalm-internal Looker */
+/** @internal */
 final class ScriptAttribute implements AttributeInformation
 {
     private const array STRING = [
@@ -41,7 +41,7 @@ final class ScriptAttribute implements AttributeInformation
     {
         $name = strtolower($name);
 
-        return in_array($name, self::BOOLEAN) || GlobalAttribute::isBoolean($name);
+        return in_array($name, self::BOOLEAN, true) || GlobalAttribute::isBoolean($name);
     }
 
     /** @param non-empty-string $name */
@@ -50,9 +50,11 @@ final class ScriptAttribute implements AttributeInformation
     {
         $name = strtolower($name);
 
-        return in_array($name, self::STRING)
-            || in_array($name, self::BOOLEAN)
+        return (
+            in_array($name, self::STRING, true)
+            || in_array($name, self::BOOLEAN, true)
             || array_key_exists($name, self::ENUMERATED)
-            || GlobalAttribute::exists($name);
+            || GlobalAttribute::exists($name)
+        );
     }
 }

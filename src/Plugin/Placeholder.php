@@ -6,6 +6,7 @@ namespace Looker\Plugin;
 
 use Override;
 
+use function array_key_exists;
 use function array_unshift;
 use function implode;
 
@@ -78,7 +79,7 @@ final class Placeholder implements StatefulPlugin
      */
     public function append(string $name, string $value): self
     {
-        if (! isset($this->data[$name])) {
+        if (! array_key_exists($name, $this->data)) {
             $this->data[$name] = [];
         }
 
@@ -105,7 +106,7 @@ final class Placeholder implements StatefulPlugin
     {
         $separator = $this->separators[$name] ?? $this->separator;
 
-        return isset($this->data[$name])
+        return array_key_exists($name, $this->data) && $this->data[$name] !== []
             ? implode($separator, $this->data[$name])
             : '';
     }

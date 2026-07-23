@@ -13,14 +13,14 @@ final class EscaperFactoryTest extends TestCase
 {
     public function testTheEscaperCanBeRetrievedWithZeroConfig(): void
     {
-        $escaper = (new EscaperFactory())->__invoke(new InMemoryContainer());
+        $escaper = new EscaperFactory()->__invoke(new InMemoryContainer());
         self::assertInstanceOf(Escaper::class, $escaper);
         self::assertSame('utf-8', $escaper->getEncoding());
     }
 
     public function testConfigWillOverrideEncoding(): void
     {
-        $escaper = (new EscaperFactory())->__invoke(new InMemoryContainer([
+        $escaper = new EscaperFactory()->__invoke(new InMemoryContainer([
             'config' => [
                 'looker' => ['encoding' => 'iso-8859-1'],
             ],

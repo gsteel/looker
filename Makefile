@@ -112,29 +112,31 @@ check-links: ## Check documentation links
 # PHP Tooling
 #
 
-set-baseline: docker ## Expand the Psalm baseline with current issues
-	@$(call MK_INFO,"Resetting the Psalm baseline")
-	@docker run $(DOCKER_PHP) vendor/bin/psalm --no-cache --set-baseline=psalm-baseline.xml
+set-baseline: docker ## Expand the SA baseline with current issues
+	@$(call MK_INFO,"Resetting the SA baseline")
+	@docker run $(DOCKER_PHP) vendor/bin/mago analyse --generate-baseline
 .PHONY: set-baseline
 
-update-baseline: docker ## Remove resolved issues from the baseline
-	@$(call MK_INFO,"Updating the Psalm baseline")
-	@docker run $(DOCKER_PHP) vendor/bin/psalm --no-cache --update-baseline
+update-baseline: docker ## Remove resolved issues from the SA baseline
+	@$(call MK_INFO,"Updating the SA baseline")
+	@docker run $(DOCKER_PHP) vendor/bin/mago analyse --remove-outdated-baseline-entries
 .PHONY: update-baseline
 
 sa: docker ## Run static analysis
 	@$(call MK_INFO,"Running static analysis")
-	@docker run $(DOCKER_PHP) vendor/bin/psalm --no-cache
+	@docker run $(DOCKER_PHP) vendor/bin/mago analyse --minimum-fail-level=help
 .PHONY: sa
 
 cs: docker ## Run coding standards checks
 	@$(call MK_INFO,"Checking coding standards")
-	@docker run $(DOCKER_PHP) vendor/bin/phpcs
+	@docker run $(DOCKER_PHP) vendor/bin/mago fmt --check
+	@docker run $(DOCKER_PHP) vendor/bin/mago lint --minimum-fail-level=help
 .PHONY: cs
 
 cs-fix: docker ## Fix coding standards violations
 	@$(call MK_INFO,"Fixing coding standards violations")
-	@docker run $(DOCKER_PHP) vendor/bin/phpcbf
+	@docker run $(DOCKER_PHP) vendor/bin/mago fmt
+	@docker run $(DOCKER_PHP) vendor/bin/mago lint --fix
 .PHONY: cs-fix
 
 test: docker ## Run tests
@@ -149,9 +151,9 @@ composer-require-checker: docker ## Check for symbols from un-declared dependenc
 
 mutants: docker ## Run mutation tests
 	@$(call MK_INFO,"Running Mutation Tests")
-	@docker run $(DOCKER_PHP) tools/infection/vendor/bin/roave-infection-static-analysis-plugin \
+	@docker run $(DOCKER_PHP) tools/infection/vendor/bin/infection \
  		--configuration=mutants.json \
- 		--psalm-config=psalm.xml
+ 		--static-analysis-tool=mago
 .PHONY: mutants
 
 unused: docker ## Run composer-unused
@@ -174,7 +176,6 @@ qa: cs test sa composer-require-checker unused rector docs-lint check-links ## R
 clean: ## Delete caches and docs-build assets
 	@$(call MK_INFO,"Cleaning up")
 	@docker image rm $(IMAGE_NAME)
-	@rm -f .cache/phpcs
 	@rm -rf .cache/phpunit
 	@rm -f .cache/infection.log.txt
 	@rm .markdownlint.json
@@ -200,7 +201,5 @@ unused-ci:
 
 infection-ci:
 	cd tools/infection && composer install
-	tools/infection/vendor/bin/roave-infection-static-analysis-plugin \
-		--configuration=mutants.json \
-		--psalm-config=psalm.xml
+	tools/infection/vendor/bin/infection --configuration=mutants.json --static-analysis-tool=mago
 .PHONY: unused-ci

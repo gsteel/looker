@@ -49,11 +49,15 @@ final class RenderingFailed extends RuntimeException
 
     public static function becauseOfAnException(string $template, Throwable $error): self
     {
-        return new self(sprintf(
-            'An exception occurred during render of "%s" with the message: %s"',
-            $template,
-            $error->getMessage(),
-        ), 0, $error);
+        return new self(
+            sprintf(
+                'An exception occurred during render of "%s" with the message: %s"',
+                $template,
+                $error->getMessage(),
+            ),
+            0,
+            $error,
+        );
     }
 
     /** @param non-empty-string $pluginName */
@@ -78,11 +82,15 @@ final class RenderingFailed extends RuntimeException
     /** @param non-empty-string $pluginName */
     public static function becauseOfAPluginException(string $pluginName, Throwable $error): self
     {
-        return new self(sprintf(
-            'An exception occurred during execution of the plugin "%s". Message: %s',
-            $pluginName,
-            $error->getMessage(),
-        ), 0, $error);
+        return new self(
+            sprintf(
+                'An exception occurred during execution of the plugin "%s". Message: %s',
+                $pluginName,
+                $error->getMessage(),
+            ),
+            0,
+            $error,
+        );
     }
 
     /** @param non-empty-string $template */

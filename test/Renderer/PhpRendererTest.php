@@ -23,7 +23,7 @@ final class PhpRendererTest extends TestCase
         );
 
         $this->expectException(TemplateCannotBeResolved::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIsOrContains(
             'The template "whatever" cannot be resolved because none of the configured resolvers could find it',
         );
 

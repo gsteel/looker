@@ -10,7 +10,7 @@ use function Psl\Type\bool;
 use function Psl\Type\optional;
 use function Psl\Type\shape;
 
-/** @psalm-internal Looker */
+/** @internal */
 final readonly class AttributeNormaliserFactory
 {
     public function __invoke(ContainerInterface $container): AttributeNormaliser

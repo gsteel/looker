@@ -15,9 +15,7 @@ use function ob_get_clean;
 use function ob_start;
 
 /**
- * phpcs:disable Squiz.NamingConventions.ValidVariableName, PSR2.Classes.PropertyDeclaration.Underscore
- *
- * @psalm-internal Looker
+ * @internal
  * @psalm-no-seal-properties Magic properties are retrieved from this class to fetch view variables
  */
 final class Target
@@ -48,10 +46,7 @@ final class Target
         try {
             $this->__renderLock = true;
             ob_start();
-            /**
-             * @psalm-var mixed $include
-             * @psalm-suppress UnresolvableInclude
-             */
+            /** @var mixed $include */
             $include = include $this->__template;
             if ($include === false) {
                 throw RenderingFailed::becauseTheTemplateFileCouldNotBeIncluded($this->__template);
@@ -77,6 +72,8 @@ final class Target
      * Allows variable retrieval only from the composed array of variables
      *
      * @param non-empty-string $name
+     *
+     * @throws RenderingFailed
      */
     public function __get(string $name): mixed
     {
@@ -92,7 +89,8 @@ final class Target
      *
      * @param non-empty-string $name
      *
-     * @psalm-suppress UnusedParam $value is part of the signature
+     * @throws RenderingFailed
+     * @mago-expect analysis:unused-parameter
      */
     public function __set(string $name, mixed $value): never
     {
@@ -105,7 +103,7 @@ final class Target
      * @param non-empty-string $method
      * @param array<non-empty-string, mixed> $args
      *
-     * @psalm-suppress PossiblyUnusedMethod Method usage cannot be detected by Psalm
+     * @throws RenderingFailed
      */
     public function __call(string $method, array $args): mixed
     {

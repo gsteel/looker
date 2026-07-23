@@ -31,7 +31,7 @@ final class PluginProxy implements PluginManager
      *
      * @throws RenderingFailed If the plugin cannot be found, or, if the plugin is not callable.
      *
-     * @psalm-suppress MethodSignatureMismatch - No it's not
+     * @mago-expect analysis:incompatible-parameter-type Demanding 'non-empty-string' is an improvement!
      */
     #[Override]
     public function get(string $id): mixed
@@ -40,6 +40,7 @@ final class PluginProxy implements PluginManager
             throw RenderingFailed::becauseAPluginDoesNotExist($id);
         }
 
+        /** @var mixed $plugin */
         $plugin = $this->pluginContainer->get($id);
         if (! is_callable($plugin)) {
             throw RenderingFailed::becauseAPluginIsNotInvokable($id, $plugin);
@@ -66,7 +67,7 @@ final class PluginProxy implements PluginManager
         $plugin = $this->get($method);
 
         try {
-            /** @psalm-var mixed $returnValue */
+            /** @var mixed $returnValue */
             $returnValue = $plugin(...$args);
             $this->called[$method] = null;
 
@@ -80,6 +81,7 @@ final class PluginProxy implements PluginManager
     public function clearPluginState(): void
     {
         foreach (array_keys($this->called) as $name) {
+            /** @var mixed $plugin */
             $plugin = $this->pluginContainer->get($name);
             if (! $plugin instanceof StatefulPlugin) {
                 continue;

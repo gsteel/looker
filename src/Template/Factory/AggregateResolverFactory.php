@@ -17,19 +17,20 @@ use function Psl\Type\instance_of;
 use function Psl\Type\non_empty_string;
 use function Psl\Type\shape;
 
+/** @internal */
 final class AggregateResolverFactory
 {
+    /** @throws ConfigurationError */
     public function __invoke(ContainerInterface $container): AggregateResolver
     {
         try {
-            $config = $container->has('config') ? $container->get('config') : null;
             $config = shape([
                 'looker' => shape([
                     'templates' => shape([
                         'aggregate' => dict(array_key(), non_empty_string()),
                     ], true),
                 ], true),
-            ], true)->assert($config);
+            ], true)->assert($container->has('config') ? $container->get('config') : []);
             $services = array_map(
                 static fn (string $serviceName): Resolver => instance_of(Resolver::class)->assert(
                     $container->get($serviceName),

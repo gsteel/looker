@@ -11,8 +11,9 @@ use function sprintf;
 final readonly class BasePath
 {
     /** @param non-empty-string $basePath */
-    public function __construct(private string $basePath = '/')
-    {
+    public function __construct(
+        private string $basePath = '/',
+    ) {
     }
 
     /**
@@ -22,10 +23,12 @@ final readonly class BasePath
      */
     public function __invoke(string|null $file = null): string
     {
-        return $file === null ? $this->basePath : sprintf(
-            '%s/%s',
-            rtrim($this->basePath, '/'),
-            ltrim($file, '/'),
-        );
+        return $file === null
+            ? $this->basePath
+            : sprintf(
+                '%s/%s',
+                rtrim($this->basePath, '/'),
+                ltrim($file, '/'),
+            );
     }
 }

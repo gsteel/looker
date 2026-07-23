@@ -27,8 +27,7 @@ final class HeadStyleTest extends TestCase
 
     public function testThatStylesCanBeAppended(): void
     {
-        $this->plugin->append('p { color: pink; }')
-            ->append('a { color: green; }');
+        $this->plugin->append('p { color: pink; }')->append('a { color: green; }');
 
         $expect = <<<'HTML'
             <style>
@@ -44,8 +43,7 @@ final class HeadStyleTest extends TestCase
 
     public function testPrependStyle(): void
     {
-        $this->plugin->append('p { color: pink; }')
-            ->prepend('a { color: green; }');
+        $this->plugin->append('p { color: pink; }')->prepend('a { color: green; }');
 
         $expect = <<<'HTML'
             <style>
@@ -78,8 +76,7 @@ final class HeadStyleTest extends TestCase
 
     public function testThatAddingTheSameStyleTwiceIsANoOp(): void
     {
-        $this->plugin->append('p { color: pink; }')
-            ->append('p { color: pink; }');
+        $this->plugin->append('p { color: pink; }')->append('p { color: pink; }');
 
         $expect = <<<'HTML'
             <style>
@@ -97,8 +94,7 @@ final class HeadStyleTest extends TestCase
 
     public function testThatClearingStateRemovesExistingStyles(): void
     {
-        $this->plugin->append('p { color: pink; }')
-            ->resetState();
+        $this->plugin->append('p { color: pink; }')->resetState();
 
         self::assertSame('', $this->plugin->toString());
     }
@@ -169,7 +165,6 @@ final class HeadStyleTest extends TestCase
 
     public function testThatCompletelyEmptyStylesAreIgnored(): void
     {
-        /** @psalm-suppress InvalidArgument */
         $this->plugin->append('');
         self::assertSame('', $this->plugin->toString());
     }

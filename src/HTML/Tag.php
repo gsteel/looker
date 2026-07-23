@@ -7,10 +7,8 @@ namespace Looker\HTML;
 use function ksort;
 
 /**
- * phpcs:disable SlevomatCodingStandard.Classes.RequireConstructorPropertyPromotion
- *
- * @psalm-internal Looker
- * @psalm-immutable
+ * @internal
+ * @immutable
  */
 final readonly class Tag
 {
@@ -33,8 +31,10 @@ final readonly class Tag
 
     public function equals(self $other): bool
     {
-        return $this->name === $other->name
+        return (
+            $this->name === $other->name
             && $this->attributes === $other->attributes
-            && $this->content === $other->content;
+            && $this->content === $other->content
+        );
     }
 }

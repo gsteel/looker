@@ -13,10 +13,12 @@ final class TemplateCannotBeResolved extends RuntimeException
     /**
      * @param non-empty-string $message
      *
-     * @psalm-internal Looker
+     * @internal
      */
-    public function __construct(string $message, public readonly Resolver $resolver)
-    {
+    public function __construct(
+        string $message,
+        public readonly Resolver $resolver,
+    ) {
         parent::__construct($message);
     }
 

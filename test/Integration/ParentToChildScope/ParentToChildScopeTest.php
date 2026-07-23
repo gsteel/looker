@@ -54,7 +54,7 @@ final class ParentToChildScopeTest extends TestCase
             <p>parent1</p>
             <p>child2</p>
             <p>child1</p>
-            
+
             HTML, $content);
     }
 }

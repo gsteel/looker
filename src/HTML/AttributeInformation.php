@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Looker\HTML;
 
-/** @psalm-internal Looker */
+/** @internal */
 interface AttributeInformation
 {
     /** @param non-empty-string $name */

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Looker\Model;
 
-/** @psalm-immutable */
+/** @immutable */
 interface ViewModel
 {
     /** @return non-empty-string */

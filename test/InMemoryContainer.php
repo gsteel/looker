@@ -15,8 +15,9 @@ use function sprintf;
 final class InMemoryContainer implements ContainerInterface
 {
     /** @param array<string, mixed> $services */
-    public function __construct(public array $services = [])
-    {
+    public function __construct(
+        public array $services = [],
+    ) {
     }
 
     /**
@@ -25,16 +26,14 @@ final class InMemoryContainer implements ContainerInterface
      * @return ($id is class-string ? T : mixed)
      *
      * @template T
-     * @psalm-suppress MixedReturnStatement
      */
     #[Override]
     public function get($id): mixed
     {
-        if (! $this->has($id)) {
-            throw new class (
+        if (! array_key_exists($id, $this->services)) {
+            throw new class(
                 sprintf('Service not found: "%s"', $id),
-            ) extends RuntimeException implements NotFoundExceptionInterface {
-            };
+            ) extends RuntimeException implements NotFoundExceptionInterface {};
         }
 
         return $this->services[$id];
