@@ -201,7 +201,5 @@ unused-ci:
 
 infection-ci:
 	cd tools/infection && composer install
-	tools/infection/vendor/bin/roave-infection-static-analysis-plugin \
-		--configuration=mutants.json \
-		--psalm-config=psalm.xml
+	tools/infection/vendor/bin/infection --configuration=mutants.json --static-analysis-tool=mago
 .PHONY: unused-ci
