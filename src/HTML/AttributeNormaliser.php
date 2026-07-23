@@ -5,13 +5,18 @@ declare(strict_types=1);
 namespace Looker\HTML;
 
 use function array_change_key_case;
+use function is_bool;
 use function ksort;
 
 use const CASE_LOWER;
 
-/** @psalm-internal Looker */
-final class AttributeNormaliser
+final readonly class AttributeNormaliser
 {
+    public function __construct(
+        public bool $permitUnknownAttributes = true,
+    ) {
+    }
+
     /**
      * @param array<string, scalar|null> $attributes
      *
@@ -19,7 +24,7 @@ final class AttributeNormaliser
      *
      * @psalm-suppress MixedAssignment
      */
-    public static function normalise(array $attributes, AttributeInformation $info): array
+    public function normalise(array $attributes, AttributeInformation $info): array
     {
         /** @psalm-var array<non-empty-lowercase-string, mixed> $attributes */
         $attributes = array_change_key_case($attributes, CASE_LOWER);
@@ -27,7 +32,7 @@ final class AttributeNormaliser
         $result = [];
 
         foreach ($attributes as $name => $value) {
-            if ($info::isBoolean($name)) {
+            if ($info::isBoolean($name) || is_bool($value)) {
                 if ($value === false) {
                     continue;
                 }
@@ -36,7 +41,7 @@ final class AttributeNormaliser
                 continue;
             }
 
-            if (! $info::exists($name)) {
+            if (! $this->permitUnknownAttributes && ! $info::exists($name)) {
                 continue;
             }
 

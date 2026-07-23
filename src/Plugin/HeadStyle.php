@@ -25,6 +25,7 @@ final class HeadStyle implements StatefulPlugin, Stringable
 
     public function __construct(
         private readonly HtmlAttributes $attributePlugin,
+        private readonly AttributeNormaliser $attributeNormaliser,
         private readonly string $defaultSeparator = "\n\t",
     ) {
         $this->separator = $this->defaultSeparator;
@@ -80,7 +81,7 @@ final class HeadStyle implements StatefulPlugin, Stringable
     {
         return new Tag(
             'style',
-            AttributeNormaliser::normalise($attributes, new StyleAttribute()),
+            $this->attributeNormaliser->normalise($attributes, new StyleAttribute()),
             $styles,
         );
     }

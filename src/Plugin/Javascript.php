@@ -25,6 +25,7 @@ final class Javascript implements StatefulPlugin, Stringable
 
     public function __construct(
         private readonly HtmlAttributes $attributePlugin,
+        private readonly AttributeNormaliser $attributeNormaliser,
         private readonly string $defaultSeparator = "\n\t",
     ) {
         $this->separator = $this->defaultSeparator;
@@ -116,7 +117,7 @@ final class Javascript implements StatefulPlugin, Stringable
     {
         return new Tag(
             'script',
-            AttributeNormaliser::normalise($attributes, new ScriptAttribute()),
+            $this->attributeNormaliser->normalise($attributes, new ScriptAttribute()),
             $script,
         );
     }

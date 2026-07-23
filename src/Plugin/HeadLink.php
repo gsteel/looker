@@ -29,6 +29,7 @@ final class HeadLink implements StatefulPlugin, Stringable
     public function __construct(
         private readonly Doctype $doctype,
         private readonly HtmlAttributes $attributeHelper,
+        private readonly AttributeNormaliser $attributeNormaliser,
         private readonly string $defaultSeparator = "\n\t",
     ) {
         $this->separator = $this->defaultSeparator;
@@ -129,7 +130,7 @@ final class HeadLink implements StatefulPlugin, Stringable
 
     private function tagToString(Tag $tag): string
     {
-        $attributes = AttributeNormaliser::normalise($tag->attributes, new LinkAttribute());
+        $attributes = $this->attributeNormaliser->normalise($tag->attributes, new LinkAttribute());
 
         return sprintf(
             '<%s %s%s>',

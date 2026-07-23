@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Looker\Test\Plugin;
 
 use Laminas\Escaper\Escaper;
+use Looker\HTML\AttributeNormaliser;
 use Looker\Plugin\HeadLink;
 use Looker\Plugin\HtmlAttributes;
 use Looker\Value\Doctype;
@@ -21,6 +22,7 @@ final class HeadLinkTest extends TestCase
         $this->plugin = new HeadLink(
             Doctype::HTML5,
             new HtmlAttributes(new Escaper()),
+            new AttributeNormaliser(true),
             "\n",
         );
     }
@@ -109,11 +111,11 @@ final class HeadLinkTest extends TestCase
         self::assertSame($expect, $this->plugin->toString());
     }
 
-    public function testThatUnknownAttributesAreSkipped(): void
+    public function testThatUnknownAttributesAreNotSkipped(): void
     {
         $this->plugin->append('stylesheet', 'foo', ['unknown' => 'whatever']);
 
-        $expect = '<link href="foo" rel="stylesheet">';
+        $expect = '<link href="foo" rel="stylesheet" unknown="whatever">';
 
         self::assertSame($expect, $this->plugin->toString());
     }
@@ -165,6 +167,7 @@ final class HeadLinkTest extends TestCase
         $plugin = new HeadLink(
             Doctype::XHTML1Strict,
             new HtmlAttributes(new Escaper()),
+            new AttributeNormaliser(true),
             "\n",
         );
 

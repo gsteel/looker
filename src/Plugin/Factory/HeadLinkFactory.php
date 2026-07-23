@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Looker\Plugin\Factory;
 
+use Looker\HTML\AttributeNormaliser;
 use Looker\Plugin\HeadLink;
 use Looker\Plugin\HtmlAttributes;
 use Looker\PluginManager;
@@ -18,6 +19,7 @@ final class HeadLinkFactory
         return new HeadLink(
             DefaultDoctype::retrieve($container),
             $plugins->get(HtmlAttributes::class),
+            $container->get(AttributeNormaliser::class),
         );
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Looker\Test\Plugin;
 
 use Laminas\Escaper\Escaper;
+use Looker\HTML\AttributeNormaliser;
 use Looker\Plugin\HtmlAttributes;
 use Looker\Plugin\Javascript;
 use Override;
@@ -19,6 +20,7 @@ final class JavascriptTest extends TestCase
     {
         $this->plugin = new Javascript(
             new HtmlAttributes(new Escaper()),
+            new AttributeNormaliser(true),
             "\n",
         );
     }
@@ -107,12 +109,12 @@ final class JavascriptTest extends TestCase
         );
     }
 
-    public function testThatUnknownAttributesAreOmitted(): void
+    public function testThatUnknownAttributesAreNotOmitted(): void
     {
         $this->plugin->appendFile('one.js', ['goats' => 'are great']);
 
         self::assertSame(
-            '<script src="one.js"></script>',
+            '<script goats="are&#x20;great" src="one.js"></script>',
             $this->plugin->toString(),
         );
     }
