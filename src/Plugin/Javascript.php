@@ -17,6 +17,7 @@ use function array_values;
 use function implode;
 use function sprintf;
 
+/** @mago-expect lint:too-many-methods */
 final class Javascript implements StatefulPlugin, Stringable
 {
     /** @var list<Tag> */

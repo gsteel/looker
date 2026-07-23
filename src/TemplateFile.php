@@ -24,7 +24,7 @@ use Looker\Value\Doctype as DoctypeEnum;
  *
  * If you write custom plugins, you can extend this template in your own projects, or create
  *
- * @psalm-suppress PossiblyUnusedMethod, UnusedClass
+ * @mago-expect lint:too-many-methods
  */
 interface TemplateFile
 {

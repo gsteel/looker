@@ -20,6 +20,7 @@ use function sprintf;
 
 use const CASE_LOWER;
 
+/** @mago-expect lint:too-many-methods */
 final class HeadLink implements StatefulPlugin, Stringable
 {
     /** @var list<Tag> */
