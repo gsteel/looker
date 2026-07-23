@@ -44,7 +44,7 @@ final class MetaAttribute implements AttributeInformation
         $name = strtolower($name);
 
         return (
-            in_array($name, self::STRING)
+            in_array($name, self::STRING, true)
             || array_key_exists($name, self::ENUMERATED)
             || GlobalAttribute::exists($name)
         );

@@ -65,9 +65,9 @@ final class GlobalAttribute implements AttributeInformation
         $name = strtolower($name);
 
         return (
-            in_array($name, self::STRING_ATTRIBUTES)
+            in_array($name, self::STRING_ATTRIBUTES, true)
             || array_key_exists($name, self::ENUMERATED)
-            || in_array($name, self::BOOLEAN)
+            || in_array($name, self::BOOLEAN, true)
             || self::matchesPatternAttributeName($name)
         );
     }
@@ -78,7 +78,7 @@ final class GlobalAttribute implements AttributeInformation
     {
         $name = strtolower($name);
 
-        return in_array($name, self::BOOLEAN);
+        return in_array($name, self::BOOLEAN, true);
     }
 
     /** @param non-empty-string $name */
