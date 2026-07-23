@@ -160,10 +160,13 @@ final class Javascript implements StatefulPlugin, Stringable
 
     public function toString(): string
     {
-        return implode($this->separator, array_filter(array_map(
-            $this->tagToString(...),
-            $this->scripts,
-        )));
+        return implode(
+            $this->separator,
+            array_filter(array_map(
+                $this->tagToString(...),
+                $this->scripts,
+            )),
+        );
     }
 
     #[Override]

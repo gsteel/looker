@@ -52,7 +52,7 @@ final class PartialLoopTest extends TestCase
             <li>a</li>
             <li>b</li>
             <li>c</li>
-            
+
             HTML;
 
         self::assertSame($expect, $this->plugin->__invoke('li', $data));
@@ -86,7 +86,7 @@ final class PartialLoopTest extends TestCase
             <li>z</li>
             <li>x</li>
             </ul>
-            
+
             HTML;
 
         self::assertSame($expect, $this->plugin->__invoke('ul', $data));

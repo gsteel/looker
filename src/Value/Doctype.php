@@ -6,7 +6,6 @@ namespace Looker\Value;
 
 use function stristr;
 
-/** phpcs:disable Generic.Files.LineLength.TooLong */
 enum Doctype: string
 {
     case XHTML11 = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">';

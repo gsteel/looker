@@ -36,8 +36,10 @@ final class StyleAttribute implements AttributeInformation
     {
         $name = strtolower($name);
 
-        return in_array($name, self::STRING)
+        return (
+            in_array($name, self::STRING)
             || array_key_exists($name, self::ENUMERATED)
-            || GlobalAttribute::exists($name);
+            || GlobalAttribute::exists($name)
+        );
     }
 }

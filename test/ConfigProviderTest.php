@@ -15,6 +15,6 @@ final class ConfigProviderTest extends TestCase
      */
     public function testTheConfigProviderWilReturnANonEmptyArray(): void
     {
-        self::assertNotSame([], (new ConfigProvider())->__invoke());
+        self::assertNotSame([], new ConfigProvider()->__invoke());
     }
 }

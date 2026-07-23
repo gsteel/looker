@@ -13,8 +13,9 @@ use function sprintf;
 
 final readonly class Doctype
 {
-    public function __construct(public DoctypeEnum $default)
-    {
+    public function __construct(
+        public DoctypeEnum $default,
+    ) {
     }
 
     /** @return value-of<DoctypeEnum> */

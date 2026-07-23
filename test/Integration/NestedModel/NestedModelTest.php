@@ -49,7 +49,7 @@ final class NestedModelTest extends TestCase
             <p>Level 1</p>
             <p>Level 2</p>
             <p>Level 3</p>
-            
+
             HTML, $output);
     }
 }

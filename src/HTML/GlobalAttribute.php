@@ -64,10 +64,12 @@ final class GlobalAttribute implements AttributeInformation
     {
         $name = strtolower($name);
 
-        return in_array($name, self::STRING_ATTRIBUTES)
+        return (
+            in_array($name, self::STRING_ATTRIBUTES)
             || array_key_exists($name, self::ENUMERATED)
             || in_array($name, self::BOOLEAN)
-            || self::matchesPatternAttributeName($name);
+            || self::matchesPatternAttributeName($name)
+        );
     }
 
     /** @param non-empty-string $name */

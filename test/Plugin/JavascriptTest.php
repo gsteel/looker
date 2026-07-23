@@ -27,8 +27,7 @@ final class JavascriptTest extends TestCase
 
     public function testThatFilesCanBeAppended(): void
     {
-        $this->plugin->appendFile('one.js')
-            ->appendFile('two.js');
+        $this->plugin->appendFile('one.js')->appendFile('two.js');
 
         $expect = <<<'HTML'
             <script src="one.js"></script>
@@ -40,8 +39,7 @@ final class JavascriptTest extends TestCase
 
     public function testPrependFile(): void
     {
-        $this->plugin->appendFile('one.js')
-            ->prependFile('two.js');
+        $this->plugin->appendFile('one.js')->prependFile('two.js');
 
         $expect = <<<'HTML'
             <script src="two.js"></script>
@@ -66,8 +64,7 @@ final class JavascriptTest extends TestCase
 
     public function testThatAddingTheSameFileTwiceIsANoOp(): void
     {
-        $this->plugin->appendFile('one.js')
-            ->appendFile('one.js');
+        $this->plugin->appendFile('one.js')->appendFile('one.js');
 
         $expect = <<<'HTML'
             <script src="one.js"></script>
@@ -83,8 +80,7 @@ final class JavascriptTest extends TestCase
 
     public function testThatClearingStateRemovesExistingTags(): void
     {
-        $this->plugin->appendFile('one.js')
-            ->resetState();
+        $this->plugin->appendFile('one.js')->resetState();
 
         self::assertSame('', $this->plugin->toString());
     }
@@ -134,8 +130,7 @@ final class JavascriptTest extends TestCase
 
     public function testThatInlineScriptsCanBeAppendedAndPrepended(): void
     {
-        $this->plugin->appendScript('alert("One");')
-            ->prependScript('alert("Two");');
+        $this->plugin->appendScript('alert("One");')->prependScript('alert("Two");');
 
         $expect = <<<'HTML'
             <script>

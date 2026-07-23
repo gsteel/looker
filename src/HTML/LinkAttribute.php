@@ -56,9 +56,11 @@ final class LinkAttribute implements AttributeInformation
     {
         $name = strtolower($name);
 
-        return in_array($name, self::STRING)
+        return (
+            in_array($name, self::STRING)
             || in_array($name, self::BOOLEAN)
             || array_key_exists($name, self::ENUMERATED)
-            || GlobalAttribute::exists($name);
+            || GlobalAttribute::exists($name)
+        );
     }
 }

@@ -9,8 +9,9 @@ use Looker\Renderer\Renderer;
 
 final readonly class PartialLoop
 {
-    public function __construct(private Renderer $renderer)
-    {
+    public function __construct(
+        private Renderer $renderer,
+    ) {
     }
 
     /**

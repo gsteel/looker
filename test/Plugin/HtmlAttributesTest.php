@@ -52,7 +52,7 @@ final class HtmlAttributesTest extends TestCase
         $this->expectExceptionMessage(
             'HTML attribute arrays can only contain arrays with scalar values. The attribute "something" is invalid',
         );
-        (new HtmlAttributes(new Escaper()))->__invoke([
+        new HtmlAttributes(new Escaper())->__invoke([
             'something' => ['not-scalar' => ['Oh noes']],
         ]);
     }

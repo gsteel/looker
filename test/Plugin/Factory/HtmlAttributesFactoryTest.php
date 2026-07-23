@@ -14,13 +14,13 @@ final class HtmlAttributesFactoryTest extends TestCase
 {
     public function testPluginCanBeRetrievedWithZeroConfig(): void
     {
-        $plugin = (new HtmlAttributesFactory())->__invoke(new InMemoryContainer());
+        $plugin = new HtmlAttributesFactory()->__invoke(new InMemoryContainer());
         self::assertInstanceOf(HtmlAttributes::class, $plugin);
     }
 
     public function testPluginCanBeRetrievedWhenTheEscaperIsAlsoAvailable(): void
     {
-        $plugin = (new HtmlAttributesFactory())->__invoke(new InMemoryContainer([
+        $plugin = new HtmlAttributesFactory()->__invoke(new InMemoryContainer([
             Escaper::class => new Escaper(),
         ]));
 

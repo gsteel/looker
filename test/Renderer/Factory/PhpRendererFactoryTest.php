@@ -20,13 +20,13 @@ final class PhpRendererFactoryTest extends TestCase
     public function testThatConfigMustBeAvailable(): void
     {
         $this->expectException(ConfigurationError::class);
-        (new PhpRendererFactory())->__invoke(new InMemoryContainer());
+        new PhpRendererFactory()->__invoke(new InMemoryContainer());
     }
 
     public function testThatExpectedConfigVariablesMustHaveTheCorrectType(): void
     {
         $this->expectException(ConfigurationError::class);
-        (new PhpRendererFactory())->__invoke(new InMemoryContainer([
+        new PhpRendererFactory()->__invoke(new InMemoryContainer([
             'config' => [
                 'looker' => [
                     'strictVariables' => 'Goats',
@@ -39,7 +39,7 @@ final class PhpRendererFactoryTest extends TestCase
     public function testThatTheResolverMustBeAvailable(): void
     {
         $this->expectException(NotFoundExceptionInterface::class);
-        (new PhpRendererFactory())->__invoke(new InMemoryContainer([
+        new PhpRendererFactory()->__invoke(new InMemoryContainer([
             'config' => [
                 'looker' => [
                     'strictVariables' => true,
@@ -52,7 +52,7 @@ final class PhpRendererFactoryTest extends TestCase
     public function testThatThePluginManagerMustBeAvailable(): void
     {
         $this->expectException(NotFoundExceptionInterface::class);
-        (new PhpRendererFactory())->__invoke(new InMemoryContainer([
+        new PhpRendererFactory()->__invoke(new InMemoryContainer([
             'config' => [
                 'looker' => [
                     'strictVariables' => true,
@@ -65,7 +65,7 @@ final class PhpRendererFactoryTest extends TestCase
 
     public function testThatTheRendererCanBeRetrieved(): void
     {
-        $renderer = (new PhpRendererFactory())->__invoke(new InMemoryContainer([
+        $renderer = new PhpRendererFactory()->__invoke(new InMemoryContainer([
             'config' => [
                 'looker' => [
                     'strictVariables' => true,

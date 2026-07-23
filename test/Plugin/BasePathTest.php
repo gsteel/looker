@@ -14,14 +14,14 @@ final class BasePathTest extends TestCase
     public static function dataProvider(): array
     {
         return [
-            ['/', '/some-path', '/some-path'],
-            ['/foo', '/some-path', '/foo/some-path'],
-            ['/foo', 'some-path', '/foo/some-path'],
-            ['/foo', 'some-path/bar', '/foo/some-path/bar'],
-            ['/foo/', 'some-path', '/foo/some-path'],
-            ['/foo/', '/some-path', '/foo/some-path'],
-            ['/foo/', null, '/foo/'],
-            ['/foo', null, '/foo'],
+            ['/',     '/some-path',    '/some-path'],
+            ['/foo',  '/some-path',    '/foo/some-path'],
+            ['/foo',  'some-path',     '/foo/some-path'],
+            ['/foo',  'some-path/bar', '/foo/some-path/bar'],
+            ['/foo/', 'some-path',     '/foo/some-path'],
+            ['/foo/', '/some-path',    '/foo/some-path'],
+            ['/foo/', null,            '/foo/'],
+            ['/foo',  null,            '/foo'],
         ];
     }
 

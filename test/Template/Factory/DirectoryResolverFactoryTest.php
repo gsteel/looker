@@ -129,12 +129,12 @@ final class DirectoryResolverFactoryTest extends TestCase
             . 'suffix.',
         );
 
-        (new DirectoryResolverFactory())->__invoke(new InMemoryContainer($config));
+        new DirectoryResolverFactory()->__invoke(new InMemoryContainer($config));
     }
 
     public function testResolverCanBeRetrieved(): void
     {
-        $resolver = (new DirectoryResolverFactory())->__invoke(new InMemoryContainer([
+        $resolver = new DirectoryResolverFactory()->__invoke(new InMemoryContainer([
             'config' => [
                 'looker' => [
                     'templates' => [

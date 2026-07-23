@@ -41,11 +41,11 @@ final readonly class PhpRenderer implements Renderer
             throw TemplateCannotBeResolved::becauseAllResolversAreExhausted($model->template(), $this->resolver);
         }
 
-        return new Target(
+        return (new Target(
             $file,
             $model->variables(),
             $this->plugins,
             $this->strictVariables,
-        )();
+        ))();
     }
 }

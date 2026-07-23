@@ -76,12 +76,12 @@ final class AggregateResolverFactoryTest extends TestCase
             . 'container, and that an array under the key `looker.templates.aggregate` is a list of strings that '
             . 'can be used to fetch other template resolver instances',
         );
-        (new AggregateResolverFactory())->__invoke(new InMemoryContainer($config));
+        new AggregateResolverFactory()->__invoke(new InMemoryContainer($config));
     }
 
     public function testResolverCanBeRetrieved(): void
     {
-        $resolver = (new AggregateResolverFactory())->__invoke(new InMemoryContainer([
+        $resolver = new AggregateResolverFactory()->__invoke(new InMemoryContainer([
             'config' => [
                 'looker' => [
                     'templates' => [

@@ -15,8 +15,6 @@ use function ob_get_clean;
 use function ob_start;
 
 /**
- * phpcs:disable Squiz.NamingConventions.ValidVariableName, PSR2.Classes.PropertyDeclaration.Underscore
- *
  * @psalm-internal Looker
  * @psalm-no-seal-properties Magic properties are retrieved from this class to fetch view variables
  */

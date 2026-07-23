@@ -10,8 +10,9 @@ use Override;
 
 final readonly class Partial implements PartialPlugin
 {
-    public function __construct(private Renderer $renderer)
-    {
+    public function __construct(
+        private Renderer $renderer,
+    ) {
     }
 
     /**

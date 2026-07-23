@@ -25,24 +25,24 @@ final class DoctypeTest extends TestCase
     #[DataProvider('doctypeProvider')]
     public function testThatThePluginWillOutputTheValueWhenProvidedWithAnEnumInstance(DoctypeEnum $value): void
     {
-        self::assertSame($value->value, (new Doctype(DoctypeEnum::HTML5))->__invoke($value));
+        self::assertSame($value->value, new Doctype(DoctypeEnum::HTML5)->__invoke($value));
     }
 
     #[DataProvider('doctypeProvider')]
     public function testThatThePluginWillOutputTheValueWhenGivenTheStringKeyOfTheEnum(DoctypeEnum $value): void
     {
-        self::assertSame($value->value, (new Doctype(DoctypeEnum::HTML5))->__invoke($value->name));
+        self::assertSame($value->value, new Doctype(DoctypeEnum::HTML5)->__invoke($value->name));
     }
 
     #[DataProvider('doctypeProvider')]
     public function testThatThePluginWillOutputTheDefaultValueWhenGivenNoArguments(DoctypeEnum $value): void
     {
-        self::assertSame($value->value, (new Doctype($value))->__invoke());
+        self::assertSame($value->value, new Doctype($value)->__invoke());
     }
 
     #[DataProvider('doctypeProvider')]
     public function testThatAnInvalidEnumKeyWillYieldTheDefaultDoctype(DoctypeEnum $value): void
     {
-        self::assertSame($value->value, (new Doctype($value))->__invoke('Invalid'));
+        self::assertSame($value->value, new Doctype($value)->__invoke('Invalid'));
     }
 }

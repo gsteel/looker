@@ -60,7 +60,7 @@ final class TargetTest extends TestCase
         $target = new Target('unused', [], $this->proxy, true);
         $this->expectException(RenderingFailed::class);
         $this->expectExceptionMessage('Access to an undeclared variable "__template" in the template "unused"');
-        $target->__template; // phpcs:ignore Squiz.NamingConventions.ValidVariableName
+        $target->__template;
     }
 
     public function testThatVariablesCannotBeMutatedExternally(): void

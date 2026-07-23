@@ -57,7 +57,7 @@ final class PartialTest extends TestCase
         $expect = <<<'HTML'
             <title>Partial - Layout</title>
             <p>Partial Content</p>
-            
+
             HTML;
 
         self::assertSame($expect, $this->plugin->__invoke('layout'));

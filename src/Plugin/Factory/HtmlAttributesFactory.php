@@ -15,8 +15,8 @@ final class HtmlAttributesFactory
     {
         return new HtmlAttributes(
             $container->has(EscaperInterface::class)
-            ? $container->get(EscaperInterface::class)
-            : new Escaper(),
+                ? $container->get(EscaperInterface::class)
+                : new Escaper(),
         );
     }
 }

@@ -21,10 +21,13 @@ final class DirectoryResolverTest extends TestCase
 
     public function testFalseIsReturnedWhenNoTemplatesCanBeFoundInAnyConfiguredDirectories(): void
     {
-        $resolver = new DirectoryResolver([
-            __DIR__ . '/templates/more',
-            __DIR__ . '/templates/and-more/',
-        ], 'phtml');
+        $resolver = new DirectoryResolver(
+            [
+                __DIR__ . '/templates/more',
+                __DIR__ . '/templates/and-more/',
+            ],
+            'phtml',
+        );
 
         self::assertFalse($resolver->resolve('does-not-exist'));
     }
@@ -32,19 +35,25 @@ final class DirectoryResolverTest extends TestCase
     public function testThatUnreadableFilesWillNotBeResolved(): void
     {
         chmod(__DIR__ . '/templates/unreadable.phtml', 0200);
-        $resolver = new DirectoryResolver([
-            __DIR__ . '/templates',
-        ], 'phtml');
+        $resolver = new DirectoryResolver(
+            [
+                __DIR__ . '/templates',
+            ],
+            'phtml',
+        );
 
         self::assertFalse($resolver->resolve('unreadable'));
     }
 
     public function testExceptionThrownWhenAConfiguredDirectoryIsNotADirectory(): void
     {
-        $resolver = new DirectoryResolver([
-            __DIR__ . '/templates/more',
-            __DIR__ . '/templates/not-directory',
-        ], 'phtml');
+        $resolver = new DirectoryResolver(
+            [
+                __DIR__ . '/templates/more',
+                __DIR__ . '/templates/not-directory',
+            ],
+            'phtml',
+        );
 
         $this->expectException(TemplateCannotBeResolved::class);
         $this->expectExceptionMessage(
@@ -56,9 +65,12 @@ final class DirectoryResolverTest extends TestCase
 
     public function testThatTheExtensionIsAddedToTheNameArgumentWhenOmitted(): void
     {
-        $resolver = new DirectoryResolver([
-            __DIR__ . '/templates/more',
-        ], 'phtml');
+        $resolver = new DirectoryResolver(
+            [
+                __DIR__ . '/templates/more',
+            ],
+            'phtml',
+        );
 
         $path = $resolver->resolve('templates');
         self::assertSame(
@@ -69,9 +81,12 @@ final class DirectoryResolverTest extends TestCase
 
     public function testThatTheExtensionIsNotAddedToTheNameArgumentWhenPresent(): void
     {
-        $resolver = new DirectoryResolver([
-            __DIR__ . '/templates/more',
-        ], 'phtml');
+        $resolver = new DirectoryResolver(
+            [
+                __DIR__ . '/templates/more',
+            ],
+            'phtml',
+        );
 
         $path = $resolver->resolve('templates.phtml');
         self::assertSame(
@@ -82,9 +97,12 @@ final class DirectoryResolverTest extends TestCase
 
     public function testThatAlternativeExtensionsCanBeResolved(): void
     {
-        $resolver = new DirectoryResolver([
-            __DIR__ . '/templates/more',
-        ], 'phtml');
+        $resolver = new DirectoryResolver(
+            [
+                __DIR__ . '/templates/more',
+            ],
+            'phtml',
+        );
 
         $path = $resolver->resolve('other.txt');
         self::assertSame(
@@ -95,10 +113,13 @@ final class DirectoryResolverTest extends TestCase
 
     public function testThatResolutionIsFirstInFirstOut(): void
     {
-        $resolver = new DirectoryResolver([
-            __DIR__ . '/templates/more',
-            __DIR__ . '/templates/and-more',
-        ], 'phtml');
+        $resolver = new DirectoryResolver(
+            [
+                __DIR__ . '/templates/more',
+                __DIR__ . '/templates/and-more',
+            ],
+            'phtml',
+        );
 
         $path = $resolver->resolve('templates');
         self::assertSame(
@@ -106,10 +127,13 @@ final class DirectoryResolverTest extends TestCase
             $path,
         );
 
-        $resolver = new DirectoryResolver([
-            __DIR__ . '/templates/and-more',
-            __DIR__ . '/templates/more',
-        ], 'phtml');
+        $resolver = new DirectoryResolver(
+            [
+                __DIR__ . '/templates/and-more',
+                __DIR__ . '/templates/more',
+            ],
+            'phtml',
+        );
 
         $path = $resolver->resolve('templates');
         self::assertSame(
@@ -120,9 +144,12 @@ final class DirectoryResolverTest extends TestCase
 
     public function testThatSubdirectoriesCanBeUsedInTemplateNames(): void
     {
-        $resolver = new DirectoryResolver([
-            __DIR__ . '/templates',
-        ], 'phtml');
+        $resolver = new DirectoryResolver(
+            [
+                __DIR__ . '/templates',
+            ],
+            'phtml',
+        );
 
         $path = $resolver->resolve('more/templates');
         self::assertSame(
@@ -133,9 +160,12 @@ final class DirectoryResolverTest extends TestCase
 
     public function testThatItIsNotPossibleToTraverseUpwardsThroughTheDirectoryTree(): void
     {
-        $resolver = new DirectoryResolver([
-            __DIR__ . '/templates/more',
-        ], 'phtml');
+        $resolver = new DirectoryResolver(
+            [
+                __DIR__ . '/templates/more',
+            ],
+            'phtml',
+        );
 
         $this->expectException(TemplateCannotBeResolved::class);
         $this->expectExceptionMessage(
@@ -147,9 +177,12 @@ final class DirectoryResolverTest extends TestCase
 
     public function testThatResolverExceptionsKeepAReferenceToTheFailingResolver(): void
     {
-        $resolver = new DirectoryResolver([
-            __DIR__ . '/templates/more',
-        ], 'phtml');
+        $resolver = new DirectoryResolver(
+            [
+                __DIR__ . '/templates/more',
+            ],
+            'phtml',
+        );
 
         try {
             $resolver->resolve('../top.phtml');
