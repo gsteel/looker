@@ -14,6 +14,7 @@ final class ConfigProvider
         return [
             'looker' => [
                 'encoding' => 'utf-8',
+                'permitUnknownAttributes' => true,
                 'strictVariables' => true,
                 'passScopeToChildren' => false,
                 'plugins' => $this->pluginDependencies(),
@@ -34,6 +35,7 @@ final class ConfigProvider
             ],
             'dependencies' => [
                 'factories' => [
+                    HTML\AttributeNormaliser::class => HTML\AttributeNormaliserFactory::class,
                     Renderer\PhpRenderer::class => Renderer\Factory\PhpRendererFactory::class,
                     Template\AggregateResolver::class => Template\Factory\AggregateResolverFactory::class,
                     Template\DirectoryResolver::class => Template\Factory\DirectoryResolverFactory::class,

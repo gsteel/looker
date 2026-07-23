@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Looker\Plugin\Factory;
 
+use Looker\HTML\AttributeNormaliser;
 use Looker\Plugin\HeadStyle;
 use Looker\Plugin\HtmlAttributes;
 use Looker\PluginManager;
@@ -17,6 +18,7 @@ final class HeadStyleFactory
 
         return new HeadStyle(
             $plugins->get(HtmlAttributes::class),
+            $container->get(AttributeNormaliser::class),
         );
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Looker\Test\Plugin;
 
 use Laminas\Escaper\Escaper;
+use Looker\HTML\AttributeNormaliser;
 use Looker\Plugin\HeadMeta;
 use Looker\Plugin\HtmlAttributes;
 use Looker\Value\Doctype;
@@ -24,6 +25,7 @@ final class HeadMetaTest extends TestCase
         $this->plugin = new HeadMeta(
             Doctype::HTML5,
             new HtmlAttributes(new Escaper()),
+            new AttributeNormaliser(true),
             PHP_EOL,
         );
     }
@@ -83,14 +85,19 @@ final class HeadMetaTest extends TestCase
 
     public function testXHTMLDocumentsWillHaveSelfClosingTag(): void
     {
-        $plugin = new HeadMeta(Doctype::XHTML1Strict, new HtmlAttributes(new Escaper()), PHP_EOL);
+        $plugin = new HeadMeta(
+            Doctype::XHTML1Strict,
+            new HtmlAttributes(new Escaper()),
+            new AttributeNormaliser(true),
+            PHP_EOL,
+        );
         $plugin->append(['name' => 'foo', 'content' => 'bar']);
         self::assertSame('<meta content="bar" name="foo" />', $plugin->toString());
     }
 
     public function testThatEmptyAttributesYieldEmptyString(): void
     {
-        $this->plugin->append(['foo' => 'bar']);
+        $this->plugin->append([]);
         self::assertSame('', $this->plugin->toString());
     }
 

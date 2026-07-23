@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Looker\Test\Plugin\Factory;
 
 use Laminas\Escaper\Escaper;
+use Looker\HTML\AttributeNormaliser;
 use Looker\Plugin\Factory\HeadMetaFactory;
 use Looker\Plugin\HeadMeta;
 use Looker\Plugin\HtmlAttributes;
@@ -29,6 +30,7 @@ final class HeadMetaFactoryTest extends TestCase
     {
         $plugin = (new HeadMetaFactory())(new InMemoryContainer([
             PluginManager::class => $this->plugins,
+            AttributeNormaliser::class => new AttributeNormaliser(true),
         ]));
         self::assertInstanceOf(HeadMeta::class, $plugin);
     }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Looker\Test\Plugin\Factory;
 
 use Laminas\Escaper\Escaper;
+use Looker\HTML\AttributeNormaliser;
 use Looker\Plugin\Factory\HeadLinkFactory;
 use Looker\Plugin\HeadLink;
 use Looker\Plugin\HtmlAttributes;
@@ -29,6 +30,7 @@ final class HeadLinkFactoryTest extends TestCase
     {
         $plugin = (new HeadLinkFactory())(new InMemoryContainer([
             PluginManager::class => $this->plugins,
+            AttributeNormaliser::class => new AttributeNormaliser(true),
         ]));
         self::assertInstanceOf(HeadLink::class, $plugin);
     }
@@ -38,6 +40,7 @@ final class HeadLinkFactoryTest extends TestCase
         $plugin = (new HeadLinkFactory())(new InMemoryContainer([
             Escaper::class => new Escaper(),
             PluginManager::class => $this->plugins,
+            AttributeNormaliser::class => new AttributeNormaliser(true),
         ]));
         self::assertInstanceOf(HeadLink::class, $plugin);
     }

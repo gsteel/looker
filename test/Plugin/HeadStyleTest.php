@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Looker\Test\Plugin;
 
 use Laminas\Escaper\Escaper;
+use Looker\HTML\AttributeNormaliser;
 use Looker\Plugin\HeadStyle;
 use Looker\Plugin\HtmlAttributes;
 use Override;
@@ -19,6 +20,7 @@ final class HeadStyleTest extends TestCase
     {
         $this->plugin = new HeadStyle(
             new HtmlAttributes(new Escaper()),
+            new AttributeNormaliser(true),
             "\n",
         );
     }
@@ -149,12 +151,12 @@ final class HeadStyleTest extends TestCase
         );
     }
 
-    public function testThatUnknownAttributesAreOmitted(): void
+    public function testThatUnknownAttributesAreNotOmitted(): void
     {
         $this->plugin->append('p { color: pink; }', ['goats' => 'are great']);
 
         $expect = <<<'HTML'
-            <style>
+            <style goats="are&#x20;great">
             p { color: pink; }
             </style>
             HTML;

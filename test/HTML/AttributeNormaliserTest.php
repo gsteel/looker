@@ -6,15 +6,24 @@ namespace Looker\Test\HTML;
 
 use Looker\HTML\AttributeNormaliser;
 use Looker\HTML\GlobalAttribute;
+use Override;
 use PHPUnit\Framework\TestCase;
 
 final class AttributeNormaliserTest extends TestCase
 {
+    private AttributeNormaliser $normaliser;
+
+    #[Override]
+    protected function setUp(): void
+    {
+        $this->normaliser = new AttributeNormaliser(true);
+    }
+
     public function testThatAttributeKeysAreLowerCased(): void
     {
         self::assertSame(
             ['accesskey' => 'a'],
-            AttributeNormaliser::normalise(['AccessKey' => 'a'], new GlobalAttribute()),
+            $this->normaliser->normalise(['AccessKey' => 'a'], new GlobalAttribute()),
         );
     }
 
@@ -22,7 +31,7 @@ final class AttributeNormaliserTest extends TestCase
     {
         self::assertSame(
             [],
-            AttributeNormaliser::normalise(['autofocus' => false], new GlobalAttribute()),
+            $this->normaliser->normalise(['autofocus' => false], new GlobalAttribute()),
         );
     }
 
@@ -30,15 +39,41 @@ final class AttributeNormaliserTest extends TestCase
     {
         self::assertSame(
             ['autofocus' => true],
-            AttributeNormaliser::normalise(['autofocus' => 1], new GlobalAttribute()),
+            $this->normaliser->normalise(['autofocus' => 1], new GlobalAttribute()),
         );
     }
 
-    public function testInvalidAttributesAreOmitted(): void
+    public function testThatUnknownBooleansAreSkippedWhenFalse(): void
     {
         self::assertSame(
             [],
-            AttributeNormaliser::normalise(['muppets' => 'foo'], new GlobalAttribute()),
+            $this->normaliser->normalise(['fred' => false], new GlobalAttribute()),
+        );
+    }
+
+    public function testThatUnknownBooleansAreNotSkippedWhenTrue(): void
+    {
+        self::assertSame(
+            ['fred' => true],
+            $this->normaliser->normalise(['fred' => true], new GlobalAttribute()),
+        );
+    }
+
+    public function testInvalidAttributesAreIncludedByDefault(): void
+    {
+        self::assertSame(
+            ['muppets' => 'foo'],
+            $this->normaliser->normalise(['muppets' => 'foo'], new GlobalAttribute()),
+        );
+    }
+
+    public function testInvalidAttributesAreFilteredOutWhenDesired(): void
+    {
+        $normaliser = new AttributeNormaliser(false);
+
+        self::assertSame(
+            [],
+            $normaliser->normalise(['muppets' => 'foo'], new GlobalAttribute()),
         );
     }
 
@@ -55,7 +90,7 @@ final class AttributeNormaliserTest extends TestCase
 
         self::assertSame(
             $expect,
-            AttributeNormaliser::normalise($attributes, new GlobalAttribute()),
+            $this->normaliser->normalise($attributes, new GlobalAttribute()),
         );
     }
 }

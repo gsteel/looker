@@ -27,6 +27,7 @@ final class HeadMeta implements StatefulPlugin, Stringable
     public function __construct(
         private readonly Doctype $doctype,
         private readonly HtmlAttributes $attributePlugin,
+        private readonly AttributeNormaliser $attributeNormaliser,
         private readonly string $defaultSeparator = "\n\t",
     ) {
         $this->separator = $this->defaultSeparator;
@@ -91,7 +92,7 @@ final class HeadMeta implements StatefulPlugin, Stringable
     /** @param array<non-empty-string, scalar> $attributes */
     private function makeTag(array $attributes): Tag
     {
-        return new Tag('meta', AttributeNormaliser::normalise(
+        return new Tag('meta', $this->attributeNormaliser->normalise(
             $attributes,
             new MetaAttribute(),
         ), null);
