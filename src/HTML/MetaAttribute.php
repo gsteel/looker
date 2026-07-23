@@ -10,7 +10,7 @@ use function array_key_exists;
 use function in_array;
 use function strtolower;
 
-/** @psalm-internal Looker */
+/** @internal */
 final class MetaAttribute implements AttributeInformation
 {
     private const array STRING = [

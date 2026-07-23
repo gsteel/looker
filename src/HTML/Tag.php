@@ -7,8 +7,8 @@ namespace Looker\HTML;
 use function ksort;
 
 /**
- * @psalm-internal Looker
- * @psalm-immutable
+ * @internal
+ * @immutable
  */
 final readonly class Tag
 {

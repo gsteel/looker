@@ -50,7 +50,7 @@ final class TargetTest extends TestCase
         $target = new Target('unused', [], $this->proxy, true);
 
         $this->expectException(RenderingFailed::class);
-        $this->expectExceptionMessage('Access to an undeclared variable "value" in the template "unused"');
+        $this->expectExceptionMessageIsOrContains('Access to an undeclared variable "value" in the template "unused"');
 
         $target->value;
     }
@@ -59,7 +59,9 @@ final class TargetTest extends TestCase
     {
         $target = new Target('unused', [], $this->proxy, true);
         $this->expectException(RenderingFailed::class);
-        $this->expectExceptionMessage('Access to an undeclared variable "__template" in the template "unused"');
+        $this->expectExceptionMessageIsOrContains(
+            'Access to an undeclared variable "__template" in the template "unused"',
+        );
         $target->__template;
     }
 
@@ -67,7 +69,7 @@ final class TargetTest extends TestCase
     {
         $target = new Target('unused', [], $this->proxy, true);
         $this->expectException(RenderingFailed::class);
-        $this->expectExceptionMessage('Attempt to mutate the variable "value" in the template "unused"');
+        $this->expectExceptionMessageIsOrContains('Attempt to mutate the variable "value" in the template "unused"');
         $target->value = 'foo';
     }
 
@@ -76,7 +78,7 @@ final class TargetTest extends TestCase
         $template = __DIR__ . '/templates/mutate-value.phtml';
         $target = new Target($template, [], $this->proxy, true);
         $this->expectException(RenderingFailed::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIsOrContains(
             sprintf('Attempt to mutate the variable "value" in the template "%s"', $template),
         );
         $target->__invoke();
@@ -87,7 +89,7 @@ final class TargetTest extends TestCase
         $template = __DIR__ . '/templates/exceptional.phtml';
         $target = new Target($template, [], $this->proxy, true);
         $this->expectException(RenderingFailed::class);
-        $this->expectExceptionMessage(sprintf('An exception occurred during render of "%s"', $template));
+        $this->expectExceptionMessageIsOrContains(sprintf('An exception occurred during render of "%s"', $template));
         $target->__invoke();
     }
 
@@ -146,7 +148,9 @@ final class TargetTest extends TestCase
         $target = new Target($template, [], $this->proxy, true);
 
         $this->expectException(RenderingFailed::class);
-        $this->expectExceptionMessage('A cyclic rendering dependency has been detected during render of the template');
+        $this->expectExceptionMessageIsOrContains(
+            'A cyclic rendering dependency has been detected during render of the template',
+        );
 
         $target->__invoke();
     }

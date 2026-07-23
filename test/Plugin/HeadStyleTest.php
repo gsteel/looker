@@ -165,7 +165,6 @@ final class HeadStyleTest extends TestCase
 
     public function testThatCompletelyEmptyStylesAreIgnored(): void
     {
-        /** @psalm-suppress InvalidArgument */
         $this->plugin->append('');
         self::assertSame('', $this->plugin->toString());
     }

@@ -94,7 +94,7 @@ final class HeadLink implements StatefulPlugin, Stringable
         $attributes['rel'] = $rel;
         $attributes['href'] = $href;
 
-        /** @psalm-var array<non-empty-lowercase-string, scalar> $attributes */
+        /** @var array<non-empty-lowercase-string, scalar> $attributes */
 
         return new Tag('link', $attributes, null);
     }

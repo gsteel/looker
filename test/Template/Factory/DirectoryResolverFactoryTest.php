@@ -122,7 +122,7 @@ final class DirectoryResolverFactoryTest extends TestCase
     public function testRequiredConfiguration(array $config): void
     {
         $this->expectException(ConfigurationError::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIsOrContains(
             'The directory resolver requires that the `config` array is available in the container and '
             . 'that it has a) a list of directory paths under the key `looker.templates.paths` and, b) a non-empty '
             . 'string under the key `looker.templates.defaultSuffix` to use as the default template file name '

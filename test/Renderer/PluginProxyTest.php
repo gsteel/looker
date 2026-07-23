@@ -23,7 +23,9 @@ final class PluginProxyTest extends TestCase
         $proxy = new PluginProxy(new InMemoryContainer());
 
         $this->expectException(RenderingFailed::class);
-        $this->expectExceptionMessage('A plugin with the name "somePlugin" could not be found in the plugin manager');
+        $this->expectExceptionMessageIsOrContains(
+            'A plugin with the name "somePlugin" could not be found in the plugin manager',
+        );
         $proxy->__call('somePlugin', []);
     }
 
@@ -34,7 +36,9 @@ final class PluginProxyTest extends TestCase
         ]));
 
         $this->expectException(RenderingFailed::class);
-        $this->expectExceptionMessage('The plugin aliased to "somePlugin" is not callable. Received a type of');
+        $this->expectExceptionMessageIsOrContains(
+            'The plugin aliased to "somePlugin" is not callable. Received a type of',
+        );
         $proxy->__call('somePlugin', []);
     }
 
@@ -45,7 +49,7 @@ final class PluginProxyTest extends TestCase
         ]));
 
         $this->expectException(RenderingFailed::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIsOrContains(
             'An exception occurred during execution of the plugin "somePlugin". Message: Oh dear…',
         );
         $proxy->__call('somePlugin', []);
@@ -78,12 +82,10 @@ final class PluginProxyTest extends TestCase
             'somePlugin' => new WithArguments(),
         ]));
 
-        /** @psalm-suppress InvalidArgument $value */
         $value = $proxy->somePlugin('mary', 'had', 'a', 'little', 'lamb');
         self::assertSame('mary had a little lamb', $value);
     }
 
-    /** @psalm-suppress MixedMethodCall */
     public function testThatUsedStatefulPluginsCanBeReset(): void
     {
         $a = new Stateful();
@@ -124,6 +126,7 @@ final class PluginProxyTest extends TestCase
             'somePlugin' => StaticMethod::getValue(...),
         ]));
 
+        /** @var mixed $value */
         $value = $proxy->somePlugin();
         self::assertSame('foo', $value);
     }

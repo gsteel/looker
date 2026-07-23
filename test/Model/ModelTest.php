@@ -121,7 +121,6 @@ final class ModelTest extends TestCase
     {
         $a = Model::terminal('foo', []);
         $this->expectException(TerminalModelCannotBeChild::class);
-        /** @psalm-suppress UnusedMethodCall */
         Model::new('bar', [])->withChild($a, 'baz');
     }
 

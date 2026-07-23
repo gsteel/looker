@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Looker\Plugin;
 
 use Looker\Value\Doctype as DoctypeEnum;
+use Psl\Type;
 use Throwable;
 
-use function assert;
 use function constant;
 use function sprintf;
 
@@ -30,8 +30,9 @@ final readonly class Doctype
         }
 
         try {
-            $enum = constant(sprintf('%s::%s', DoctypeEnum::class, $id));
-            assert($enum instanceof DoctypeEnum);
+            $enum = Type\instance_of(DoctypeEnum::class)->assert(
+                constant(sprintf('%s::%s', DoctypeEnum::class, $id)),
+            );
 
             return $enum->value;
         } catch (Throwable) {

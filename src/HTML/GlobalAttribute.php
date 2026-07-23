@@ -11,7 +11,7 @@ use function in_array;
 use function str_starts_with;
 use function strtolower;
 
-/** @psalm-internal Looker */
+/** @internal */
 final class GlobalAttribute implements AttributeInformation
 {
     private const array STRING_ATTRIBUTES = [

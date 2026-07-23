@@ -71,7 +71,7 @@ final class AggregateResolverFactoryTest extends TestCase
     public function testErroneousConfig(array $config): void
     {
         $this->expectException(ConfigurationError::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIsOrContains(
             'The aggregate template resolver requires that the `config` array is present in the '
             . 'container, and that an array under the key `looker.templates.aggregate` is a list of strings that '
             . 'can be used to fetch other template resolver instances',

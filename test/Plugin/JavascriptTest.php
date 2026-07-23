@@ -146,7 +146,6 @@ final class JavascriptTest extends TestCase
 
     public function testThatCompletelyEmptyScriptsAreIgnored(): void
     {
-        /** @psalm-suppress InvalidArgument */
         $this->plugin->appendScript('');
         self::assertSame('', $this->plugin->toString());
     }

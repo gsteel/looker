@@ -13,8 +13,10 @@ use function Psl\Type\non_empty_string;
 use function Psl\Type\non_empty_vec;
 use function Psl\Type\shape;
 
+/** @internal */
 final class DirectoryResolverFactory
 {
+    /** @throws ConfigurationError */
     public function __invoke(ContainerInterface $container): DirectoryResolver
     {
         try {

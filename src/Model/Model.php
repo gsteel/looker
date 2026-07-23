@@ -11,7 +11,7 @@ use function get_object_vars;
 use function is_iterable;
 use function iterator_to_array;
 
-/** @psalm-immutable */
+/** @immutable */
 final readonly class Model implements ViewModel
 {
     /**
@@ -53,11 +53,10 @@ final readonly class Model implements ViewModel
     private static function castVariables(array|object $variables): array
     {
         if (is_iterable($variables)) {
-            /** @psalm-var array<string, mixed> */
             return iterator_to_array($variables);
         }
 
-        /** @psalm-var array<string, mixed> */
+        /** @var array<string, mixed> */
         return get_object_vars($variables);
     }
 
@@ -97,7 +96,6 @@ final readonly class Model implements ViewModel
     public function withVariable(string $name, mixed $value): static
     {
         $variables = $this->variables;
-        /** @psalm-suppress MixedAssignment */
         $variables[$name] = $value;
 
         return new self(

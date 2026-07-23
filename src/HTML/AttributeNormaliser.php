@@ -21,16 +21,15 @@ final readonly class AttributeNormaliser
      * @param array<string, scalar|null> $attributes
      *
      * @return array<non-empty-lowercase-string, scalar>
-     *
-     * @psalm-suppress MixedAssignment
      */
     public function normalise(array $attributes, AttributeInformation $info): array
     {
-        /** @psalm-var array<non-empty-lowercase-string, mixed> $attributes */
+        /** @var array<non-empty-lowercase-string, mixed> $attributes */
         $attributes = array_change_key_case($attributes, CASE_LOWER);
 
         $result = [];
 
+        /** @var mixed $value */
         foreach ($attributes as $name => $value) {
             if ($info::isBoolean($name) || is_bool($value)) {
                 if ($value === false) {

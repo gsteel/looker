@@ -6,6 +6,7 @@ namespace Looker\Plugin;
 
 use Looker\Model\Model;
 use Looker\Renderer\Renderer;
+use Looker\Renderer\RenderingFailed;
 use Override;
 
 final readonly class Partial implements PartialPlugin
@@ -18,6 +19,7 @@ final readonly class Partial implements PartialPlugin
     /**
      * @param non-empty-string $templateName
      * @param array<non-empty-string, mixed> $variables
+     * @throws RenderingFailed
      */
     #[Override]
     public function __invoke(string $templateName, array $variables = []): string

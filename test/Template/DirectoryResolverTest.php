@@ -56,7 +56,7 @@ final class DirectoryResolverTest extends TestCase
         );
 
         $this->expectException(TemplateCannotBeResolved::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIsOrContains(
             'The path provided for template resolution is not a directory',
         );
 
@@ -168,7 +168,7 @@ final class DirectoryResolverTest extends TestCase
         );
 
         $this->expectException(TemplateCannotBeResolved::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIsOrContains(
             'cannot be resolved because it includes upward directory traversal',
         );
 

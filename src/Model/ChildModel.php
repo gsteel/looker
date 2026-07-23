@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Looker\Model;
 
-/** @psalm-immutable */
+/** @immutable */
 final readonly class ChildModel
 {
     /**
@@ -12,7 +12,7 @@ final readonly class ChildModel
      *
      * @throws TerminalModelCannotBeChild
      *
-     * @psalm-internal Looker
+     * @internal
      */
     public function __construct(
         public ViewModel $model,

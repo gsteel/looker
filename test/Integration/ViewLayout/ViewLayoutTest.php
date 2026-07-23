@@ -210,7 +210,7 @@ final class ViewLayoutTest extends TestCase
         );
 
         $this->expectException(RenderingFailed::class);
-        $this->expectExceptionMessage('accepts either a configured view model as its only argument, or');
+        $this->expectExceptionMessageIsOrContains('accepts either a configured view model as its only argument, or');
 
         $view->render(['some' => 'stuff']);
     }

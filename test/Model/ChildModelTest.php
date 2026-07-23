@@ -17,7 +17,6 @@ final class ChildModelTest extends TestCase
 
         $this->expectException(TerminalModelCannotBeChild::class);
 
-        /** @psalm-suppress UnusedMethodCall */
         $model->withChild($terminal, 'whatever');
     }
 }

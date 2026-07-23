@@ -13,8 +13,13 @@ use function Psl\Type\dict;
 use function Psl\Type\non_empty_string;
 use function Psl\Type\shape;
 
+/**
+ * @internal
+ * @internal
+ */
 final class MapResolverFactory
 {
+    /** @throws ConfigurationError */
     public function __invoke(ContainerInterface $container): MapResolver
     {
         try {

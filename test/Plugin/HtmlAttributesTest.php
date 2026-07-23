@@ -49,7 +49,7 @@ final class HtmlAttributesTest extends TestCase
     public function testThatNestedArraysWillCauseAnException(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIsOrContains(
             'HTML attribute arrays can only contain arrays with scalar values. The attribute "something" is invalid',
         );
         new HtmlAttributes(new Escaper())->__invoke([

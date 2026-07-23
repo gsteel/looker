@@ -6,6 +6,7 @@ namespace Looker\Plugin;
 
 use Looker\Model\Model;
 use Looker\Renderer\Renderer;
+use Looker\Renderer\RenderingFailed;
 
 final readonly class PartialLoop
 {
@@ -17,6 +18,7 @@ final readonly class PartialLoop
     /**
      * @param non-empty-string $templateName
      * @param list<array<non-empty-string, mixed>> $variables
+     * @throws RenderingFailed
      */
     public function __invoke(string $templateName, array $variables = []): string
     {

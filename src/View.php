@@ -78,7 +78,7 @@ final readonly class View
         }
 
         // A custom layout in the view model has next precedence
-        /** @psalm-suppress MixedAssignment */
+        /** @var mixed $custom */
         $custom = $model->variables()['layout'] ?? null;
         if (is_string($custom) && $custom !== '') {
             return $custom;

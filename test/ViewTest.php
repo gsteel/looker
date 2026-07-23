@@ -30,7 +30,7 @@ final class ViewTest extends TestCase
     public function testExceptionThrownWhenGivenAnArrayModelButNullTemplate(): void
     {
         $this->expectException(RenderingFailed::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageIsOrContains(
             'render accepts either a configured view model as its only argument, or, '
             . 'an array of template variables and a template name',
         );
