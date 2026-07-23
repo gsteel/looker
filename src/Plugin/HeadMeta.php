@@ -12,6 +12,7 @@ use Override;
 use Stringable;
 
 use function array_filter;
+use function array_key_exists;
 use function array_map;
 use function array_unshift;
 use function array_values;
@@ -75,7 +76,7 @@ final class HeadMeta implements StatefulPlugin, Stringable
     public function removeWithAttributeMatching(string $attribute, mixed $value): self
     {
         foreach ($this->meta as $key => $item) {
-            if (! isset($item->attributes[$attribute])) {
+            if (! array_key_exists($attribute, $item->attributes)) {
                 continue;
             }
 

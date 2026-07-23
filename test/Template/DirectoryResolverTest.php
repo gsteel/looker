@@ -16,7 +16,7 @@ final class DirectoryResolverTest extends TestCase
     #[Override]
     public static function tearDownAfterClass(): void
     {
-        chmod(__DIR__ . '/templates/unreadable.phtml', 0644);
+        chmod(__DIR__ . '/templates/unreadable.phtml', 0o644);
     }
 
     public function testFalseIsReturnedWhenNoTemplatesCanBeFoundInAnyConfiguredDirectories(): void
@@ -34,7 +34,7 @@ final class DirectoryResolverTest extends TestCase
 
     public function testThatUnreadableFilesWillNotBeResolved(): void
     {
-        chmod(__DIR__ . '/templates/unreadable.phtml', 0200);
+        chmod(__DIR__ . '/templates/unreadable.phtml', 0o200);
         $resolver = new DirectoryResolver(
             [
                 __DIR__ . '/templates',
