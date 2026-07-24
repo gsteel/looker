@@ -13,3 +13,7 @@ jobs:
       GIT_AUTHOR_NAME: ${{ secrets.GIT_AUTHOR_NAME }}
       ORGANIZATION_ADMIN_TOKEN: ${{ secrets.ORGANIZATION_ADMIN_TOKEN }}
       SIGNING_SECRET_KEY: ${{ secrets.SIGNING_SECRET_KEY }}
+    permissions:
+      contents: write
+      actions: write
+      pull-requests: write
