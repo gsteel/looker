@@ -7,6 +7,11 @@ on:
     branches:
     tags:
 
+# Prevent the workflow from running concurrently on the same PR or ref
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 env:
   default_php: '8.4'
   php_extensions: 'bcmath intl'
@@ -16,10 +21,9 @@ jobs:
     name: Generate job matrix
     runs-on: ubuntu-latest
     permissions:
-      actions: write
-      checks: write
+      checks: write # Creates checks
       contents: read
-      statuses: write
+      statuses: write # Writes to statuses?
     outputs:
       matrix: ${{ steps.matrix.outputs.matrix }}
     steps:
@@ -32,10 +36,8 @@ jobs:
     needs: [ matrix ]
     runs-on: ${{ matrix.operatingSystem }}
     permissions:
-      actions: write
-      checks: write
       contents: read
-      statuses: write
+      statuses: write # Writes to statuses?
     strategy:
       fail-fast: false
       matrix: ${{ fromJSON(needs.matrix.outputs.matrix) }}
@@ -50,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      security-events: write
+      security-events: write # Uploads sarif reports
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -106,7 +108,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      security-events: write
+      security-events: write # Uploads sarif reports
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1

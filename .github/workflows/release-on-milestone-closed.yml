@@ -15,6 +15,6 @@ jobs:
       ORGANIZATION_ADMIN_TOKEN: ${{ secrets.ORGANIZATION_ADMIN_TOKEN }}
       SIGNING_SECRET_KEY: ${{ secrets.SIGNING_SECRET_KEY }}
     permissions:
-      contents: write
-      actions: write
-      pull-requests: write
+      contents: write # Creates Tags on release
+      actions: write # Potentially unnecessary
+      pull-requests: write # Creates Merge-Up PRs
