@@ -1,4 +1,5 @@
 name: "Automatic Releases"
+permissions: {}
 
 on:
   milestone:
