@@ -11,10 +11,38 @@ env:
   php_extensions: 'bcmath intl'
 
 jobs:
-  ci:
+  matrix:
+    name: Generate job matrix
+    runs-on: ubuntu-latest
     permissions:
+      actions: write
+      checks: write
       contents: read
-    uses: laminas/workflow-continuous-integration/.github/workflows/continuous-integration.yml@f6a144b8f45ba7a2a5c5c8205f2ea8e91239ff7b
+      statuses: write
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+    steps:
+      - name: Gather CI configuration
+        id: matrix
+        uses: laminas/laminas-ci-matrix-action@6383012fc66934b529727af575aa783bd82a4c03 # 1.33.0
+
+  qa:
+    name: QA Checks
+    needs: [ matrix ]
+    runs-on: ${{ matrix.operatingSystem }}
+    permissions:
+      actions: write
+      checks: write
+      contents: read
+      statuses: write
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.matrix.outputs.matrix) }}
+    steps:
+      - name: ${{ matrix.name }}
+        uses: laminas/laminas-continuous-integration-action@07bce265971b2d19f607e47adbb3c04a913145ec # 1.45.0
+        with:
+          job: ${{ matrix.job }}
 
   zizmor:
     name: Run zizmor
