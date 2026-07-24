@@ -14,7 +14,7 @@ jobs:
   ci:
     permissions:
       contents: read
-    uses: laminas/workflow-continuous-integration/.github/workflows/continuous-integration.yml@1.x
+    uses: laminas/workflow-continuous-integration/.github/workflows/continuous-integration.yml@f6a144b8f45ba7a2a5c5c8205f2ea8e91239ff7b
 
   zizmor:
     name: Run zizmor
