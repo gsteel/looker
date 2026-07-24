@@ -53,23 +53,22 @@ jobs:
       - uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # 4.0.0
       - run: make unused-ci
 
-  # Skipping security reports temporarily until I've figured out what the problem with an empty file is…
-#  psalm-security-report:
-#    name: "SA Security Report"
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-#      - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # 2.37.2
-#        with:
-#          php-version: ${{ env.default_php }}
-#          extensions: ${{ env.php_extensions }}
-#      - uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # 4.0.0
-#      - name: "Static Analysis"
-#        run: vendor/bin/mago analyse --reporting-target=stdout --reporting-format=sarif > results.sarif
-#      - name: "Upload Security Analysis results to GitHub"
-#        uses: github/codeql-action/upload-sarif@e4fba868fa4b1b91e1fdab776edc8cfbe6e9fb81 # v4
-#        with:
-#          sarif_file: results.sarif
+  psalm-security-report:
+    name: "SA Security Report"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # 2.37.2
+        with:
+          php-version: ${{ env.default_php }}
+          extensions: ${{ env.php_extensions }}
+      - uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # 4.0.0
+      - name: "Static Analysis"
+        run: vendor/bin/mago analyse --reporting-target=stdout --reporting-format=sarif > results.sarif
+      - name: "Upload Security Analysis results to GitHub"
+        uses: github/codeql-action/upload-sarif@e4fba868fa4b1b91e1fdab776edc8cfbe6e9fb81 # v4
+        with:
+          sarif_file: results.sarif
 
   rector:
     name: Rector on Default PHP

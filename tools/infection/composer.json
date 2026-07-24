@@ -11,7 +11,7 @@
         "php": "~8.4 || ~8.5"
     },
     "require-dev": {
-        "carthage-software/mago": "^1.45.0",
+        "carthage-software/mago": "^1.45",
         "infection/infection": "0.34.0"
     },
     "autoload": {
