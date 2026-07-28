@@ -27,7 +27,7 @@
     },
     "require-dev": {
         "carthage-software/mago": "^1.45.0",
-        "phpunit/phpunit": "^13.2.5"
+        "phpunit/phpunit": "^13.2.6"
     },
     "conflict": {
         "shish/safe": "<2.6.4",
