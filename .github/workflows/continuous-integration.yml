@@ -29,7 +29,7 @@ jobs:
     steps:
       - name: Gather CI configuration
         id: matrix
-        uses: laminas/laminas-ci-matrix-action@6383012fc66934b529727af575aa783bd82a4c03 # 1.33.0
+        uses: laminas/laminas-ci-matrix-action@f48577eff9adecadd922d623be015e39ded8a972 # v1.34
 
   qa:
     name: QA Checks
@@ -60,7 +60,7 @@ jobs:
           persist-credentials: false
 
       - name: Run zizmor
-        uses: zizmorcore/zizmor-action@6fc4b006235f201fdab3722e17240ab420d580e5 # v0.6.1
+        uses: zizmorcore/zizmor-action@cc914d7f3750a2d13d75c7f184a1060aa0e9d482 # v0.6.4
         with:
           advanced-security: false
           annotations: true

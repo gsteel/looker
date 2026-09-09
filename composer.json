@@ -26,8 +26,8 @@
         "psr/container": "^1.1.2 || ^2.0"
     },
     "require-dev": {
-        "carthage-software/mago": "^1.45.0",
-        "phpunit/phpunit": "^13.2.6"
+        "carthage-software/mago": "^1.47.6",
+        "phpunit/phpunit": "^13.3.3"
     },
     "conflict": {
         "shish/safe": "<2.6.4",

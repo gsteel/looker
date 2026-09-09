@@ -4,25 +4,29 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "55270e12ebef8ce27fef51c07004476a",
+    "content-hash": "8813c206576e14ea134d7daf4941494c",
     "packages": [],
     "packages-dev": [
         {
             "name": "carthage-software/mago",
-            "version": "1.45.0",
+            "version": "1.47.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/carthage-software/mago.git",
-                "reference": "8771af7d3cdac8d2934e8fd187563d3c0464ac9a"
+                "reference": "ad48106b8d1dbf3140f3a4bd4d244a5e47c9e495"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/carthage-software/mago/zipball/8771af7d3cdac8d2934e8fd187563d3c0464ac9a",
-                "reference": "8771af7d3cdac8d2934e8fd187563d3c0464ac9a",
+                "url": "https://api.github.com/repos/carthage-software/mago/zipball/ad48106b8d1dbf3140f3a4bd4d244a5e47c9e495",
+                "reference": "ad48106b8d1dbf3140f3a4bd4d244a5e47c9e495",
                 "shasum": ""
             },
             "require": {
-                "php": "~8.1 || ~8.2 || ~8.3 || ~8.4 || ~8.5 || ~8.6"
+                "php": "~8.1 || ~8.2 || ~8.3 || ~8.4 || ~8.5 || ~8.6",
+                "revolt/event-loop": "^1.0.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^10.5"
             },
             "suggest": {
                 "ext-curl": "To show binary download progress"
@@ -46,7 +50,7 @@
             ],
             "authors": [
                 {
-                    "name": "Saif Eddin Gmati",
+                    "name": "Seifeddine Gmati",
                     "email": "azjezz@carthage.software"
                 }
             ],
@@ -56,7 +60,7 @@
             ],
             "support": {
                 "issues": "https://github.com/carthage-software/mago/issues",
-                "source": "https://github.com/carthage-software/mago/tree/1.45.0"
+                "source": "https://github.com/carthage-software/mago/tree/1.47.6"
             },
             "funding": [
                 {
@@ -64,7 +68,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-07-24T04:43:42+00:00"
+            "time": "2026-09-04T17:48:48+00:00"
         },
         {
             "name": "colinodell/json5",
@@ -538,16 +542,16 @@
         },
         {
             "name": "infection/infection",
-            "version": "0.34.1",
+            "version": "0.35.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/infection/infection.git",
-                "reference": "263a6e303e343f1cdfa378d259a199c594d0731d"
+                "reference": "487bf060228e1272c6a9653468b87a4fe29436df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/infection/infection/zipball/263a6e303e343f1cdfa378d259a199c594d0731d",
-                "reference": "263a6e303e343f1cdfa378d259a199c594d0731d",
+                "url": "https://api.github.com/repos/infection/infection/zipball/487bf060228e1272c6a9653468b87a4fe29436df",
+                "reference": "487bf060228e1272c6a9653468b87a4fe29436df",
                 "shasum": ""
             },
             "require": {
@@ -568,7 +572,7 @@
                 "ondram/ci-detector": "^4.1.0",
                 "php": "^8.3",
                 "psr/log": "^2.0 || ^3.0",
-                "sanmai/di-container": "^0.1.16",
+                "sanmai/di-container": "^0.1.23 || ^0.2",
                 "sanmai/duoclock": "^0.1.0",
                 "sanmai/later": "^0.1.7",
                 "sanmai/pipeline": "^7.2",
@@ -583,7 +587,8 @@
             },
             "conflict": {
                 "antecedent/patchwork": "<2.1.25",
-                "dg/bypass-finals": "<1.4.1"
+                "dg/bypass-finals": "<1.4.1",
+                "marc-mabe/php-enum": "<4.4"
             },
             "require-dev": {
                 "carthage-software/mago": "^1.20",
@@ -661,7 +666,7 @@
             ],
             "support": {
                 "issues": "https://github.com/infection/infection/issues",
-                "source": "https://github.com/infection/infection/tree/0.34.1"
+                "source": "https://github.com/infection/infection/tree/0.35.4"
             },
             "funding": [
                 {
@@ -673,7 +678,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2026-07-27T18:58:14+00:00"
+            "time": "2026-09-02T13:30:25+00:00"
         },
         {
             "name": "infection/mutator",
@@ -1163,23 +1168,95 @@
             "time": "2024-09-11T13:17:53+00:00"
         },
         {
-            "name": "sanmai/di-container",
-            "version": "0.1.17",
+            "name": "revolt/event-loop",
+            "version": "v1.0.9",
             "source": {
                 "type": "git",
-                "url": "https://github.com/sanmai/di-container.git",
-                "reference": "a901c4a8778c9212ef4d66607525281af2f787bd"
+                "url": "https://github.com/revoltphp/event-loop.git",
+                "reference": "44061cf513e53c6200372fc935ac42271566295d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sanmai/di-container/zipball/a901c4a8778c9212ef4d66607525281af2f787bd",
-                "reference": "a901c4a8778c9212ef4d66607525281af2f787bd",
+                "url": "https://api.github.com/repos/revoltphp/event-loop/zipball/44061cf513e53c6200372fc935ac42271566295d",
+                "reference": "44061cf513e53c6200372fc935ac42271566295d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "require-dev": {
+                "ext-json": "*",
+                "jetbrains/phpstorm-stubs": "^2019.3",
+                "phpunit/phpunit": "^9",
+                "psalm/phar": "6.16.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Revolt\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aaron Piotrowski",
+                    "email": "aaron@trowski.com"
+                },
+                {
+                    "name": "Cees-Jan Kiewiet",
+                    "email": "ceesjank@gmail.com"
+                },
+                {
+                    "name": "Christian Lück",
+                    "email": "christian@clue.engineering"
+                },
+                {
+                    "name": "Niklas Keller",
+                    "email": "me@kelunik.com"
+                }
+            ],
+            "description": "Rock-solid event loop for concurrent PHP applications.",
+            "keywords": [
+                "async",
+                "asynchronous",
+                "concurrency",
+                "event",
+                "event-loop",
+                "non-blocking",
+                "scheduler"
+            ],
+            "support": {
+                "issues": "https://github.com/revoltphp/event-loop/issues",
+                "source": "https://github.com/revoltphp/event-loop/tree/v1.0.9"
+            },
+            "time": "2026-05-16T17:55:38+00:00"
+        },
+        {
+            "name": "sanmai/di-container",
+            "version": "0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sanmai/di-container.git",
+                "reference": "c14ca816bb5527e2361e3dc554a20829674c7ee1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sanmai/di-container/zipball/c14ca816bb5527e2361e3dc554a20829674c7ee1",
+                "reference": "c14ca816bb5527e2361e3dc554a20829674c7ee1",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.2",
                 "psr/container": "^1.1.2 || ^2.0",
-                "sanmai/pipeline": "^6.17 || ^7.0"
+                "sanmai/pipeline": "^7.10"
             },
             "require-dev": {
                 "ergebnis/composer-normalize": "^2.8",
@@ -1231,7 +1308,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sanmai/di-container/issues",
-                "source": "https://github.com/sanmai/di-container/tree/0.1.17"
+                "source": "https://github.com/sanmai/di-container/tree/0.2"
             },
             "funding": [
                 {
@@ -1239,7 +1316,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-06-01T08:52:14+00:00"
+            "time": "2026-08-11T06:42:18+00:00"
         },
         {
             "name": "sanmai/duoclock",
@@ -1370,16 +1447,16 @@
         },
         {
             "name": "sanmai/pipeline",
-            "version": "7.9",
+            "version": "7.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sanmai/pipeline.git",
-                "reference": "d7046ecce91ae57fca403be694888371a21250eb"
+                "reference": "a8e4e57a6031efc7a92defd13fed9c1c4c73fc71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sanmai/pipeline/zipball/d7046ecce91ae57fca403be694888371a21250eb",
-                "reference": "d7046ecce91ae57fca403be694888371a21250eb",
+                "url": "https://api.github.com/repos/sanmai/pipeline/zipball/a8e4e57a6031efc7a92defd13fed9c1c4c73fc71",
+                "reference": "a8e4e57a6031efc7a92defd13fed9c1c4c73fc71",
                 "shasum": ""
             },
             "require": {
@@ -1394,7 +1471,7 @@
                 "php-coveralls/php-coveralls": "^2.4.1",
                 "phpstan/extension-installer": "^1.4",
                 "phpstan/phpstan": "^2",
-                "phpunit/phpunit": ">=9.4 <12",
+                "phpunit/phpunit": "^11 || ^12",
                 "sanmai/phpstan-rules": "^0.3.11",
                 "sanmai/phpunit-double-colon-syntax": "^0.1.1",
                 "vimeo/psalm": ">=2"
@@ -1426,7 +1503,7 @@
             "description": "General-purpose collections pipeline",
             "support": {
                 "issues": "https://github.com/sanmai/pipeline/issues",
-                "source": "https://github.com/sanmai/pipeline/tree/7.9"
+                "source": "https://github.com/sanmai/pipeline/tree/7.10"
             },
             "funding": [
                 {
@@ -1434,7 +1511,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-01-16T11:54:05+00:00"
+            "time": "2026-08-03T04:56:22+00:00"
         },
         {
             "name": "sebastian/diff",
