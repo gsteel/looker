@@ -17,7 +17,7 @@
         }
     },
     "require": {
-        "php": "~8.4 || ~8.5",
+        "php": "~8.4.0 || ~8.5.0 || ~8.6.0",
         "laminas/laminas-escaper": "^2.17",
         "php-standard-library/type": "^6.1",
         "psr/container": "^1.1.2 || ^2.0"
