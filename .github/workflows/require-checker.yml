@@ -1,0 +1,39 @@
+name: "Composer Require Checker"
+permissions: {}
+
+# Prevent the workflow from running concurrently on the same PR or ref
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+  push:
+    branches:
+    tags:
+
+env:
+  default_php: '8.4'
+  php_extensions: mbstring,json
+
+jobs:
+  composer-require-checker:
+    name: Composer Require Checker on Default PHP
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - uses: shivammathur/setup-php@2.37.2
+        with:
+            php-version: ${{ env.default_php }}
+            extensions: ${{ env.php_extensions }}
+            tools: composer
+            coverage: none
+      - uses: ramsey/composer-install@4.0.0
+      - uses: ramsey/composer-install@4.0.0
+        with:
+            working-directory: tools/crc
+      - run: tools/crc/vendor/bin/composer-require-checker check --config-file=tools/crc/config.json

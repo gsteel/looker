@@ -17,7 +17,7 @@ final class JavascriptFactoryTest extends TestCase
 {
     public function testFactory(): void
     {
-        $plugin = (new JavascriptFactory())(new InMemoryContainer([
+        $plugin = new JavascriptFactory()(new InMemoryContainer([
             PluginManager::class => new InMemoryContainer([
                 HtmlAttributes::class => new HtmlAttributes(new Escaper()),
             ]),

@@ -10,6 +10,7 @@ use Override;
 use PHPUnit\Framework\TestCase;
 
 use function chmod;
+use function getmyuid;
 
 final class DirectoryResolverTest extends TestCase
 {
@@ -34,6 +35,10 @@ final class DirectoryResolverTest extends TestCase
 
     public function testThatUnreadableFilesWillNotBeResolved(): void
     {
+        if (getmyuid() === 0) {
+            self::markTestSkipped('We cannot make a file unreadable for root');
+        }
+
         chmod(__DIR__ . '/templates/unreadable.phtml', 0o200);
         $resolver = new DirectoryResolver(
             [

@@ -4,9 +4,15 @@ declare(strict_types=1);
 
 namespace Looker\Test\HTML;
 
+use Looker\HTML\AttributeInformation;
 use Looker\HTML\AttributeNormaliser;
 use Looker\HTML\GlobalAttribute;
+use Looker\HTML\LinkAttribute;
+use Looker\HTML\MetaAttribute;
+use Looker\HTML\ScriptAttribute;
+use Looker\HTML\StyleAttribute;
 use Override;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class AttributeNormaliserTest extends TestCase
@@ -16,7 +22,7 @@ final class AttributeNormaliserTest extends TestCase
     #[Override]
     protected function setUp(): void
     {
-        $this->normaliser = new AttributeNormaliser(true);
+        $this->normaliser = new AttributeNormaliser();
     }
 
     public function testThatAttributeKeysAreLowerCased(): void
@@ -46,8 +52,12 @@ final class AttributeNormaliserTest extends TestCase
     public function testThatUnknownBooleansAreSkippedWhenFalse(): void
     {
         self::assertSame(
-            [],
-            $this->normaliser->normalise(['fred' => false], new GlobalAttribute()),
+            ['accesskey' => 'f', 'id' => 'foo'],
+            $this->normaliser->normalise([
+                'id' => 'foo',
+                'fred' => false,
+                'accesskey' => 'f',
+            ], new GlobalAttribute()),
         );
     }
 
@@ -72,8 +82,12 @@ final class AttributeNormaliserTest extends TestCase
         $normaliser = new AttributeNormaliser(false);
 
         self::assertSame(
-            [],
-            $normaliser->normalise(['muppets' => 'foo'], new GlobalAttribute()),
+            ['accesskey' => 'f', 'id' => 'foo'],
+            $normaliser->normalise([
+                'id' => 'foo',
+                'muppets' => 'foo',
+                'accesskey' => 'f',
+            ], new GlobalAttribute()),
         );
     }
 
@@ -91,6 +105,56 @@ final class AttributeNormaliserTest extends TestCase
         self::assertSame(
             $expect,
             $this->normaliser->normalise($attributes, new GlobalAttribute()),
+        );
+    }
+
+    public function testAttributeKeysAreLowercased(): void
+    {
+        $attributes = [
+            'Data-b' => 1,
+            'DATA-a' => 2,
+        ];
+        $expect = [
+            'data-a' => '2',
+            'data-b' => '1',
+        ];
+
+        self::assertSame(
+            $expect,
+            $this->normaliser->normalise($attributes, new GlobalAttribute()),
+        );
+    }
+
+    /**
+     * @return list<array{
+     *     0: AttributeInformation,
+     *     1: array<string, scalar|null>,
+     *     2: array<string, scalar|null>,
+     * }>
+     */
+    public static function normaliserCaseSensitivity(): array
+    {
+        return [
+            [new GlobalAttribute(), ['CLASS' => 'foo'], ['class' => 'foo']],
+            [new GlobalAttribute(), ['ARIA-FOO' => 'foo'], ['aria-foo' => 'foo']],
+            [new LinkAttribute(), ['HREF' => '/foo'], ['href' => '/foo']],
+            [new MetaAttribute(), ['Content' => '/foo'], ['content' => '/foo']],
+            [new ScriptAttribute(), ['CrossOrigin' => 'anonymous'], ['crossorigin' => 'anonymous']],
+            [new ScriptAttribute(), ['Async' => true], ['async' => true]],
+            [new StyleAttribute(), ['TITLE' => 'Fred'], ['title' => 'Fred']],
+        ];
+    }
+
+    /**
+     * @param array<string, scalar|null> $input
+     * @param array<string, scalar|null> $expect
+     */
+    #[DataProvider('normaliserCaseSensitivity')]
+    public function testCaseSensitivity(AttributeInformation $info, array $input, array $expect): void
+    {
+        self::assertSame(
+            $expect,
+            $this->normaliser->normalise($input, $info),
         );
     }
 }

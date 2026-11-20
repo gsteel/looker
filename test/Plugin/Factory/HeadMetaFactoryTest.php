@@ -28,7 +28,7 @@ final class HeadMetaFactoryTest extends TestCase
 
     public function testPluginCanBeRetrievedWhenThePluginManagerIsAvailable(): void
     {
-        $plugin = (new HeadMetaFactory())(new InMemoryContainer([
+        $plugin = new HeadMetaFactory()(new InMemoryContainer([
             PluginManager::class => $this->plugins,
             AttributeNormaliser::class => new AttributeNormaliser(true),
         ]));

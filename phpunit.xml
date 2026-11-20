@@ -3,13 +3,15 @@
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          bootstrap="vendor/autoload.php"
          cacheDirectory=".cache/phpunit"
-         executionOrder="depends,defects"
          failOnWarning="true"
          failOnNotice="true"
          failOnDeprecation="true"
          failOnPhpunitDeprecation="true"
          failOnPhpunitNotice="true"
          displayDetailsOnAllIssues="true"
+         executionOrder="random,defects"
+         resolveDependencies="true"
+         recordTestRunHistory="true"
 >
     <testsuites>
         <testsuite name="Looker Tests">

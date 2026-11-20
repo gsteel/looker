@@ -83,6 +83,42 @@ final class HeadMetaTest extends TestCase
             HTML, $this->plugin->toString());
     }
 
+    public function testDuplicationExpectedOrderViaPrepend(): void
+    {
+        $this->plugin->append(['name' => 'keywords', 'content' => 'foo'])
+            ->append(['charset' => 'utf-8'])
+            ->prepend(['charset' => 'utf-8']);
+
+        self::assertSame(<<<'HTML'
+            <meta charset="utf-8">
+            <meta content="foo" name="keywords">
+            HTML, $this->plugin->toString());
+    }
+
+    public function testDuplicationExpectedOrderViaAppend(): void
+    {
+        $this->plugin->append(['charset' => 'utf-8'])
+            ->append(['name' => 'keywords', 'content' => 'foo'])
+            ->append(['charset' => 'utf-8']);
+
+        self::assertSame(<<<'HTML'
+            <meta content="foo" name="keywords">
+            <meta charset="utf-8">
+            HTML, $this->plugin->toString());
+    }
+
+    public function testDuplicationDetectionIsCaseInsensitive(): void
+    {
+        $this->plugin->append(['charset' => 'utf-8'])
+            ->append(['name' => 'keywords', 'content' => 'foo'])
+            ->append(['CHARSET' => 'utf-8']);
+
+        self::assertSame(<<<'HTML'
+            <meta content="foo" name="keywords">
+            <meta charset="utf-8">
+            HTML, $this->plugin->toString());
+    }
+
     public function testXHTMLDocumentsWillHaveSelfClosingTag(): void
     {
         $plugin = new HeadMeta(
@@ -99,6 +135,15 @@ final class HeadMetaTest extends TestCase
     {
         $this->plugin->append([]);
         self::assertSame('', $this->plugin->toString());
+
+        $this->plugin->append(['charset' => 'utf-8'])
+            ->append([])
+            ->append(['name' => 'keywords', 'content' => 'foo']);
+
+        self::assertSame(<<<'HTML'
+            <meta charset="utf-8">
+            <meta content="foo" name="keywords">
+            HTML, $this->plugin->toString());
     }
 
     public function testThatTheSeparatorCanBeChanged(): void

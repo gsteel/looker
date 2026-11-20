@@ -4,10 +4,7 @@
             "php": "8.4.99"
         }
     },
-    "require": {
-        "php": "~8.4 || ~8.5"
-    },
     "require-dev": {
-        "icanhazstring/composer-unused": "^0.9.6"
+        "icanhazstring/composer-unused": "^0.9.8"
     }
 }

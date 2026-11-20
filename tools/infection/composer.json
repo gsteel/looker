@@ -7,21 +7,7 @@
             "infection/extension-installer": true
         }
     },
-    "require": {
-        "php": "~8.4 || ~8.5"
-    },
     "require-dev": {
-        "carthage-software/mago": "^1.45",
-        "infection/infection": "0.34.1"
-    },
-    "autoload": {
-        "psr-4": {
-            "Looker\\": "../../src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Looker\\Test\\": "../../test"
-        }
+        "infection/infection": "^0.35.12"
     }
 }

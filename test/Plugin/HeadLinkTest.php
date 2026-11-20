@@ -36,6 +36,15 @@ final class HeadLinkTest extends TestCase
         self::assertSame($expect, $this->plugin->toString());
     }
 
+    public function testThatAttributesAreLowercased(): void
+    {
+        $this->plugin->append('stylesheet', '/assets/styles.css', ['TITLE' => 'Fred']);
+
+        $expect = '<link href="&#x2F;assets&#x2F;styles.css" rel="stylesheet" title="Fred">';
+
+        self::assertSame($expect, $this->plugin->toString());
+    }
+
     public function testThatAppendingAndPrependingElementsYieldsTheExpectedOrder(): void
     {
         $this->plugin->append('stylesheet', 'foo')
@@ -46,6 +55,48 @@ final class HeadLinkTest extends TestCase
             <link href="baz" rel="stylesheet">
             <link href="foo" rel="stylesheet">
             <link href="bar" rel="stylesheet">
+            HTML;
+
+        self::assertSame($expect, $this->plugin->toString());
+    }
+
+    public function testPrependOfExistingDoesNotResultInMultipleCopies(): void
+    {
+        $this->plugin->append('stylesheet', 'foo')
+            ->append('stylesheet', 'bar')
+            ->prepend('stylesheet', 'bar');
+
+        $expect = <<<'HTML'
+            <link href="bar" rel="stylesheet">
+            <link href="foo" rel="stylesheet">
+            HTML;
+
+        self::assertSame($expect, $this->plugin->toString());
+    }
+
+    public function testAppendOfExistingDoesNotResultInMultipleCopies(): void
+    {
+        $this->plugin->append('stylesheet', 'foo')
+            ->append('stylesheet', 'bar')
+            ->append('stylesheet', 'foo');
+
+        $expect = <<<'HTML'
+            <link href="bar" rel="stylesheet">
+            <link href="foo" rel="stylesheet">
+            HTML;
+
+        self::assertSame($expect, $this->plugin->toString());
+    }
+
+    public function testDuplicationDetectionIsCaseInsensitive(): void
+    {
+        $this->plugin->append('stylesheet', 'foo', ['title' => 'Bar'])
+            ->append('stylesheet', 'bar')
+            ->append('stylesheet', 'foo', ['TITLE' => 'Bar']);
+
+        $expect = <<<'HTML'
+            <link href="bar" rel="stylesheet">
+            <link href="foo" rel="stylesheet" title="Bar">
             HTML;
 
         self::assertSame($expect, $this->plugin->toString());

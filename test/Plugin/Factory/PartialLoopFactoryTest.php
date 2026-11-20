@@ -16,12 +16,12 @@ final class PartialLoopFactoryTest extends TestCase
     public function testThatThePluginRequiresARenderer(): void
     {
         $this->expectException(NotFoundExceptionInterface::class);
-        (new PartialLoopFactory())(new InMemoryContainer());
+        new PartialLoopFactory()(new InMemoryContainer());
     }
 
     public function testThatThePluginCanBeRetrieved(): void
     {
-        $plugin = (new PartialLoopFactory())(new InMemoryContainer([
+        $plugin = new PartialLoopFactory()(new InMemoryContainer([
             Renderer::class => self::createStub(Renderer::class),
         ]));
 

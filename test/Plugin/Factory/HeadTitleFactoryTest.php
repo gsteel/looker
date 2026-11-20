@@ -13,7 +13,7 @@ final class HeadTitleFactoryTest extends TestCase
 {
     public function testThatZeroConfigIsRequired(): void
     {
-        $plugin = (new HeadTitleFactory())(new InMemoryContainer());
+        $plugin = new HeadTitleFactory()(new InMemoryContainer());
 
         self::assertSame('<title></title>', $plugin->toString());
 
@@ -24,7 +24,7 @@ final class HeadTitleFactoryTest extends TestCase
 
     public function testWithConfig(): void
     {
-        $plugin = (new HeadTitleFactory())(new InMemoryContainer([
+        $plugin = new HeadTitleFactory()(new InMemoryContainer([
             'config' => [
                 'looker' => [
                     'pluginConfig' => [

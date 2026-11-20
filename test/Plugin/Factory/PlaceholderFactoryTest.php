@@ -14,7 +14,7 @@ final class PlaceholderFactoryTest extends TestCase
     {
         self::assertInstanceOf(
             Placeholder::class,
-            (new PlaceholderFactory())(),
+            new PlaceholderFactory()(),
         );
     }
 }

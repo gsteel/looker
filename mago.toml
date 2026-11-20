@@ -52,6 +52,8 @@ inline-empty-constructor-braces = false
 inline-empty-classlike-braces = false
 
 [linter]
+baseline = "mago-lint-baseline.toml"
+baseline-variant = "loose"  # or "strict"
 integrations = [
     "psl",
     "phpunit",
