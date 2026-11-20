@@ -5,6 +5,6 @@
         }
     },
     "require-dev": {
-        "icanhazstring/composer-unused": "^0.9.8"
+        "icanhazstring/composer-unused": "^0.9.9"
     }
 }
