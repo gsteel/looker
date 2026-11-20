@@ -81,11 +81,9 @@ final class GlobalAttribute implements AttributeInformation
         return in_array($name, self::BOOLEAN, true);
     }
 
-    /** @param non-empty-string $name */
+    /** @param non-empty-lowercase-string $name */
     private static function matchesPatternAttributeName(string $name): bool
     {
-        $name = strtolower($name);
-
         foreach (self::PATTERN_ATTRIBUTES as $prefix) {
             if (! str_starts_with($name, $prefix)) {
                 continue;

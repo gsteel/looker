@@ -15,14 +15,14 @@ final class EscapeFactoryTest extends TestCase
 {
     public function testPluginCanBeRetrievedWithZeroConfig(): void
     {
-        $plugin = (new EscapeFactory())(new InMemoryContainer());
+        $plugin = new EscapeFactory()(new InMemoryContainer());
         self::assertInstanceOf(Escape::class, $plugin);
     }
 
     public function testPluginCanBeRetrievedWithConfiguredEscaper(): void
     {
         $escaper = new Escaper();
-        $plugin = (new EscapeFactory())(new InMemoryContainer([EscaperInterface::class => $escaper]));
+        $plugin = new EscapeFactory()(new InMemoryContainer([EscaperInterface::class => $escaper]));
 
         self::assertSame($escaper, $plugin->escaper);
     }

@@ -28,7 +28,7 @@ final class HeadLinkFactoryTest extends TestCase
 
     public function testPluginCanBeRetrievedWithConfiguredAttributeHelper(): void
     {
-        $plugin = (new HeadLinkFactory())(new InMemoryContainer([
+        $plugin = new HeadLinkFactory()(new InMemoryContainer([
             PluginManager::class => $this->plugins,
             AttributeNormaliser::class => new AttributeNormaliser(true),
         ]));
@@ -37,7 +37,7 @@ final class HeadLinkFactoryTest extends TestCase
 
     public function testPluginCanBeRetrievedWithConfiguredEscaper(): void
     {
-        $plugin = (new HeadLinkFactory())(new InMemoryContainer([
+        $plugin = new HeadLinkFactory()(new InMemoryContainer([
             Escaper::class => new Escaper(),
             PluginManager::class => $this->plugins,
             AttributeNormaliser::class => new AttributeNormaliser(true),

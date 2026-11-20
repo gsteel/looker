@@ -26,32 +26,34 @@ final readonly class HtmlAttributes
     {
         $attributeString = [];
 
+        /** @assert-if-true array<array-key, scalar> $array */
+        $allScalar = static function (array $array): bool {
+            /** @var mixed $item */
+            foreach ($array as $item) {
+                if (is_scalar($item)) {
+                    continue;
+                }
+
+                return false;
+            }
+
+            return true;
+        };
+
         /** @var mixed $value */
         foreach ($attributes as $key => $value) {
             $key = $this->escaper->escapeHtml((string) $key);
 
-            /** @psalm-assert-if-true array<array-key, scalar> $array */
-            $allScalar = static function (array $array): bool {
-                /** @var mixed $item */
-                foreach ($array as $item) {
-                    if (is_scalar($item)) {
-                        continue;
-                    }
-
-                    return false;
-                }
-
-                return true;
-            };
-
             // lists and maps of strings or numbers joined with a space, providing this is not a JS event handler
             if (is_array($value) && $allScalar($value)) {
-                $value = implode(' ', array_map(static fn (string|int $value): string => (string) $value, $value));
+                $value = implode(' ', array_map(
+                    static fn (string|int|bool|float $value): string => (string) $value,
+                    $value,
+                ));
             }
 
-            if ($value === null) {
-                $value = '';
-            }
+            /** @var mixed $value */
+            $value ??= '';
 
             if (! is_scalar($value)) {
                 throw new InvalidArgumentException(sprintf(

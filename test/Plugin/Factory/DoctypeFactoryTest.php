@@ -13,14 +13,14 @@ final class DoctypeFactoryTest extends TestCase
 {
     public function testZeroConfigWillYieldADefaultDoctypeOfHtml5(): void
     {
-        $plugin = (new DoctypeFactory())(new InMemoryContainer());
+        $plugin = new DoctypeFactory()(new InMemoryContainer());
 
         self::assertSame(Doctype::HTML5->value, $plugin->__invoke());
     }
 
     public function testThatTheDefaultDoctypeCanBeSetViaConfig(): void
     {
-        $plugin = (new DoctypeFactory())(new InMemoryContainer([
+        $plugin = new DoctypeFactory()(new InMemoryContainer([
             'config' => [
                 'looker' => [
                     'pluginConfig' => [

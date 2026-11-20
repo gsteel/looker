@@ -140,10 +140,13 @@ final class HeadMeta implements StatefulPlugin, Stringable
     {
         return implode(
             $this->separator,
-            array_filter(array_map(
-                $this->tagToString(...),
-                $this->meta,
-            )),
+            array_filter(
+                array_map(
+                    $this->tagToString(...),
+                    $this->meta,
+                ),
+                static fn (string $tag): bool => $tag !== '',
+            ),
         );
     }
 

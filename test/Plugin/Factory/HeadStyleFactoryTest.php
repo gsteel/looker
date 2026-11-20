@@ -28,7 +28,7 @@ final class HeadStyleFactoryTest extends TestCase
 
     public function testFactory(): void
     {
-        $plugin = (new HeadStyleFactory())(new InMemoryContainer([
+        $plugin = new HeadStyleFactory()(new InMemoryContainer([
             PluginManager::class => $this->plugins,
             AttributeNormaliser::class => new AttributeNormaliser(true),
         ]));

@@ -12,14 +12,14 @@ final class BasePathFactoryTest extends TestCase
 {
     public function testPluginCanBeRetrievedWithZeroConfig(): void
     {
-        $plugin = (new BasePathFactory())(new InMemoryContainer());
+        $plugin = new BasePathFactory()(new InMemoryContainer());
 
         self::assertSame('/foo', $plugin('foo'));
     }
 
     public function testThatBasePathCanBeSetWithConfig(): void
     {
-        $plugin = (new BasePathFactory())(new InMemoryContainer([
+        $plugin = new BasePathFactory()(new InMemoryContainer([
             'config' => [
                 'looker' => [
                     'pluginConfig' => ['basePath' => '/foo'],

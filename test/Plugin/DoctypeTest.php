@@ -45,4 +45,10 @@ final class DoctypeTest extends TestCase
     {
         self::assertSame($value->value, new Doctype($value)->__invoke('Invalid'));
     }
+
+    public function testTheDefaultIsReturnedWhenNullIsGivenToInvoke(): void
+    {
+        $default = DoctypeEnum::HTML5;
+        self::assertSame($default->value, new Doctype($default)->__invoke(null));
+    }
 }

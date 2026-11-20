@@ -16,12 +16,12 @@ final class PartialFactoryTest extends TestCase
     public function testThatThePluginRequiresARenderer(): void
     {
         $this->expectException(NotFoundExceptionInterface::class);
-        (new PartialFactory())(new InMemoryContainer());
+        new PartialFactory()(new InMemoryContainer());
     }
 
     public function testThatThePluginCanBeRetrieved(): void
     {
-        $plugin = (new PartialFactory())(new InMemoryContainer([
+        $plugin = new PartialFactory()(new InMemoryContainer([
             Renderer::class => self::createStub(Renderer::class),
         ]));
 

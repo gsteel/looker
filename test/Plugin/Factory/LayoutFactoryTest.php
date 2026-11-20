@@ -12,6 +12,6 @@ final class LayoutFactoryTest extends TestCase
 {
     public function testInvokeReturnsInstance(): void
     {
-        self::assertInstanceOf(Layout::class, (new LayoutFactory())());
+        self::assertInstanceOf(Layout::class, new LayoutFactory()());
     }
 }
