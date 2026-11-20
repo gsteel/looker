@@ -9,6 +9,7 @@ use Override;
 use function array_merge;
 use function get_object_vars;
 use function is_iterable;
+use function is_object;
 use function iterator_to_array;
 
 /** @immutable */
@@ -29,35 +30,51 @@ final readonly class Model implements ViewModel
 
     /**
      * @param non-empty-string $template
-     * @param array<string, mixed>|object $variables
+     * @param iterable<string, mixed>|object $variables
+     * @throws InvalidVariable
      */
-    public static function new(string $template, array|object $variables = []): self
+    public static function new(string $template, iterable|object $variables = []): self
     {
         return new self($template, self::castVariables($variables), [], false);
     }
 
     /**
      * @param non-empty-string $template
-     * @param array<string, mixed> $variables
+     * @param iterable<string, mixed>|object $variables
+     * @throws InvalidVariable
      */
-    public static function terminal(string $template, array $variables = []): self
+    public static function terminal(string $template, iterable|object $variables = []): self
     {
         return new self($template, self::castVariables($variables), [], true);
     }
 
     /**
-     * @param array<string, mixed>|object $variables
+     * @param iterable<string, mixed>|object $variables
      *
      * @return array<string, mixed>
+     *
+     * @throws InvalidVariable
      */
-    private static function castVariables(array|object $variables): array
+    private static function castVariables(iterable|object $variables): array
     {
         if (is_iterable($variables)) {
-            return iterator_to_array($variables);
+            $variables = iterator_to_array($variables);
         }
 
-        /** @var array<string, mixed> */
-        return get_object_vars($variables);
+        if (is_object($variables)) {
+            $variables = get_object_vars($variables);
+        }
+
+        foreach ($variables as $key => $_value) {
+            if (is_string($key) && $key !== '') {
+                continue;
+            }
+
+            throw InvalidVariable::forKey($key);
+        }
+
+        /** @var array<non-empty-string, mixed> */
+        return $variables;
     }
 
     #[Override]

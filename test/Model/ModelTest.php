@@ -6,8 +6,10 @@ namespace Looker\Test\Model;
 
 use ArrayObject;
 use Looker\Model\ChildModel;
+use Looker\Model\InvalidVariable;
 use Looker\Model\Model;
 use Looker\Model\TerminalModelCannotBeChild;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 use function reset;
@@ -177,5 +179,25 @@ final class ModelTest extends TestCase
         $model = Model::new('foo', $vars);
 
         self::assertSame(['a' => 'a', 'b' => 1], $model->variables());
+    }
+
+    /** @return array<string, array{0: array<array-key, mixed>}> */
+    public static function invalidKeyProvider(): array
+    {
+        return [
+            'Empty String' => [['a' => 'Foo', '' => 'Foo', 'b' => 'Foo']],
+            'Numeric String' => [['a' => 'Foo', '1' => 'Foo', 'b' => 'Foo']],
+            'Integer' => [['a' => 'Foo', 1 => 'Foo', 'b' => 'Foo']],
+        ];
+    }
+
+    /** @param array<array-key, mixed> $vars */
+    #[DataProvider('invalidKeyProvider')]
+    public function testExceptionThrownForInvalidKeysFromArray(array $vars): void
+    {
+        $this->expectException(InvalidVariable::class);
+        $this->expectExceptionMessageIsOrContains('cannot have integer or empty string keys. Received "');
+        /** @mago-expect analysis:less-specific-argument(1) */
+        Model::new('foo', $vars);
     }
 }
