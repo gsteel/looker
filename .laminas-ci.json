@@ -3,5 +3,10 @@
     "ignore_php_platform_requirements": {
         "8.5": false
     },
+    "exclude": [
+        {
+            "name": "Infection"
+        }
+    ],
     "backwardCompatibilityCheck": true
 }

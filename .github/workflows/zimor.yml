@@ -1,4 +1,4 @@
-name: "Composer Require Checker"
+name: "Zizmor"
 permissions: {}
 
 # Prevent the workflow from running concurrently on the same PR or ref
@@ -30,4 +30,4 @@ jobs:
         with:
           advanced-security: false
           annotations: true
-          persona: 'pedantic'
+          persona: 'regular'

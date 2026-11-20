@@ -36,5 +36,5 @@ jobs:
       - uses: ramsey/composer-install@4.0.0
       - uses: ramsey/composer-install@4.0.0
         with:
-            working-directory: tools/crc
+            working-directory: tools/unused
       - run: tools/unused/vendor/bin/composer-unused --output-format=github --configuration=tools/unused/composer-unused.php
