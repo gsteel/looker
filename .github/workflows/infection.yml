@@ -1,0 +1,33 @@
+name: "Mutation Tests on Default PHP"
+permissions: {}
+
+on:
+    pull_request:
+    push:
+        branches:
+        tags:
+env:
+    default_php: '8.4'
+    php_extensions: mbstring,json,xdebug
+
+jobs:
+    infection:
+        name: Mutation Tests
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+
+        steps:
+            - uses: actions/checkout@v7.0.1
+              with:
+                  persist-credentials: false
+            - uses: shivammathur/setup-php@2.37.2
+              with:
+                  php-version: ${{ env.default_php }}
+                  extensions: ${{ env.php_extensions }}
+                  tools: composer
+            - uses: ramsey/composer-install@4.0.0
+            - uses: ramsey/composer-install@4.0.0
+              with:
+                  working-directory: tools/infection
+            - run: tools/infection/vendor/bin/infection --configuration=infection.json --static-analysis-tool=mago

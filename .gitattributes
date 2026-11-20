@@ -13,3 +13,5 @@ Makefile                      export-ignore
 /tools/                       export-ignore
 mago.toml                     export-ignore
 mago-sa-baseline.toml         export-ignore
+mago-lint-baseline.toml       export-ignore
+infection.json                export-ignore

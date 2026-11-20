@@ -4,10 +4,7 @@
             "php": "8.4.99"
         }
     },
-    "require": {
-        "php": "~8.4 || ~8.5"
-    },
     "require-dev": {
-        "rector/rector": "^2.5.8"
+        "rector/rector": "^2.8.5"
     }
 }

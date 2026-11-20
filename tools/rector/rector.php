@@ -5,7 +5,6 @@ declare(strict_types=1);
 require_once 'vendor/autoload.php';
 
 use Rector\Config\RectorConfig;
-use Rector\Php83\Rector\ClassMethod\AddOverrideAttributeToOverriddenMethodsRector;
 use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitSelfCallRector;
 use Rector\PHPUnit\CodeQuality\Rector\Class_\PreferPHPUnitThisCallRector;
 use Rector\PHPUnit\CodeQuality\Rector\Class_\YieldDataProviderRector;
@@ -19,7 +18,7 @@ return RectorConfig::configure()
         __DIR__ . '/../../src',
         __DIR__ . '/../../test',
     ])
-    ->withPhpSets(php83: true)
+    ->withPhpSets(php84: true)
     ->withPreparedSets(
         codeQuality: true,
         typeDeclarations: true,
@@ -28,7 +27,6 @@ return RectorConfig::configure()
     ->withRules([
         PreferPHPUnitSelfCallRector::class,
     ])
-    ->withConfiguredRule(AddOverrideAttributeToOverriddenMethodsRector::class, ['allow_override_empty_method' => true])
     ->withSkip([
         // self::assertFoo() is preferred
         PreferPHPUnitThisCallRector::class,
