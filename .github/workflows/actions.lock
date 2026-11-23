@@ -11,7 +11,7 @@ workflows:
         - 'actions/checkout@v7.0.1'
         - 'github/codeql-action@v4.39.4'
         - 'laminas/laminas-ci-matrix-action@v1.36'
-        - 'laminas/laminas-continuous-integration-action@v1.48'
+        - 'laminas/laminas-continuous-integration-action@v1.49'
         - 'ramsey/composer-install@4.0.0'
         - 'shivammathur/setup-php@2.40.0'
     '.github/workflows/infection.yml':
@@ -50,9 +50,9 @@ dependencies:
         commit: 'sha1-1816e09e14bfc59d5c544779adcb9bc91089f424'
         owner_id: 47865178
         repo_id: 336072567
-    'laminas/laminas-continuous-integration-action@v1.48':
-        ref: 'v1.48'
-        commit: 'sha1-cb7d4165f568f679dae98b2ad06dc64d0219d04e'
+    'laminas/laminas-continuous-integration-action@v1.49':
+        ref: 'v1.49'
+        commit: 'sha1-7ac5da4ae550e27c92e227ee47064bc349242126'
         owner_id: 47865178
         repo_id: 336055313
     'ramsey/composer-install@4.0.0':
