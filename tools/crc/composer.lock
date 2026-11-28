@@ -4,29 +4,29 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "de3af136e66d77cff0eade6f74ef8224",
+    "content-hash": "a73c9df8ed953d3c36e171d808394551",
     "packages": [],
     "packages-dev": [
         {
             "name": "maglnet/composer-require-checker",
-            "version": "4.24.0",
+            "version": "4.25.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/maglnet/ComposerRequireChecker.git",
-                "reference": "a15ec28d7a747109682c7774af665d2540516750"
+                "reference": "39293f01a4f0973a4d12e0e30f064704c80146a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/maglnet/ComposerRequireChecker/zipball/a15ec28d7a747109682c7774af665d2540516750",
-                "reference": "a15ec28d7a747109682c7774af665d2540516750",
+                "url": "https://api.github.com/repos/maglnet/ComposerRequireChecker/zipball/39293f01a4f0973a4d12e0e30f064704c80146a5",
+                "reference": "39293f01a4f0973a4d12e0e30f064704c80146a5",
                 "shasum": ""
             },
             "require": {
                 "composer-runtime-api": "^2.0.0",
                 "ext-phar": "*",
                 "nikic/php-parser": "^5.7.0",
-                "php": "~8.4.0 || ~8.5.0",
-                "php-standard-library/php-standard-library": "^6.1.1",
+                "php": "~8.4.0 || ~8.5.0 || ~8.6.0",
+                "php-standard-library/php-standard-library": "^6.4.2",
                 "symfony/console": "^8.0.7",
                 "webmozart/glob": "^4.7.0"
             },
@@ -89,10 +89,10 @@
             ],
             "support": {
                 "issues": "https://github.com/maglnet/ComposerRequireChecker/issues",
-                "source": "https://github.com/maglnet/ComposerRequireChecker/tree/4.24.0"
+                "source": "https://github.com/maglnet/ComposerRequireChecker/tree/4.25.0"
             },
-            "time": "2026-03-20T12:51:42+00:00",
-            "published-time": "2026-03-20T12:54:41+00:00"
+            "time": "2026-11-26T19:19:05+00:00",
+            "published-time": "2026-11-28T08:15:53+00:00"
         },
         {
             "name": "nikic/php-parser",
