@@ -5,6 +5,6 @@
         }
     },
     "require-dev": {
-        "maglnet/composer-require-checker": "^4.24"
+        "maglnet/composer-require-checker": "^4.25.0"
     }
 }

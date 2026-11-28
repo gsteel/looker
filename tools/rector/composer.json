@@ -5,6 +5,6 @@
         }
     },
     "require-dev": {
-        "rector/rector": "^2.8.5"
+        "rector/rector": "^2.9.2"
     }
 }
